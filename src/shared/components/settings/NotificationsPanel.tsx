@@ -46,9 +46,9 @@ export default function NotificationsPanel({
 
   return (
     <div className="space-y-6">
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg text-gray-900 mb-2">Email Notifications</h2>
-        <p className="text-sm text-gray-500 mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+        <h2 className="text-lg text-gray-900 dark:text-slate-100 mb-2">Email Notifications</h2>
+        <p className="text-sm text-gray-500 dark:text-slate-400 mb-6">
           Choose which emails you want to receive.
         </p>
         <div className="space-y-4">
@@ -58,9 +58,9 @@ export default function NotificationsPanel({
         </div>
       </div>
 
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg text-gray-900 mb-2">In-App Notifications</h2>
-        <p className="text-sm text-gray-500 mb-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+        <h2 className="text-lg text-gray-900 dark:text-slate-100 mb-2">In-App Notifications</h2>
+        <p className="text-sm text-gray-500 dark:text-slate-400 mb-6">
           Control what appears in your notification bell.
         </p>
         <div className="space-y-4">
@@ -71,7 +71,7 @@ export default function NotificationsPanel({
       </div>
 
       <div className="flex justify-end">
-        <Button onClick={onSave} className="bg-blue-600 hover:bg-blue-700 px-8">
+        <Button onClick={onSave}>
           Save Preferences
         </Button>
       </div>

@@ -20,15 +20,15 @@ export default function AvatarUpload({ name, userRole }: AvatarUploadProps) {
         </button>
       </div>
       <div>
-        <h3 className="text-gray-900 mb-1">{name}</h3>
-        <p className="text-sm text-gray-500 capitalize mb-3">
+        <h3 className="text-gray-900 dark:text-slate-100 mb-1">{name}</h3>
+        <p className="text-sm text-gray-500 dark:text-slate-400 capitalize mb-3">
           {userRole} Account
         </p>
         <div className="flex gap-2">
           <button className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">
             Upload Photo
           </button>
-          <button className="px-4 py-2 text-sm border border-gray-300 text-gray-600 rounded-lg hover:bg-gray-50">
+          <button className="px-4 py-2 text-sm border border-gray-300 dark:border-slate-600 text-gray-600 dark:text-slate-400 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/50">
             Remove
           </button>
         </div>

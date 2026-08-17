@@ -23,11 +23,11 @@ export default function ActivePrescriptions({
   prescriptions,
 }: ActivePrescriptionsProps) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-      <div className="p-6 border-b border-gray-200 flex items-center justify-between">
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 dark:bg-slate-800 dark:border-slate-700">
+      <div className="p-6 border-b border-gray-200 dark:border-slate-700 flex items-center justify-between">
         <div>
-          <h2 className="text-lg text-gray-900">Active Prescriptions</h2>
-          <p className="text-sm text-gray-500">Current medications</p>
+          <h2 className="text-lg text-gray-900 dark:text-slate-100">Active Prescriptions</h2>
+          <p className="text-sm text-gray-500 dark:text-slate-400">Current medications</p>
         </div>
         <Pill className="w-6 h-6 text-purple-600" />
       </div>
@@ -37,14 +37,14 @@ export default function ActivePrescriptions({
             {prescriptions.map((prescription) => (
               <div
                 key={prescription.id}
-                className="border border-gray-200 rounded-lg p-4 bg-gradient-to-br from-purple-50 to-blue-50"
+                className="border border-gray-200 dark:border-purple-800/50 rounded-lg p-4 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-900/20 dark:to-blue-900/20"
               >
                 <div className="flex items-start justify-between mb-3">
                   <div>
-                    <p className="text-gray-900 mb-1">
+                    <p className="text-gray-900 dark:text-slate-100 mb-1">
                       {prescription.medicine}
                     </p>
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 dark:text-slate-400">
                       by {prescription.prescribedBy}
                     </p>
                   </div>
@@ -53,33 +53,33 @@ export default function ActivePrescriptions({
 
                 <div className="space-y-2 text-sm mb-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Dosage:</span>
-                    <span className="text-gray-900">
+                    <span className="text-gray-600 dark:text-slate-300">Dosage:</span>
+                    <span className="text-gray-900 dark:text-slate-100">
                       {prescription.dosage}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Frequency:</span>
-                    <span className="text-gray-900">
+                    <span className="text-gray-600 dark:text-slate-300">Frequency:</span>
+                    <span className="text-gray-900 dark:text-slate-100">
                       {prescription.frequency}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Timing:</span>
-                    <span className="text-gray-900">
+                    <span className="text-gray-600 dark:text-slate-300">Timing:</span>
+                    <span className="text-gray-900 dark:text-slate-100">
                       {prescription.timing}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Duration:</span>
-                    <span className="text-gray-900">
+                    <span className="text-gray-600 dark:text-slate-300">Duration:</span>
+                    <span className="text-gray-900 dark:text-slate-100">
                       {prescription.duration}
                     </span>
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between p-3 bg-white rounded-lg border border-purple-200">
-                  <span className="text-sm text-gray-600">Days remaining:</span>
+                <div className="flex items-center justify-between p-3 bg-white dark:bg-slate-800 rounded-lg border border-purple-200 dark:border-purple-800/50">
+                  <span className="text-sm text-gray-600 dark:text-slate-300">Days remaining:</span>
                   <span
                     className={`px-2 py-1 rounded-full text-xs ${
                       prescription.remainingDays <= 3
@@ -94,9 +94,9 @@ export default function ActivePrescriptions({
                 </div>
 
                 {prescription.instructions && (
-                  <div className="mt-3 p-3 bg-blue-50 rounded-lg border border-blue-200">
-                    <p className="text-xs text-gray-600 mb-1">Instructions:</p>
-                    <p className="text-xs text-gray-900">
+                  <div className="mt-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800/50">
+                    <p className="text-xs text-gray-600 dark:text-slate-300 mb-1">Instructions:</p>
+                    <p className="text-xs text-gray-900 dark:text-slate-100">
                       {prescription.instructions}
                     </p>
                   </div>
@@ -105,8 +105,8 @@ export default function ActivePrescriptions({
             ))}
           </div>
         ) : (
-          <div className="text-center py-8 text-gray-500">
-            <Pill className="w-12 h-12 mx-auto mb-3 text-gray-300" />
+          <div className="text-center py-8 text-gray-500 dark:text-slate-400">
+            <Pill className="w-12 h-12 mx-auto mb-3 text-gray-300 dark:text-slate-600" />
             <p>No active prescriptions</p>
           </div>
         )}

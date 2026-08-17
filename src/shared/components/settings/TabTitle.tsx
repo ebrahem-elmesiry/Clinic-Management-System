@@ -2,7 +2,11 @@
 
 import React from "react";
 
-export type SettingsTab = "profile" | "notifications" | "security" | "preferences";
+export type SettingsTab =
+  | "profile"
+  | "notifications"
+  | "security"
+  | "preferences";
 
 export interface SettingsTabItem {
   id: SettingsTab;
@@ -23,7 +27,7 @@ export default function TabTitle({
 }: TabTitleProps) {
   return (
     <div className="w-52 flex-shrink-0">
-      <nav className="bg-white rounded-xl shadow-sm border border-gray-200 p-2 space-y-1">
+      <nav className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-2 space-y-1">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           return (
@@ -32,8 +36,8 @@ export default function TabTitle({
               onClick={() => onTabChange(tab.id)}
               className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors text-left ${
                 activeTab === tab.id
-                  ? "bg-blue-50 text-blue-600"
-                  : "text-gray-700 hover:bg-gray-50"
+                  ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400"
+                  : "text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/50"
               }`}
             >
               <Icon className="w-5 h-5 flex-shrink-0" />

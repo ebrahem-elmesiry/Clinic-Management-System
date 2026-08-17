@@ -40,40 +40,46 @@ export default function VisitStatus({
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg text-gray-900">Visit Status</h2>
+        <h2 className="text-lg text-gray-900 dark:text-slate-100">
+          Visit Status
+        </h2>
         {status === "cancelled" ? (
-          <span className="px-3 py-1 bg-red-100 text-red-700 text-xs rounded-full">
+          <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 text-xs rounded-full">
             Cancelled
           </span>
         ) : status === "completed" ? (
-          <span className="px-3 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+          <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 text-xs rounded-full">
             Completed
           </span>
         ) : (
-          <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
+          <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-500 text-xs rounded-full">
             Scheduled
           </span>
         )}
       </div>
 
       {status === "cancelled" ? (
-        <div className="p-4 bg-red-50 rounded-lg border border-red-200 flex items-start gap-3">
+        <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800/50 flex items-start gap-3">
           <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
           <div>
-            <p className="text-sm text-gray-900">Visit cancelled</p>
-            <p className="text-sm text-gray-600">
+            <p className="text-sm text-gray-900 dark:text-slate-100">
+              Visit cancelled
+            </p>
+            <p className="text-sm text-gray-600 dark:text-slate-300">
               Reason: {cancelReason || "Not specified"}
             </p>
           </div>
         </div>
       ) : (
         <>
-          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
+          <div className="flex items-center justify-between p-4 bg-gray-50 dark:bg-slate-700/50 rounded-lg border border-gray-200 dark:border-slate-700">
             <div>
-              <p className="text-sm text-gray-900">Cancel this visit</p>
-              <p className="text-xs text-gray-500">
+              <p className="text-sm text-gray-900 dark:text-slate-100">
+                Cancel this visit
+              </p>
+              <p className="text-xs text-gray-500 dark:text-slate-400">
                 Patient didn't attend, doctor unavailable, etc.
               </p>
             </div>
@@ -92,10 +98,7 @@ export default function VisitStatus({
             <div className="mt-4 p-4 border border-red-200 rounded-lg space-y-4">
               <div>
                 <Label>Reason for cancellation</Label>
-                <Select
-                  value={cancelReason}
-                  onValueChange={setCancelReason}
-                >
+                <Select value={cancelReason} onValueChange={setCancelReason}>
                   <SelectTrigger className="mt-2">
                     <SelectValue placeholder="Select a reason..." />
                   </SelectTrigger>
@@ -109,27 +112,19 @@ export default function VisitStatus({
                 </Select>
               </div>
               <div>
-                <Label htmlFor="cancel-note">
-                  Additional note (optional)
-                </Label>
+                <Label htmlFor="cancel-note">Additional note (optional)</Label>
                 <textarea
                   id="cancel-note"
                   rows={2}
                   placeholder="Add details about the cancellation..."
-                  className="w-full mt-2 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                  className="w-full mt-2 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100 dark:placeholder:text-slate-500"
                 />
               </div>
               <div className="flex gap-3">
-                <Button
-                  onClick={confirmCancel}
-                  className="bg-red-600 hover:bg-red-700"
-                >
+                <Button onClick={confirmCancel} variant={"destructive"}>
                   Confirm Cancellation
                 </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => setShowCancel(false)}
-                >
+                <Button variant="outline" onClick={() => setShowCancel(false)}>
                   Keep Visit
                 </Button>
               </div>

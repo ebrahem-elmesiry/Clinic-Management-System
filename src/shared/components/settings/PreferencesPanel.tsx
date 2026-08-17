@@ -28,7 +28,7 @@ export default function PreferencesPanel({
       <DangerZone />
 
       <div className="flex justify-end">
-        <Button onClick={onSave} className="bg-blue-600 hover:bg-blue-700 px-8">
+        <Button onClick={onSave}>
           Save Preferences
         </Button>
       </div>

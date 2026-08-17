@@ -3,8 +3,9 @@ import { join } from "node:path";
 
 export function GET() {
   const html = readFileSync(
+    join(process.cwd(), "DESIGN_SYSTEM_PAGES_DARK.html"),
     // join(process.cwd(), "DESIGN_SYSTEM_PAGES.html"),
-    join(process.cwd(), "DESIGN_SYSTEM_COMPONENTS.html"),
+    // join(process.cwd(), "DESIGN_SYSTEM_COMPONENTS.html"),
     // join(process.cwd(), "DESIGN_SYSTEM_VISUAL.html"),
     "utf-8",
   );

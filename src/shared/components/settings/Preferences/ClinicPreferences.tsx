@@ -10,8 +10,8 @@ interface ClinicPreferencesProps {
 
 export default function ClinicPreferences({ role }: ClinicPreferencesProps) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-      <h2 className="text-lg text-gray-900 mb-6">
+    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+      <h2 className="text-lg text-gray-900 dark:text-slate-100 mb-6">
         {role === "admin" ? "Clinic Preferences" : "Appointment Preferences"}
       </h2>
 
@@ -22,7 +22,7 @@ export default function ClinicPreferences({ role }: ClinicPreferencesProps) {
           </Label>
           <select
             id="appointmentDuration"
-            className="w-full max-w-xs mt-2 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            className="w-full max-w-xs mt-2 px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm dark:bg-slate-800 dark:text-slate-100"
           >
             <option value="15">15 minutes</option>
             <option value="30" selected>
@@ -37,7 +37,7 @@ export default function ClinicPreferences({ role }: ClinicPreferencesProps) {
           <Label htmlFor="bufferTime">Buffer Time Between Appointments</Label>
           <select
             id="bufferTime"
-            className="w-full max-w-xs mt-2 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            className="w-full max-w-xs mt-2 px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm dark:bg-slate-800 dark:text-slate-100"
           >
             <option value="0">No buffer</option>
             <option value="5">5 minutes</option>

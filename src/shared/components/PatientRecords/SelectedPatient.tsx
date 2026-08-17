@@ -25,8 +25,8 @@ export default function SelectedPatient({
   onSelect,
 }: SelectedPatientProps) {
   return (
-    <div className="lg:col-span-1 bg-white rounded-xl shadow-sm border border-gray-200">
-      <div className="p-4 border-b border-gray-200">
+    <div className="lg:col-span-1 bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700">
+      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
         <Input placeholder="Search patients..." />
       </div>
       <div className="overflow-y-auto max-h-[calc(100vh-300px)]">
@@ -34,9 +34,9 @@ export default function SelectedPatient({
           <button
             key={patient.id}
             onClick={() => onSelect(patient.id)}
-            className={`w-full p-4 border-b border-gray-100 text-left hover:bg-blue-50 transition-colors ${
+            className={`w-full p-4 border-b border-gray-100 dark:border-gray-700 text-left hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors ${
               selectedPatient === patient.id
-                ? "bg-blue-50 border-l-4 border-l-blue-600"
+                ? "bg-blue-50 dark:bg-blue-900/30 border-l-4 border-l-blue-600 dark:border-l-blue-400"
                 : ""
             }`}
           >
@@ -45,16 +45,16 @@ export default function SelectedPatient({
                 <User className="w-5 h-5 text-white" />
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-sm text-gray-900 truncate">
+                <p className="text-sm text-gray-900 dark:text-gray-100 truncate">
                   {patient.name}
                 </p>
-                <p className="text-xs text-gray-500">
+                <p className="text-xs text-gray-500 dark:text-gray-400">
                   {patient.age} yrs • {patient.gender}
                 </p>
               </div>
-              <ChevronRight className="w-4 h-4 text-gray-400" />
+              <ChevronRight className="w-4 h-4 text-gray-400 dark:text-gray-500" />
             </div>
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">
               Last visit: {patient.lastVisit}
             </p>
           </button>

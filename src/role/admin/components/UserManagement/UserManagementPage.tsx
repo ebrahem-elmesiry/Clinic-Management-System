@@ -88,7 +88,12 @@ const roleStats = [
 
 const permissions = {
   doctor: ["View Patients", "Create Prescriptions", "Manage Appointments"],
-  admin: ["All Permissions", "User Management", "System Settings", "Financial Reports"],
+  admin: [
+    "All Permissions",
+    "User Management",
+    "System Settings",
+    "Financial Reports",
+  ],
   patient: ["View Own Records", "Book Appointments", "View Prescriptions"],
 };
 
@@ -96,16 +101,19 @@ export default function UserManagementPage() {
   const [showAddDialog, setShowAddDialog] = useState(false);
   const [selectedRole, setSelectedRole] = useState("all");
 
-  const filteredUsers = selectedRole === "all"
-    ? users
-    : users.filter((user) => user.role === selectedRole);
+  const filteredUsers =
+    selectedRole === "all"
+      ? users
+      : users.filter((user) => user.role === selectedRole);
 
   return (
     <div className="p-8 space-y-6">
       <PageTitleWithButton
         title="User Management"
         subtitle="Manage users, roles, and permissions"
-        action={<AddNewUser open={showAddDialog} onOpenChange={setShowAddDialog} />}
+        action={
+          <AddNewUser open={showAddDialog} onOpenChange={setShowAddDialog} />
+        }
       />
 
       {/* Role Stats */}
@@ -122,7 +130,7 @@ export default function UserManagementPage() {
       </div>
 
       {/* Filters */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex-1 min-w-[200px]">
             <TableSearch placeholder="Search users..." />
@@ -135,10 +143,12 @@ export default function UserManagementPage() {
                 className={`px-4 py-2 text-sm rounded-lg transition-colors ${
                   selectedRole === role
                     ? "bg-blue-600 text-white"
-                    : "border border-gray-300 text-gray-700 hover:bg-gray-50"
+                    : "border border-gray-300 dark:border-slate-600 text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700/50"
                 }`}
               >
-                {role === "all" ? "All Users" : role.charAt(0).toUpperCase() + role.slice(1) + "s"}
+                {role === "all"
+                  ? "All Users"
+                  : role.charAt(0).toUpperCase() + role.slice(1) + "s"}
               </button>
             ))}
           </div>
@@ -156,60 +166,6 @@ export default function UserManagementPage() {
       </div>
 
       <UsersTable users={filteredUsers} />
-
-      {/* Role Permissions */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg flex items-center justify-center">
-              <UserCheck className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="text-lg text-gray-900">Doctor Permissions</h3>
-          </div>
-          <div className="space-y-2">
-            {permissions.doctor.map((perm, index) => (
-              <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <span>{perm}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-purple-600 rounded-lg flex items-center justify-center">
-              <Shield className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="text-lg text-gray-900">Admin Permissions</h3>
-          </div>
-          <div className="space-y-2">
-            {permissions.admin.map((perm, index) => (
-              <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
-                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                <span>{perm}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-          <div className="flex items-center gap-3 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-teal-500 to-teal-600 rounded-lg flex items-center justify-center">
-              <UserCheck className="w-5 h-5 text-white" />
-            </div>
-            <h3 className="text-lg text-gray-900">Patient Permissions</h3>
-          </div>
-          <div className="space-y-2">
-            {permissions.patient.map((perm, index) => (
-              <div key={index} className="flex items-center gap-2 text-sm text-gray-600">
-                <div className="w-2 h-2 bg-teal-500 rounded-full"></div>
-                <span>{perm}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

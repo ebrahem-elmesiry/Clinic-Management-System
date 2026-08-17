@@ -28,18 +28,18 @@ export default function ProfilePanel({
 }: ProfilePanelProps) {
   return (
     <div className="space-y-6">
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
-        <h2 className="text-lg text-gray-900 mb-6">Profile Information</h2>
+      <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
+        <h2 className="text-lg text-gray-900 dark:text-slate-100 mb-6">
+          Profile Information
+        </h2>
         <AvatarUpload name={profile.name} userRole={userRole} />
         <ProfileInputs profile={profile} userRole={userRole} />
       </div>
 
-      {userRole === "doctor" && <ClinicInfo />}
+      {userRole === "admin" && <ClinicInfo />}
 
       <div className="flex justify-end">
-        <Button onClick={onSave} className="bg-blue-600 hover:bg-blue-700 px-8">
-          Save Changes
-        </Button>
+        <Button onClick={onSave}>Save Changes</Button>
       </div>
     </div>
   );

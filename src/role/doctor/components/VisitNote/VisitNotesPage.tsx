@@ -35,8 +35,8 @@ export default function VisitNotesPage() {
   return (
     <div className="p-8 space-y-6">
       <div>
-        <h1 className="text-2xl text-gray-900 mb-2">Visit Notes</h1>
-        <p className="text-gray-600">
+        <h1 className="text-2xl text-gray-900 dark:text-slate-100 mb-2">Visit Notes</h1>
+        <p className="text-gray-600 dark:text-slate-300">
           Record medications, prescription, visit outcome, and follow-up plan
         </p>
       </div>
@@ -54,13 +54,13 @@ export default function VisitNotesPage() {
               Save as Draft
             </Button>
             <Button
-              className="flex-1 bg-blue-600 hover:bg-blue-700"
+              className="flex-1"
               onClick={() => setStatus("completed")}
             >
               <CheckCircle2 className="w-4 h-4 mr-2" />
               Complete Visit
             </Button>
-            <Button className="flex-1 bg-teal-600 hover:bg-teal-700">
+            <Button variant="teal" className="flex-1">
               <Download className="w-4 h-4 mr-2" />
               Export PDF
             </Button>

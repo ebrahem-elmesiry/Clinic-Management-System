@@ -38,18 +38,18 @@ export default function AdminSettingsRoute() {
   return (
     <div className="p-8 max-w-5xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl text-gray-900 mb-1">Settings</h1>
-        <p className="text-gray-600">
+        <h1 className="text-2xl text-gray-900 dark:text-slate-100 mb-1">Settings</h1>
+        <p className="text-gray-600 dark:text-slate-400">
           Manage your account settings and preferences
         </p>
       </div>
 
       {saved && (
-        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-xl">
-          <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+        <div className="flex items-center gap-3 p-4 bg-green-50 border border-green-200 rounded-xl dark:bg-green-900/20 dark:border-green-800/50">
+          <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center dark:bg-green-900/30">
             <Check className="w-4 h-4 text-green-600" />
           </div>
-          <p className="text-sm text-green-800">Settings saved successfully.</p>
+          <p className="text-sm text-green-800 dark:text-green-200">Settings saved successfully.</p>
         </div>
       )}
 

@@ -127,7 +127,7 @@ export default function PatientRecordsPage() {
         action={
           <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
             <DialogTrigger asChild>
-              <Button className="bg-blue-600 hover:bg-blue-700">
+              <Button>
                 <Plus className="w-5 h-5 mr-2" />
                 Add New Patient
               </Button>
@@ -218,10 +218,7 @@ export default function PatientRecordsPage() {
                   >
                     Cancel
                   </Button>
-                  <Button
-                    type="submit"
-                    className="flex-1 bg-blue-600 hover:bg-blue-700"
-                  >
+                  <Button type="submit" className="flex-1">
                     Add Patient
                   </Button>
                 </div>
@@ -242,7 +239,7 @@ export default function PatientRecordsPage() {
           <PatientInformation patient={patientDetails} />
 
           <Tabs defaultValue="visits" className="space-y-6">
-            <TabsList className="bg-white border border-gray-200">
+            <TabsList className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700">
               <TabsTrigger value="visits">Visit History</TabsTrigger>
               <TabsTrigger value="vitals">Vitals</TabsTrigger>
               <TabsTrigger value="prescriptions">Prescriptions</TabsTrigger>

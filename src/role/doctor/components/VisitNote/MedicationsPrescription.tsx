@@ -45,9 +45,9 @@ export default function MedicationsPrescription() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg text-gray-900">
+        <h2 className="text-lg text-gray-900 dark:text-slate-100">
           Medications & Prescription
         </h2>
         <Button onClick={addMedicine} variant="outline" size="sm">
@@ -60,16 +60,16 @@ export default function MedicationsPrescription() {
         {medicines.map((medicine, index) => (
           <div
             key={medicine.id}
-            className="p-4 border border-gray-200 rounded-lg space-y-3"
+            className="p-4 border border-gray-200 dark:border-slate-700 rounded-lg space-y-3"
           >
             <div className="flex items-center justify-between mb-3">
-              <span className="text-sm text-gray-600">
+              <span className="text-sm text-gray-600 dark:text-slate-300">
                 Medicine #{index + 1}
               </span>
               {medicines.length > 1 && (
                 <button
                   onClick={() => removeMedicine(medicine.id)}
-                  className="p-1 text-red-600 hover:bg-red-50 rounded"
+                  className="p-1 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded"
                 >
                   <Trash2 className="w-4 h-4" />
                 </button>
@@ -145,7 +145,7 @@ export default function MedicationsPrescription() {
                   id={`instructions-${medicine.id}`}
                   rows={2}
                   placeholder="Any additional instructions..."
-                  className="w-full mt-2 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                  className="w-full mt-2 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100 dark:placeholder:text-slate-500"
                 />
               </div>
             </div>

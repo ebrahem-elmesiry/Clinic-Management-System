@@ -45,7 +45,7 @@ export default function ProfileInputs({
       <div>
         <Label htmlFor="email">Email Address</Label>
         <div className="relative mt-2">
-          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-slate-500" />
           <Input
             id="email"
             type="email"
@@ -57,7 +57,7 @@ export default function ProfileInputs({
       <div>
         <Label htmlFor="phone">Phone Number</Label>
         <div className="relative mt-2">
-          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+          <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-slate-500" />
           <Input
             id="phone"
             type="tel"
@@ -109,7 +109,7 @@ export default function ProfileInputs({
       <div className="md:col-span-2">
         <Label htmlFor="address">Address</Label>
         <div className="relative mt-2">
-          <MapPin className="absolute left-3 top-3 w-4 h-4 text-gray-400" />
+          <MapPin className="absolute left-3 top-3 w-4 h-4 text-gray-400 dark:text-slate-500" />
           <Input
             id="address"
             defaultValue="123 Main St, New York, NY 10001"
@@ -125,7 +125,7 @@ export default function ProfileInputs({
             id="bio"
             rows={3}
             defaultValue={profile.bio}
-            className="w-full mt-2 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+            className="w-full mt-2 px-3 py-2 border border-gray-200 rounded-lg dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
           />
         </div>
       )}

@@ -1,7 +1,5 @@
 "use client";
 
-import React from "react";
-import Welcome from "@/role/patient/components/dashboard/Welcome";
 import PatientInformation from "@/role/patient/components/dashboard/PatientInformation";
 import UpcomingAppointments from "@/role/patient/components/dashboard/UpcomingAppointments";
 import RecentVisits from "@/role/patient/components/dashboard/RecentVisits";
@@ -10,116 +8,117 @@ import EmergencyContact from "@/role/patient/components/dashboard/EmergencyConta
 import HealthTip from "@/role/patient/components/dashboard/HealthTip";
 import PrivacyNotice from "@/role/patient/components/dashboard/PrivacyNotice";
 import MedicalHistory from "@/shared/components/PatientMedicalRecords/MedicalHistory";
+import PageHero from "@/shared/components/PageHero";
 
 // This would come from your authentication context/hook in a real application
 // Example: const { user } = useAuth() or from session token
-const AUTHENTICATED_PATIENT_ID = 'patient_12345'; // This represents the logged-in patient's ID
+const AUTHENTICATED_PATIENT_ID = "patient_12345"; // This represents the logged-in patient's ID
 
 export default function PatientDashboard() {
   const authenticatedPatient = {
     id: AUTHENTICATED_PATIENT_ID,
-    name: 'John Doe',
+    name: "John Doe",
     age: 45,
-    gender: 'Male',
-    dob: 'Jan 15, 1979',
-    phone: '(555) 123-4567',
-    email: 'john.doe@email.com',
-    address: '123 Main St, New York, NY 10001',
-    bloodGroup: 'O+',
-    emergencyContact: 'Jane Doe - (555) 987-6543',
+    gender: "Male",
+    dob: "Jan 15, 1979",
+    phone: "(555) 123-4567",
+    email: "john.doe@email.com",
+    address: "123 Main St, New York, NY 10001",
+    bloodGroup: "O+",
+    emergencyContact: "Jane Doe - (555) 987-6543",
   };
 
   const upcomingAppointments = [
     {
       id: 1,
-      date: 'Tomorrow',
-      time: '10:00 AM',
-      doctor: 'Dr. Sarah Johnson',
-      specialty: 'General Physician',
-      type: 'Regular Checkup',
-      location: 'Room 205',
+      date: "Tomorrow",
+      time: "10:00 AM",
+      doctor: "Dr. Sarah Johnson",
+      specialty: "General Physician",
+      type: "Regular Checkup",
+      location: "Room 205",
     },
     {
       id: 2,
-      date: 'Dec 28, 2024',
-      time: '02:30 PM',
-      doctor: 'Dr. Michael Chen',
-      specialty: 'Cardiologist',
-      type: 'Follow-up',
-      location: 'Cardiology Wing',
+      date: "Dec 28, 2024",
+      time: "02:30 PM",
+      doctor: "Dr. Michael Chen",
+      specialty: "Cardiologist",
+      type: "Follow-up",
+      location: "Cardiology Wing",
     },
   ];
 
   const activePrescriptions = [
     {
       id: 1,
-      medicine: 'Amoxicillin 500mg',
-      dosage: '1 tablet',
-      frequency: '3 times daily',
-      timing: 'After meals',
-      duration: '7 days',
-      startDate: 'Dec 18, 2024',
+      medicine: "Amoxicillin 500mg",
+      dosage: "1 tablet",
+      frequency: "3 times daily",
+      timing: "After meals",
+      duration: "7 days",
+      startDate: "Dec 18, 2024",
       remainingDays: 5,
-      prescribedBy: 'Dr. Sarah Johnson',
-      instructions: 'Complete the full course even if symptoms improve',
+      prescribedBy: "Dr. Sarah Johnson",
+      instructions: "Complete the full course even if symptoms improve",
     },
     {
       id: 2,
-      medicine: 'Vitamin D3 2000 IU',
-      dosage: '1 tablet',
-      frequency: 'Once daily',
-      timing: 'Morning with breakfast',
-      duration: '30 days',
-      startDate: 'Dec 1, 2024',
+      medicine: "Vitamin D3 2000 IU",
+      dosage: "1 tablet",
+      frequency: "Once daily",
+      timing: "Morning with breakfast",
+      duration: "30 days",
+      startDate: "Dec 1, 2024",
       remainingDays: 22,
-      prescribedBy: 'Dr. Sarah Johnson',
-      instructions: 'Take with food for better absorption',
+      prescribedBy: "Dr. Sarah Johnson",
+      instructions: "Take with food for better absorption",
     },
   ];
 
   const medicalHistory = [
     {
       id: 1,
-      condition: 'Hypertension',
-      diagnosedDate: 'Mar 15, 2020',
-      status: 'Controlled',
-      severity: 'Moderate',
-      notes: 'Blood pressure controlled with medication',
+      condition: "Hypertension",
+      diagnosedDate: "Mar 15, 2020",
+      status: "Controlled",
+      severity: "Moderate",
+      notes: "Blood pressure controlled with medication",
     },
     {
       id: 2,
-      condition: 'Type 2 Diabetes',
-      diagnosedDate: 'Nov 20, 2019',
-      status: 'Controlled',
-      severity: 'Mild',
-      notes: 'Managed with Metformin and diet control',
+      condition: "Type 2 Diabetes",
+      diagnosedDate: "Nov 20, 2019",
+      status: "Controlled",
+      severity: "Mild",
+      notes: "Managed with Metformin and diet control",
     },
     {
       id: 3,
-      condition: 'Seasonal Allergies',
-      diagnosedDate: 'May 10, 2015',
-      status: 'Recurring',
-      severity: 'Mild',
-      notes: 'Spring pollen allergies, manageable with antihistamines',
+      condition: "Seasonal Allergies",
+      diagnosedDate: "May 10, 2015",
+      status: "Recurring",
+      severity: "Mild",
+      notes: "Spring pollen allergies, manageable with antihistamines",
     },
   ];
 
   const recentVisits = [
     {
       id: 1,
-      date: 'Dec 20, 2024',
-      doctor: 'Dr. Sarah Johnson',
-      reason: 'Regular Checkup',
-      diagnosis: 'Stable condition, all vitals normal',
-      notes: 'Continue current medications',
+      date: "Dec 20, 2024",
+      doctor: "Dr. Sarah Johnson",
+      reason: "Regular Checkup",
+      diagnosis: "Stable condition, all vitals normal",
+      notes: "Continue current medications",
     },
     {
       id: 2,
-      date: 'Nov 15, 2024',
-      doctor: 'Dr. Michael Chen',
-      reason: 'Cardiology Follow-up',
-      diagnosis: 'Heart rate and blood pressure within normal range',
-      notes: 'Schedule next follow-up in 3 months',
+      date: "Nov 15, 2024",
+      doctor: "Dr. Michael Chen",
+      reason: "Cardiology Follow-up",
+      diagnosis: "Heart rate and blood pressure within normal range",
+      notes: "Schedule next follow-up in 3 months",
     },
   ];
 
@@ -127,15 +126,43 @@ export default function PatientDashboard() {
     upcomingAppointments: upcomingAppointments.length,
     activePrescriptions: activePrescriptions.length,
     medicalConditions: medicalHistory.filter(
-      (h) => h.status === 'Controlled' || h.status === 'Ongoing'
+      (h) => h.status === "Controlled" || h.status === "Ongoing",
     ).length,
-    lastVisit: recentVisits[0]?.date || 'N/A',
+    lastVisit: recentVisits[0]?.date || "N/A",
   };
 
   return (
     <div className="p-8 space-y-8 max-w-7xl mx-auto">
-      <Welcome patientName={authenticatedPatient.name} stats={healthStats} />
-
+      <PageHero
+        title={`Welcome back, ${authenticatedPatient.name}`}
+        description="Here's your personal health dashboard"
+        children={
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+              <p className="text-2xl text-white mb-1">
+                {healthStats.upcomingAppointments}
+              </p>
+              <p className="text-sm text-blue-200">Upcoming Appointments</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+              <p className="text-2xl text-white mb-1">
+                {healthStats.activePrescriptions}
+              </p>
+              <p className="text-sm text-blue-200">Active Prescriptions</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+              <p className="text-2xl text-white mb-1">
+                {healthStats.medicalConditions}
+              </p>
+              <p className="text-sm text-blue-200">Medical Conditions</p>
+            </div>
+            <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+              <p className="text-sm text-blue-200 mb-1">Last Visit</p>
+              <p className="text-white">{healthStats.lastVisit}</p>
+            </div>
+          </div>
+        }
+      />
       <PatientInformation patient={authenticatedPatient} />
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -147,7 +174,9 @@ export default function PatientDashboard() {
 
         <div className="space-y-6">
           <ActivePrescriptions prescriptions={activePrescriptions} />
-          <EmergencyContact emergencyContact={authenticatedPatient.emergencyContact} />
+          <EmergencyContact
+            emergencyContact={authenticatedPatient.emergencyContact}
+          />
           <HealthTip />
         </div>
       </div>

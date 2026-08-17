@@ -15,9 +15,9 @@ interface NotificationsProps {
 
 export default function Notifications({ notifications }: NotificationsProps) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-      <div className="p-6 border-b border-gray-200">
-        <h2 className="text-lg text-gray-900">Notifications</h2>
+    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700">
+      <div className="p-6 border-b border-gray-200 dark:border-slate-700">
+        <h2 className="text-lg text-gray-900 dark:text-slate-100">Notifications</h2>
       </div>
       <div className="p-6 space-y-4">
         {notifications.map((notif, index) => (
@@ -25,9 +25,9 @@ export default function Notifications({ notifications }: NotificationsProps) {
             <div
               className={`
                 w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0
-                ${notif.type === 'info' ? 'bg-blue-100'
-                  : notif.type === 'warning' ? 'bg-orange-100'
-                  : 'bg-green-100'}
+                ${notif.type === 'info' ? 'bg-blue-100 dark:bg-blue-900/30'
+                  : notif.type === 'warning' ? 'bg-orange-100 dark:bg-orange-900/30'
+                  : 'bg-green-100 dark:bg-green-900/30'}
               `}
             >
               <AlertCircle
@@ -40,8 +40,8 @@ export default function Notifications({ notifications }: NotificationsProps) {
               />
             </div>
             <div className="flex-1">
-              <p className="text-sm text-gray-900">{notif.message}</p>
-              <p className="text-xs text-gray-500 mt-1">{notif.time}</p>
+              <p className="text-sm text-gray-900 dark:text-slate-100">{notif.message}</p>
+              <p className="text-xs text-gray-500 dark:text-slate-400 mt-1">{notif.time}</p>
             </div>
           </div>
         ))}

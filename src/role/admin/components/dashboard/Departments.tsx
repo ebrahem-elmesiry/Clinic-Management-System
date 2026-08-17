@@ -1,12 +1,4 @@
-"use client";
-
-import React from "react";
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-} from "recharts";
+import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 interface Department {
   name: string;
@@ -20,10 +12,14 @@ interface DepartmentsProps {
 
 export default function Departments({ data }: DepartmentsProps) {
   return (
-    <div className="bg-white rounded-xl shadow-sm border border-gray-200">
-      <div className="p-6 border-b border-gray-200">
-        <h2 className="text-lg text-gray-900">Departments</h2>
-        <p className="text-sm text-gray-500">Patient distribution</p>
+    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700">
+      <div className="p-6 border-b border-gray-200 dark:border-slate-700">
+        <h2 className="text-lg text-gray-900 dark:text-slate-100">
+          Departments
+        </h2>
+        <p className="text-sm text-gray-500 dark:text-slate-400">
+          Patient distribution
+        </p>
       </div>
       <div className="p-6">
         <ResponsiveContainer width="100%" height={200}>
@@ -51,9 +47,13 @@ export default function Departments({ data }: DepartmentsProps) {
                   className="w-3 h-3 rounded-full"
                   style={{ backgroundColor: dept.color }}
                 ></div>
-                <span className="text-sm text-gray-600">{dept.name}</span>
+                <span className="text-sm text-gray-600 dark:text-slate-300">
+                  {dept.name}
+                </span>
               </div>
-              <span className="text-sm text-gray-900">{dept.value}%</span>
+              <span className="text-sm text-gray-900 dark:text-slate-100">
+                {dept.value}%
+              </span>
             </div>
           ))}
         </div>

@@ -130,13 +130,13 @@ export default function AppointmentsPage() {
         action={
           <>
             {/* View toggle */}
-            <div className="flex items-center gap-2 bg-white border border-gray-200 rounded-lg p-1">
+            <div className="flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-1">
               <button
                 onClick={() => setView("calendar")}
                 className={`px-4 py-2 text-sm rounded-md transition-colors ${
                   view === "calendar"
                     ? "bg-blue-600 text-white"
-                    : "text-gray-600 hover:bg-gray-100"
+                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                 }`}
               >
                 Calendar
@@ -146,7 +146,7 @@ export default function AppointmentsPage() {
                 className={`px-4 py-2 text-sm rounded-md transition-colors ${
                   view === "list"
                     ? "bg-blue-600 text-white"
-                    : "text-gray-600 hover:bg-gray-100"
+                    : "text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700"
                 }`}
               >
                 List
@@ -155,7 +155,7 @@ export default function AppointmentsPage() {
 
             <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
               <DialogTrigger asChild>
-                <Button className="bg-blue-600 hover:bg-blue-700">
+                <Button>
                   <Plus className="w-5 h-5 mr-2" />
                   New Appointment
                 </Button>
@@ -217,7 +217,7 @@ export default function AppointmentsPage() {
                     <textarea
                       id="notes"
                       rows={3}
-                      className="w-full mt-2 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                      className="w-full mt-2 px-3 py-2 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                       placeholder="Add any additional notes..."
                     />
                   </div>
@@ -232,7 +232,7 @@ export default function AppointmentsPage() {
                     </Button>
                     <Button
                       type="submit"
-                      className="flex-1 bg-blue-600 hover:bg-blue-700"
+                      className="flex-1"
                     >
                       Schedule
                     </Button>
@@ -245,7 +245,7 @@ export default function AppointmentsPage() {
       />
 
       {/* Filters */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
         <div className="flex flex-wrap items-center gap-4">
           <div className="flex-1 min-w-[200px]">
             <TableSearch placeholder="Search appointments..." />

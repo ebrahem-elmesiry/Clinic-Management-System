@@ -58,22 +58,22 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex">
+    <div className="min-h-screen flex dark:bg-gray-950">
       {/* Left side - Branding */}
-      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-600 via-blue-500 to-teal-500 p-12 flex-col justify-between">
+      <div className="hidden lg:flex lg:w-1/2 bg-gradient-to-br from-blue-800 via-blue-700 to-teal-700 p-12 flex-col justify-between">
         <div className="flex items-center gap-3 text-white">
-          <div className="w-12 h-12 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+          <div className="w-12 h-12 bg-white/10 backdrop-blur-sm rounded-xl flex items-center justify-center">
             <Stethoscope className="w-7 h-7" />
           </div>
           <div>
             <h1 className="text-2xl text-white">HealthCare</h1>
-            <p className="text-sm text-blue-100">Clinic Management System</p>
+            <p className="text-sm text-blue-200">Clinic Management System</p>
           </div>
         </div>
 
         <div className="space-y-6 text-white">
           <h2 className="text-4xl">Modern Healthcare Management Solution</h2>
-          <p className="text-lg text-blue-100">
+          <p className="text-lg text-blue-200">
             Streamline your clinic operations with our comprehensive management
             system. Manage appointments, patient records, prescriptions, and
             billing all in one place.
@@ -82,48 +82,48 @@ export default function LoginPage() {
           <div className="grid grid-cols-2 gap-4 pt-8">
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
               <p className="text-3xl mb-1">500+</p>
-              <p className="text-sm text-blue-100">Clinics</p>
+              <p className="text-sm text-blue-200">Clinics</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
               <p className="text-3xl mb-1">50K+</p>
-              <p className="text-sm text-blue-100">Patients</p>
+              <p className="text-sm text-blue-200">Patients</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
               <p className="text-3xl mb-1">1K+</p>
-              <p className="text-sm text-blue-100">Doctors</p>
+              <p className="text-sm text-blue-200">Doctors</p>
             </div>
             <div className="bg-white/10 backdrop-blur-sm rounded-lg p-4">
               <p className="text-3xl mb-1">99.9%</p>
-              <p className="text-sm text-blue-100">Uptime</p>
+              <p className="text-sm text-blue-200">Uptime</p>
             </div>
           </div>
         </div>
 
-        <p className="text-sm text-blue-100">
+        <p className="text-sm text-blue-200">
           © 2024 HealthCare. All rights reserved.
         </p>
       </div>
 
       {/* Right side - Login Form */}
-      <div className="flex-1 flex items-center justify-center p-8 bg-gray-50">
+      <div className="flex-1 flex items-center justify-center p-8 bg-gray-50 dark:bg-gray-900">
         <div className="w-full max-w-md">
-          <div className="bg-white rounded-2xl shadow-xl p-8">
+          <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-xl p-8">
             {/* Logo for mobile */}
             <div className="lg:hidden flex items-center gap-3 mb-8">
               <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-teal-500 rounded-xl flex items-center justify-center">
                 <Stethoscope className="w-6 h-6 text-white" />
               </div>
               <div>
-                <h1 className="text-gray-900">HealthCare</h1>
-                <p className="text-xs text-gray-500">Clinic Management</p>
+                <h1 className="text-gray-900 dark:text-gray-100">HealthCare</h1>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Clinic Management</p>
               </div>
             </div>
 
             <div className="mb-8">
-              <h2 className="text-2xl text-gray-900 mb-2">
+              <h2 className="text-2xl text-gray-900 dark:text-gray-100 mb-2">
                 {isLogin ? "Welcome Back" : "Create Account"}
               </h2>
-              <p className="text-gray-500">
+              <p className="text-gray-500 dark:text-gray-400">
                 {isLogin
                   ? "Sign in to access your account"
                   : "Register to get started"}
@@ -132,7 +132,7 @@ export default function LoginPage() {
 
             {/* Role Selection */}
             <div className="mb-6">
-              <Label className="mb-3 block text-gray-700">Login as</Label>
+              <Label className="mb-3 block text-gray-700 dark:text-gray-300">Login as</Label>
               <div className="grid grid-cols-3 gap-2">
                 {(["doctor", "patient", "admin"] as UserRole[]).map((role) => (
                   <button
@@ -143,8 +143,8 @@ export default function LoginPage() {
                       p-3 rounded-lg border-2 transition-all
                       ${
                         selectedRole === role
-                          ? "border-blue-500 bg-blue-50 text-blue-700"
-                          : "border-gray-200 text-gray-600 hover:border-gray-300"
+                          ? "border-blue-500 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400"
+                          : "border-gray-200 dark:border-gray-600 text-gray-600 dark:text-gray-400 hover:border-gray-300 dark:hover:border-gray-500"
                       }
                     `}
                   >
@@ -169,11 +169,11 @@ export default function LoginPage() {
               <TabsContent value="login">
                 <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                   <div>
-                    <Label htmlFor="email" className="text-gray-700">
+                    <Label htmlFor="email" className="text-gray-700 dark:text-gray-300">
                       Email Address
                     </Label>
                     <div className="relative mt-2">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
                       <Input
                         id="email"
                         type="email"
@@ -186,18 +186,18 @@ export default function LoginPage() {
                       />
                     </div>
                     {errors.email && (
-                      <p className="text-sm text-red-600 mt-1">
+                      <p className="text-sm text-red-600 dark:text-red-400 mt-1">
                         {errors.email}
                       </p>
                     )}
                   </div>
 
                   <div>
-                    <Label htmlFor="password" className="text-gray-700">
+                    <Label htmlFor="password" className="text-gray-700 dark:text-gray-300">
                       Password
                     </Label>
                     <div className="relative mt-2">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
                       <Input
                         id="password"
                         type="password"
@@ -210,7 +210,7 @@ export default function LoginPage() {
                       />
                     </div>
                     {errors.password && (
-                      <p className="text-sm text-red-600 mt-1">
+                      <p className="text-sm text-red-600 dark:text-red-400 mt-1">
                         {errors.password}
                       </p>
                     )}
@@ -220,13 +220,13 @@ export default function LoginPage() {
                     <label className="flex items-center gap-2">
                       <input
                         type="checkbox"
-                        className="rounded border-gray-300"
+                        className="rounded border-gray-300 dark:border-gray-600"
                       />
-                      <span className="text-sm text-gray-600">Remember me</span>
+                      <span className="text-sm text-gray-600 dark:text-gray-400">Remember me</span>
                     </label>
                     <button
                       type="button"
-                      className="text-sm text-blue-600 hover:text-blue-700"
+                      className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
                     >
                       Forgot password?
                     </button>
@@ -234,7 +234,7 @@ export default function LoginPage() {
 
                   <Button
                     type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700"
+                    className="w-full"
                   >
                     Sign In
                   </Button>
@@ -244,11 +244,11 @@ export default function LoginPage() {
               <TabsContent value="register">
                 <form onSubmit={handleSubmit} className="space-y-4" noValidate>
                   <div>
-                    <Label htmlFor="fullname" className="text-gray-700">
+                    <Label htmlFor="fullname" className="text-gray-700 dark:text-gray-300">
                       Full Name
                     </Label>
                     <div className="relative mt-2">
-                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
                       <Input
                         id="fullname"
                         type="text"
@@ -260,11 +260,11 @@ export default function LoginPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="reg-email" className="text-gray-700">
+                    <Label htmlFor="reg-email" className="text-gray-700 dark:text-gray-300">
                       Email Address
                     </Label>
                     <div className="relative mt-2">
-                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
                       <Input
                         id="reg-email"
                         type="email"
@@ -276,11 +276,11 @@ export default function LoginPage() {
                   </div>
 
                   <div>
-                    <Label htmlFor="reg-password" className="text-gray-700">
+                    <Label htmlFor="reg-password" className="text-gray-700 dark:text-gray-300">
                       Password
                     </Label>
                     <div className="relative mt-2">
-                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
+                      <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400 dark:text-gray-500" />
                       <Input
                         id="reg-password"
                         type="password"
@@ -293,7 +293,7 @@ export default function LoginPage() {
 
                   <Button
                     type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700"
+                    className="w-full"
                   >
                     Create Account
                   </Button>
@@ -301,13 +301,13 @@ export default function LoginPage() {
               </TabsContent>
             </Tabs>
 
-            <p className="text-center text-sm text-gray-500">
+            <p className="text-center text-sm text-gray-500 dark:text-gray-400">
               By continuing, you agree to our{" "}
-              <button className="text-blue-600 hover:text-blue-700">
+              <button className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
                 Terms of Service
               </button>{" "}
               and{" "}
-              <button className="text-blue-600 hover:text-blue-700">
+              <button className="text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300">
                 Privacy Policy
               </button>
             </p>
