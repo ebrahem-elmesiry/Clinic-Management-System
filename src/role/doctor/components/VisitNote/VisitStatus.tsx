@@ -1,0 +1,142 @@
+"use client";
+
+import React from "react";
+import { XCircle } from "lucide-react";
+import { Button } from "@/shared/components/ui/button";
+import { Label } from "@/shared/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/components/ui/select";
+
+type VisitStatus = "scheduled" | "completed" | "cancelled";
+
+const CANCEL_REASONS = [
+  "Patient did not attend",
+  "Doctor unavailable",
+  "Clinic closed (emergency)",
+  "Patient requested cancellation",
+  "Other",
+];
+
+interface VisitStatusProps {
+  status: VisitStatus;
+  onStatusChange: (status: VisitStatus) => void;
+}
+
+export default function VisitStatus({
+  status,
+  onStatusChange,
+}: VisitStatusProps) {
+  const [showCancel, setShowCancel] = React.useState(false);
+  const [cancelReason, setCancelReason] = React.useState("");
+
+  const confirmCancel = () => {
+    onStatusChange("cancelled");
+    setShowCancel(false);
+  };
+
+  return (
+    <div className="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+      <div className="flex items-center justify-between mb-4">
+        <h2 className="text-lg text-gray-900">Visit Status</h2>
+        {status === "cancelled" ? (
+          <span className="px-3 py-1 bg-red-100 text-red-700 text-xs rounded-full">
+            Cancelled
+          </span>
+        ) : status === "completed" ? (
+          <span className="px-3 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+            Completed
+          </span>
+        ) : (
+          <span className="px-3 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
+            Scheduled
+          </span>
+        )}
+      </div>
+
+      {status === "cancelled" ? (
+        <div className="p-4 bg-red-50 rounded-lg border border-red-200 flex items-start gap-3">
+          <XCircle className="w-5 h-5 text-red-600 flex-shrink-0 mt-0.5" />
+          <div>
+            <p className="text-sm text-gray-900">Visit cancelled</p>
+            <p className="text-sm text-gray-600">
+              Reason: {cancelReason || "Not specified"}
+            </p>
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg border border-gray-200">
+            <div>
+              <p className="text-sm text-gray-900">Cancel this visit</p>
+              <p className="text-xs text-gray-500">
+                Patient didn't attend, doctor unavailable, etc.
+              </p>
+            </div>
+            <Button
+              variant="outline"
+              size="sm"
+              className="text-red-600 border-red-200 hover:bg-red-50"
+              onClick={() => setShowCancel(!showCancel)}
+            >
+              <XCircle className="w-4 h-4 mr-2" />
+              Cancel Visit
+            </Button>
+          </div>
+
+          {showCancel && (
+            <div className="mt-4 p-4 border border-red-200 rounded-lg space-y-4">
+              <div>
+                <Label>Reason for cancellation</Label>
+                <Select
+                  value={cancelReason}
+                  onValueChange={setCancelReason}
+                >
+                  <SelectTrigger className="mt-2">
+                    <SelectValue placeholder="Select a reason..." />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {CANCEL_REASONS.map((reason) => (
+                      <SelectItem key={reason} value={reason}>
+                        {reason}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div>
+                <Label htmlFor="cancel-note">
+                  Additional note (optional)
+                </Label>
+                <textarea
+                  id="cancel-note"
+                  rows={2}
+                  placeholder="Add details about the cancellation..."
+                  className="w-full mt-2 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500"
+                />
+              </div>
+              <div className="flex gap-3">
+                <Button
+                  onClick={confirmCancel}
+                  className="bg-red-600 hover:bg-red-700"
+                >
+                  Confirm Cancellation
+                </Button>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowCancel(false)}
+                >
+                  Keep Visit
+                </Button>
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    </div>
+  );
+}

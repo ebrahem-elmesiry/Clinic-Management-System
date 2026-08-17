@@ -1,0 +1,1239 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clinic Management System — Visual Design Reference</title>
+    <style>
+      :root {
+        --blue-50: #eff6ff;
+        --blue-100: #dbeafe;
+        --blue-200: #bfdbfe;
+        --blue-300: #93c5fd;
+        --blue-500: #3b82f6;
+        --blue-600: #2563eb;
+        --blue-700: #1d4ed8;
+        --teal-50: #f0fdfa;
+        --teal-100: #ccfbf1;
+        --teal-200: #99f6e4;
+        --teal-500: #14b8a6;
+        --teal-600: #0d9488;
+        --teal-700: #0f766e;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-600: #4b5563;
+        --gray-700: #374151;
+        --gray-900: #111827;
+        --green-100: #dcfce7;
+        --green-700: #15803d;
+        --green-500: #22c55e;
+        --green-600: #16a34a;
+        --orange-100: #ffedd5;
+        --orange-700: #c2410c;
+        --orange-500: #f97316;
+        --red-100: #fee2e2;
+        --red-700: #b91c1c;
+        --red-500: #ef4444;
+        --red-600: #dc2626;
+        --purple-100: #f3e8ff;
+        --purple-200: #e9d5ff;
+        --purple-500: #8b5cf6;
+        --purple-600: #9333ea;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+          Arial, sans-serif;
+        background: #f9fafb;
+        color: #111827;
+        line-height: 1.5;
+      }
+      .wrap {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 40px 24px 80px;
+      }
+
+      /* ---- Hero ---- */
+      .hero {
+        background: linear-gradient(135deg, #2563eb 0%, #0d9488 100%);
+        border-radius: 16px;
+        padding: 40px 32px;
+        color: #fff;
+      }
+      .hero h1 {
+        margin: 0 0 8px;
+        font-size: 30px;
+        font-weight: 500;
+      }
+      .hero p {
+        margin: 4px 0;
+        color: #dbeafe;
+        font-size: 15px;
+      }
+      .hero .tag {
+        display: inline-block;
+        margin-top: 14px;
+        background: rgba(255, 255, 255, 0.16);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        padding: 4px 12px;
+        border-radius: 999px;
+        font-size: 13px;
+      }
+
+      section {
+        margin-top: 44px;
+      }
+      h2 {
+        font-size: 20px;
+        font-weight: 500;
+        margin: 0 0 4px;
+      }
+      .sub {
+        color: #6b7280;
+        font-size: 14px;
+        margin: 0 0 18px;
+      }
+      .card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        padding: 24px;
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      }
+
+      /* ---- Swatches ---- */
+      .swatches {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: 12px;
+      }
+      .sw {
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        overflow: hidden;
+        background: #fff;
+      }
+      .sw .chip {
+        height: 56px;
+      }
+      .sw .info {
+        padding: 8px 10px;
+      }
+      .sw .name {
+        font-size: 13px;
+        font-weight: 500;
+      }
+      .sw .hex {
+        font-size: 12px;
+        color: #6b7280;
+        font-family: Consolas, Menlo, monospace;
+      }
+      .sw .use {
+        font-size: 12px;
+        color: #374151;
+        margin-top: 2px;
+      }
+
+      .group-title {
+        font-size: 14px;
+        font-weight: 500;
+        color: #374151;
+        margin: 20px 0 10px;
+      }
+      .gradient-bar {
+        height: 56px;
+        border-radius: 10px;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      /* ---- Typography ---- */
+      .type-row {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        padding: 12px 0;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .type-row:last-child {
+        border-bottom: none;
+      }
+      .type-meta {
+        flex: 0 0 190px;
+        font-size: 12px;
+        color: #6b7280;
+        font-family: Consolas, Menlo, monospace;
+      }
+      .type-sample {
+        flex: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      /* ---- Spacing ---- */
+      .space-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 10px;
+      }
+      .space-label {
+        flex: 0 0 170px;
+        font-size: 13px;
+        color: #374151;
+        font-family: Consolas, Menlo, monospace;
+      }
+      .space-bar {
+        height: 28px;
+        background: #3b82f6;
+        border-radius: 4px;
+      }
+
+      /* ---- Radius ---- */
+      .radius-row {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .radius-box {
+        text-align: center;
+      }
+      .radius-box .box {
+        width: 72px;
+        height: 72px;
+        border: 2px solid #2563eb;
+        background: #eff6ff;
+        margin-bottom: 6px;
+      }
+
+      /* ---- Shadows ---- */
+      .shadow-row {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+      .shadow-box {
+        width: 150px;
+        height: 80px;
+        background: #fff;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        color: #6b7280;
+        border: 1px solid #f3f4f6;
+      }
+      .s-sm {
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      }
+      .s-md {
+        box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      }
+      .s-lg {
+        box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+      }
+      .s-xl {
+        box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+      }
+
+      /* ---- Component previews ---- */
+      .demo-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 14px;
+      }
+      .demo-label {
+        width: 100%;
+        font-size: 13px;
+        font-weight: 500;
+        color: #374151;
+      }
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 6px;
+        font-size: 14px;
+        font-weight: 500;
+        padding: 0 16px;
+        height: 36px;
+        cursor: default;
+        border: 1px solid transparent;
+      }
+      .btn-primary {
+        background: #2563eb;
+        color: #fff;
+      }
+      .btn-primary:hover {
+        background: #1d4ed8;
+      }
+      .btn-outline {
+        border-color: #d1d5db;
+        background: #fff;
+        color: #374151;
+      }
+      .btn-ghost {
+        background: transparent;
+        color: #374151;
+      }
+      .btn-teal {
+        background: #0d9488;
+        color: #fff;
+      }
+      .btn-red {
+        background: #dc2626;
+        color: #fff;
+      }
+      .btn-sm {
+        height: 32px;
+        padding: 0 12px;
+        font-size: 13px;
+      }
+
+      .field {
+        margin-bottom: 14px;
+      }
+      .field label {
+        display: block;
+        font-size: 14px;
+        font-weight: 500;
+        margin-bottom: 6px;
+      }
+      .input {
+        width: 100%;
+        max-width: 360px;
+        height: 36px;
+        border: 1px solid #e5e7eb;
+        border-radius: 6px;
+        padding: 0 12px;
+        font-size: 14px;
+        background: #f3f3f5;
+        color: #111827;
+      }
+      .input:focus {
+        outline: none;
+        border-color: #2563eb;
+        box-shadow: 0 0 0 3px rgb(59 130 246 / 0.35);
+      }
+      .help {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 6px;
+      }
+
+      .pill {
+        display: inline-block;
+        padding: 2px 12px;
+        border-radius: 999px;
+        font-size: 12px;
+        font-weight: 500;
+      }
+      .pill-green {
+        background: #dcfce7;
+        color: #15803d;
+      }
+      .pill-orange {
+        background: #ffedd5;
+        color: #c2410c;
+      }
+      .pill-blue {
+        background: #dbeafe;
+        color: #1d4ed8;
+      }
+      .pill-red {
+        background: #fee2e2;
+        color: #b91c1c;
+      }
+      .pill-gray {
+        background: #f3f4f6;
+        color: #374151;
+      }
+      .pill-teal {
+        background: #ccfbf1;
+        color: #0f766e;
+      }
+      .tag-chip {
+        display: inline-block;
+        padding: 1px 8px;
+        background: #eff6ff;
+        color: #2563eb;
+        font-size: 12px;
+        border-radius: 4px;
+      }
+
+      .preview-card {
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+        overflow: hidden;
+        margin-bottom: 14px;
+        max-width: 460px;
+      }
+      .preview-card .hd {
+        padding: 16px 24px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      .preview-card .hd h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 500;
+      }
+      .preview-card .hd p {
+        margin: 2px 0 0;
+        font-size: 14px;
+        color: #6b7280;
+      }
+      .preview-card .bd {
+        padding: 24px;
+      }
+
+      table.preview {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      table.preview thead {
+        background: #f9fafb;
+      }
+      table.preview th {
+        text-align: left;
+        padding: 12px 24px;
+        font-weight: 500;
+        color: #4b5563;
+        font-size: 14px;
+        border-bottom: 1px solid #e5e7eb;
+      }
+      table.preview td {
+        padding: 12px 24px;
+        border-bottom: 1px solid #e5e7eb;
+        color: #111827;
+      }
+      table.preview tbody tr:hover {
+        background: #f9fafb;
+      }
+      table.preview tbody tr:last-child td {
+        border-bottom: none;
+      }
+
+      .tabs-demo {
+        border-radius: 8px;
+        background: #f3f4f6;
+        padding: 3px;
+        display: inline-flex;
+      }
+      .tabs-demo button {
+        border: none;
+        background: transparent;
+        padding: 6px 14px;
+        font-size: 14px;
+        border-radius: 6px;
+        cursor: default;
+      }
+      .tabs-demo .on {
+        background: #fff;
+        font-weight: 500;
+        color: #111827;
+      }
+
+      .segmented {
+        display: inline-flex;
+        gap: 2px;
+        background: #fff;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 4px;
+      }
+      .segmented button {
+        border: none;
+        background: transparent;
+        padding: 6px 16px;
+        font-size: 14px;
+        border-radius: 6px;
+        color: #4b5563;
+        cursor: default;
+      }
+      .segmented .on {
+        background: #2563eb;
+        color: #fff;
+      }
+
+      /* ---- Token table ---- */
+      table.tokens {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      table.tokens th {
+        text-align: left;
+        padding: 10px 14px;
+        background: #f9fafb;
+        border-bottom: 1px solid #e5e7eb;
+        font-weight: 500;
+        color: #4b5563;
+      }
+      table.tokens td {
+        padding: 10px 14px;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      table.tokens td code {
+        background: #f3f4f6;
+        padding: 1px 6px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-family: Consolas, Menlo, monospace;
+        color: #2563eb;
+      }
+      table.tokens tr:last-child td {
+        border-bottom: none;
+      }
+
+      .notice {
+        display: flex;
+        gap: 12px;
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        border-radius: 8px;
+        padding: 14px 16px;
+        font-size: 14px;
+        color: #1d4ed8;
+        margin-top: 14px;
+      }
+      .notice.warn {
+        background: #fee2e2;
+        border-color: #fecaca;
+        color: #b91c1c;
+      }
+      .notice strong {
+        display: block;
+        margin-bottom: 2px;
+      }
+      .num {
+        font-family: Consolas, Menlo, monospace;
+        font-size: 13px;
+      }
+      ul.plain {
+        margin: 0;
+        padding-left: 20px;
+      }
+      ul.plain li {
+        margin-bottom: 8px;
+        font-size: 14px;
+        color: #374151;
+      }
+      .footer {
+        margin-top: 48px;
+        text-align: center;
+        font-size: 13px;
+        color: #9ca3af;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="hero">
+        <h1>Clinic Management System — Visual Design Reference</h1>
+        <p>
+          An easy-to-read, visual version of DESIGN_SYSTEM.md. Built from the
+          codebase as it exists today.
+        </p>
+        <p>
+          The idea in one line:
+          <strong
+            >white cards on a light gray canvas, with a blue &rarr; teal
+            gradient as the brand accent.</strong
+          >
+        </p>
+        <span class="tag"
+          >React 18 + TypeScript + Tailwind CSS v4 + lucide-react +
+          recharts</span
+        >
+      </div>
+
+      <!-- ============ COLORS ============ -->
+      <section>
+        <h2>1. Colors</h2>
+        <p class="sub">
+          The real colors the UI actually uses (Tailwind utility classes). Click
+          nothing — these are just for reading.
+        </p>
+
+        <div class="group-title">Brand — Primary action (blue)</div>
+        <div class="swatches">
+          <div class="sw">
+            <div class="chip" style="background: #2563eb"></div>
+            <div class="info">
+              <div class="name">blue-600 · Primary</div>
+              <div class="hex">#2563EB</div>
+              <div class="use">Main buttons, active nav, active toggle</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #1d4ed8"></div>
+            <div class="info">
+              <div class="name">blue-700 · Hover</div>
+              <div class="hex">#1D4ED8</div>
+              <div class="use">Button hover state</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #3b82f6"></div>
+            <div class="info">
+              <div class="name">blue-500 · Strong</div>
+              <div class="hex">#3B82F6</div>
+              <div class="use">Gradient start, chart line, focus ring</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #eff6ff"></div>
+            <div class="info">
+              <div class="name">blue-50 · Light fill</div>
+              <div class="hex">#EFF6FF</div>
+              <div class="use">Active nav item, selected filter</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group-title">Brand — Secondary accent (teal)</div>
+        <div class="swatches">
+          <div class="sw">
+            <div class="chip" style="background: #0d9488"></div>
+            <div class="info">
+              <div class="name">teal-600 · Accent</div>
+              <div class="hex">#0D9488</div>
+              <div class="use">Teal action buttons, gradient end</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #14b8a6"></div>
+            <div class="info">
+              <div class="name">teal-500 · Light accent</div>
+              <div class="hex">#14B8A6</div>
+              <div class="use">Avatars/logo, chart bars</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #ccfbf1"></div>
+            <div class="info">
+              <div class="name">teal-100 · Light fill</div>
+              <div class="hex">#CCFBF1</div>
+              <div class="use">Role badges, tinted panels</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #0f766e"></div>
+            <div class="info">
+              <div class="name">teal-700 · Text</div>
+              <div class="hex">#0F766E</div>
+              <div class="use">Teal icons &amp; text</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group-title">Neutrals — backgrounds, text, borders</div>
+        <div class="swatches">
+          <div class="sw">
+            <div class="chip" style="background: #f9fafb"></div>
+            <div class="info">
+              <div class="name">gray-50 · Page bg</div>
+              <div class="hex">#F9FAFB</div>
+              <div class="use">App canvas behind cards</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div
+              class="chip"
+              style="background: #ffffff; border-bottom: 1px solid #e5e7eb"
+            ></div>
+            <div class="info">
+              <div class="name">white · Surfaces</div>
+              <div class="hex">#FFFFFF</div>
+              <div class="use">Cards, tables, sidebar, dialogs</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #f3f4f6"></div>
+            <div class="info">
+              <div class="name">gray-100 · Muted</div>
+              <div class="hex">#F3F4F6</div>
+              <div class="use">Table header, info tiles</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #e5e7eb"></div>
+            <div class="info">
+              <div class="name">gray-200 · Borders</div>
+              <div class="hex">#E5E7EB</div>
+              <div class="use">Cards, inputs, dividers</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #6b7280"></div>
+            <div class="info">
+              <div class="name">gray-500 · Muted text</div>
+              <div class="hex">#6B7280</div>
+              <div class="use">Sub-labels, timestamps, placeholders</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #4b5563"></div>
+            <div class="info">
+              <div class="name">gray-600 · Secondary text</div>
+              <div class="hex">#4B5563</div>
+              <div class="use">Body copy, table cells</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #374151"></div>
+            <div class="info">
+              <div class="name">gray-700 · Strong secondary</div>
+              <div class="hex">#374151</div>
+              <div class="use">Descriptions, idle nav</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #111827"></div>
+            <div class="info">
+              <div class="name">gray-900 · Main text</div>
+              <div class="hex">#111827</div>
+              <div class="use">Headings, names, values</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group-title">Semantic — status meanings</div>
+        <div class="swatches">
+          <div class="sw">
+            <div class="chip" style="background: #dcfce7"></div>
+            <div class="info">
+              <div class="name">Green · Success</div>
+              <div class="hex">#DCFCE7 / #15803D</div>
+              <div class="use">Paid, confirmed, completed, normal</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #ffedd5"></div>
+            <div class="info">
+              <div class="name">Orange · Warning</div>
+              <div class="hex">#FFEDD5 / #C2410C</div>
+              <div class="use">Pending, ongoing, moderate</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #fee2e2"></div>
+            <div class="info">
+              <div class="name">Red · Error</div>
+              <div class="hex">#FEE2E2 / #B91C1C</div>
+              <div class="use">Cancelled, overdue, severe, delete</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #dbeafe"></div>
+            <div class="info">
+              <div class="name">Blue · Info</div>
+              <div class="hex">#DBEAFE / #1D4ED8</div>
+              <div class="use">Completed, notices, info tags</div>
+            </div>
+          </div>
+          <div class="sw">
+            <div class="chip" style="background: #f3f4f6"></div>
+            <div class="info">
+              <div class="name">Gray · Neutral</div>
+              <div class="hex">#F3F4F6 / #374151</div>
+              <div class="use">Upcoming, unknown statuses</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="group-title">The brand gradient</div>
+        <div
+          class="gradient-bar"
+          style="background: linear-gradient(135deg, #3b82f6 0%, #14b8a6 100%)"
+        >
+          from-blue-500 to-teal-500 — logos, avatars, icon tiles
+        </div>
+        <div
+          class="gradient-bar"
+          style="
+            background: linear-gradient(90deg, #2563eb 0%, #0d9488 100%);
+            margin-top: 10px;
+          "
+        >
+          from-blue-600 to-teal-600 — hero banners, summary cards
+        </div>
+
+        <div class="notice warn">
+          <div>
+            <strong>Heads up: the CSS token vs. what you see</strong> The CSS
+            file defines <span class="num">--primary</span> as near-black
+            (#030213), but every real button uses blue-600 (#2563EB). The visual
+            system is blue — ignore the dark token.
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ TYPOGRAPHY ============ -->
+      <section>
+        <h2>2. Typography</h2>
+        <p class="sub">
+          Font: system sans-serif (no custom font is loaded). Base size 16px.
+          Only weights 400 and 500 are used.
+        </p>
+        <div class="card">
+          <div class="type-row">
+            <div class="type-meta">Page title · text-2xl · 24px · w500</div>
+            <div class="type-sample" style="font-size: 24px; font-weight: 500">
+              Doctor Dashboard
+            </div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">
+              Hero title · text-2xl/3xl · 24–30px · white
+            </div>
+            <div
+              class="type-sample"
+              style="font-size: 24px; font-weight: 500; color: #2563eb"
+            >
+              Welcome back, Sarah
+            </div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Section heading · text-xl · 20px · w500</div>
+            <div class="type-sample" style="font-size: 20px; font-weight: 500">
+              Personal Information
+            </div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Card title · text-lg · 18px · w500</div>
+            <div class="type-sample" style="font-size: 18px; font-weight: 500">
+              Revenue Overview
+            </div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Stat value · text-3xl · 30px · w500</div>
+            <div class="type-sample" style="font-size: 30px; font-weight: 500">
+              12,450
+            </div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Body · text-sm · 14px · w400</div>
+            <div class="type-sample" style="font-size: 14px">
+              General checkup with Dr. Emily Carter scheduled for today at 2:30
+              PM.
+            </div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Label · text-sm · 14px · w500</div>
+            <div class="type-sample" style="font-size: 14px; font-weight: 500">
+              Full Name
+            </div>
+          </div>
+          <div class="type-row">
+            <div class="type-meta">Caption · text-xs · 12px · w400</div>
+            <div class="type-sample" style="font-size: 12px; color: #6b7280">
+              Aug 9, 2026 · 2:30 PM
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SPACING ============ -->
+      <section>
+        <h2>3. Spacing</h2>
+        <p class="sub">Standard Tailwind 4px scale. Blue bar = actual size.</p>
+        <div class="card">
+          <div class="space-row">
+            <div class="space-label">p-1 = 4px</div>
+            <div class="space-bar" style="width: 4px"></div>
+          </div>
+          <div class="space-row">
+            <div class="space-label">p-2 = 8px</div>
+            <div class="space-bar" style="width: 8px"></div>
+          </div>
+          <div class="space-row">
+            <div class="space-label">p-3 = 12px</div>
+            <div class="space-bar" style="width: 12px"></div>
+          </div>
+          <div class="space-row">
+            <div class="space-label">p-4 = 16px</div>
+            <div class="space-bar" style="width: 16px"></div>
+          </div>
+          <div class="space-row">
+            <div class="space-label">p-5 = 20px</div>
+            <div class="space-bar" style="width: 20px"></div>
+          </div>
+          <div class="space-row">
+            <div class="space-label">p-6 = 24px — card padding</div>
+            <div class="space-bar" style="width: 24px"></div>
+          </div>
+          <div class="space-row">
+            <div class="space-label">p-8 = 32px — page padding</div>
+            <div class="space-bar" style="width: 32px"></div>
+          </div>
+          <div class="space-row">
+            <div class="space-label">gap-6 = 24px — grid gaps</div>
+            <div
+              class="space-bar"
+              style="background: #0d9488; width: 24px"
+            ></div>
+          </div>
+          <div class="space-row">
+            <div class="space-label">space-y-6 = 24px — sections</div>
+            <div
+              class="space-bar"
+              style="background: #0d9488; width: 24px"
+            ></div>
+          </div>
+        </div>
+        <div class="notice">
+          <div>
+            <strong>The 3 numbers to remember</strong><br /><span class="num"
+              >p-8</span
+            >
+            around every page &nbsp;·&nbsp;
+            <span class="num">space-y-6</span> between page sections
+            &nbsp;·&nbsp; <span class="num">p-6</span> inside cards
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ RADIUS ============ -->
+      <section>
+        <h2>4. Corner Radius</h2>
+        <p class="sub">Most common: rounded-lg (8px) and rounded-xl (12px).</p>
+        <div class="card">
+          <div class="radius-row">
+            <div class="radius-box">
+              <div class="box" style="border-radius: 6px"></div>
+              <div>rounded-md · 6px<br />buttons, inputs</div>
+            </div>
+            <div class="radius-box">
+              <div class="box" style="border-radius: 8px"></div>
+              <div>rounded-lg · 8px<br />most common</div>
+            </div>
+            <div class="radius-box">
+              <div class="box" style="border-radius: 12px"></div>
+              <div>rounded-xl · 12px<br />section cards</div>
+            </div>
+            <div class="radius-box">
+              <div class="box" style="border-radius: 16px"></div>
+              <div>rounded-2xl · 16px<br />login card, hero</div>
+            </div>
+            <div class="radius-box">
+              <div class="box" style="border-radius: 999px"></div>
+              <div>rounded-full<br />badges, avatars</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ SHADOWS ============ -->
+      <section>
+        <h2>5. Shadows</h2>
+        <p class="sub">
+          Only 4 levels exist. Cards use shadow-sm; only floating things go
+          higher.
+        </p>
+        <div class="card">
+          <div class="shadow-row">
+            <div class="shadow-box s-sm">shadow-sm<br />default cards</div>
+            <div class="shadow-box s-md">shadow-md<br />card hover</div>
+            <div class="shadow-box s-lg">shadow-lg<br />dropdowns</div>
+            <div class="shadow-box s-xl">shadow-xl<br />login card</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ COMPONENTS ============ -->
+      <section>
+        <h2>6. Components in action</h2>
+        <p class="sub">Real styles, shown as they appear in the app.</p>
+
+        <div class="demo-label">Buttons</div>
+        <div class="demo-row">
+          <span class="btn btn-primary">Primary</span>
+          <span class="btn btn-primary btn-sm">Small</span>
+          <span class="btn btn-outline">Outline</span>
+          <span class="btn btn-ghost">Ghost</span>
+          <span class="btn btn-teal">Teal action</span>
+          <span class="btn btn-red">Delete</span>
+        </div>
+
+        <div class="demo-label">Input + label + helper text</div>
+        <div class="field">
+          <label>Full Name</label>
+          <input class="input" value="Dr. Emily Carter" readonly />
+          <div class="help">Helper text example</div>
+        </div>
+
+        <div class="demo-label">Status badges (the most common pattern)</div>
+        <div class="demo-row">
+          <span class="pill pill-green">Confirmed</span>
+          <span class="pill pill-green">Paid</span>
+          <span class="pill pill-orange">Pending</span>
+          <span class="pill pill-blue">Completed</span>
+          <span class="pill pill-red">Cancelled</span>
+          <span class="pill pill-red">Overdue</span>
+          <span class="pill pill-gray">Upcoming</span>
+          <span class="pill pill-teal">Patient</span>
+          <span class="tag-chip">Service chip</span>
+        </div>
+
+        <div class="demo-label">Standard card with header</div>
+        <div class="preview-card">
+          <div class="hd">
+            <h3>Today&rsquo;s Appointments</h3>
+            <p>8 patients scheduled</p>
+          </div>
+          <div class="bd">
+            Card body content goes here. Uses
+            <span class="num">p-6</span> padding and
+            <span class="num">space-y-4</span> for stacked content.
+          </div>
+        </div>
+
+        <div class="demo-label">Table</div>
+        <div class="preview-card">
+          <table class="preview">
+            <thead>
+              <tr>
+                <th>Patient</th>
+                <th>Time</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Sarah Johnson</td>
+                <td>2:30 PM</td>
+                <td><span class="pill pill-green">Confirmed</span></td>
+              </tr>
+              <tr>
+                <td>Michael Chen</td>
+                <td>3:00 PM</td>
+                <td><span class="pill pill-orange">Pending</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="demo-label">
+          Tabs (with the white override used in pages)
+        </div>
+        <div class="demo-row">
+          <div class="tabs-demo">
+            <button class="on">Login</button><button>Register</button>
+          </div>
+        </div>
+
+        <div class="demo-label">Segmented toggle (active = blue)</div>
+        <div class="demo-row">
+          <div class="segmented">
+            <button>Calendar</button><button class="on">List</button>
+          </div>
+        </div>
+
+        <div class="demo-label">Empty state pattern</div>
+        <div class="preview-card">
+          <div class="bd" style="text-align: center; color: #6b7280">
+            <div
+              style="
+                width: 48px;
+                height: 48px;
+                margin: 0 auto 12px;
+                border-radius: 8px;
+                background: #f3f4f6;
+              "
+            ></div>
+            No invoices found<br /><small>Try changing your filters</small>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============ LAYOUT ============ -->
+      <section>
+        <h2>7. Layout quick facts</h2>
+        <p class="sub">The page grid that everything follows.</p>
+        <div class="card">
+          <table class="tokens">
+            <tr>
+              <td>Sidebar</td>
+              <td>
+                256px wide (<span class="num">w-64</span>), white, slides in on
+                mobile below <span class="num">lg</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Page padding</td>
+              <td><span class="num">p-8</span> on every page</td>
+            </tr>
+            <tr>
+              <td>Content width</td>
+              <td>
+                <span class="num">max-w-7xl</span> (1280px) centered on patient
+                pages
+              </td>
+            </tr>
+            <tr>
+              <td>Stats grid</td>
+              <td>
+                1 → 2 → 4 columns at mobile / <span class="num">md</span> /
+                <span class="num">lg</span>
+              </td>
+            </tr>
+            <tr>
+              <td>Two-up charts</td>
+              <td>1 → 2 columns at <span class="num">lg</span></td>
+            </tr>
+            <tr>
+              <td>Dashboard body</td>
+              <td>
+                <span class="num">lg:grid-cols-3</span> — big column (2/3) +
+                stacked card rail (1/3)
+              </td>
+            </tr>
+            <tr>
+              <td>Master-detail</td>
+              <td>
+                <span class="num">lg:grid-cols-4</span> — list (1/4) + detail
+                (3/4)
+              </td>
+            </tr>
+            <tr>
+              <td>Icon sizes</td>
+              <td>
+                <span class="num">w-4</span> inline ·
+                <span class="num">w-5</span> nav ·
+                <span class="num">w-6</span> stat tiles ·
+                <span class="num">w-8</span> empty state
+              </td>
+            </tr>
+            <tr>
+              <td>Breakpoints used</td>
+              <td>
+                only <span class="num">md</span> (768px) and
+                <span class="num">lg</span> (1024px)
+              </td>
+            </tr>
+          </table>
+        </div>
+      </section>
+
+      <!-- ============ REUSE ============ -->
+      <section>
+        <h2>8. How to build a new page (plain-English rules)</h2>
+        <p class="sub">From the 16-point Reuse Guide in DESIGN_SYSTEM.md.</p>
+        <div class="card">
+          <ul class="plain">
+            <li>
+              <strong>Shell:</strong> wrap the page in
+              <span class="num">p-8 space-y-6</span> (add
+              <span class="num">max-w-7xl mx-auto</span> for patient pages).
+            </li>
+            <li>
+              <strong>Cards:</strong> white, 12px radius, thin gray border,
+              <span class="num">shadow-sm</span>,
+              <span class="num">p-6</span> body.
+            </li>
+            <li>
+              <strong>Page header:</strong> big title left, action buttons
+              right.
+            </li>
+            <li>
+              <strong>Buttons:</strong> use the shared Button; override to
+              <span class="num">bg-blue-600</span> for primary,
+              <span class="num">variant="outline"</span> for secondary.
+            </li>
+            <li>
+              <strong>Badges:</strong> pill =
+              <span class="num">bg-{color}-100 text-{color}-700</span>.
+              Green=success, orange=warning, blue=info, red=error, gray=neutral.
+            </li>
+            <li>
+              <strong>Forms:</strong> shadcn Input/Label/Select/Dialog. Fields
+              stack in <span class="num">space-y-4</span>, two columns via
+              <span class="num">grid-cols-2</span>.
+            </li>
+            <li>
+              <strong>Gradients:</strong> blue&rarr;teal is the only brand color
+              moment. Use it for logos, avatars, hero banners, summary cards.
+            </li>
+            <li>
+              <strong>Icons:</strong> lucide-react only, stroke style, sized
+              <span class="num">w-4</span> to <span class="num">w-6</span>.
+            </li>
+            <li>
+              <strong>Don&rsquo;t add:</strong> new fonts, new colors, new
+              radius/shadow scales, or new component libraries.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- ============ QUIRKS ============ -->
+      <section>
+        <h2>9. Known quirks (left as-is)</h2>
+        <p class="sub">
+          Documented in DESIGN_SYSTEM.md §18 — not bugs to fix right now, just
+          things to know.
+        </p>
+        <div class="card">
+          <ul class="plain">
+            <li>
+              <strong>Two color systems:</strong> the CSS token
+              <span class="num">--primary</span> is near-black, but the app
+              visually uses blue-600. Blue is what you see.
+            </li>
+            <li>
+              <strong>Dark mode isn&rsquo;t wired up:</strong> dark theme values
+              exist in CSS but nothing ever switches to them — the app is
+              light-mode only.
+            </li>
+            <li>
+              <strong>Duplicated CSS files:</strong> four theme files hold the
+              same tokens.
+            </li>
+            <li>
+              <strong>Mixed form fields:</strong> some pages use shadcn inputs
+              (gray fill, 6px corners), others use raw HTML inputs (white fill,
+              8px corners). Both appear.
+            </li>
+            <li>
+              <strong>One broken class:</strong> Doctor Dashboard status dots
+              use a dynamic class name Tailwind can&rsquo;t build — they render
+              without color.
+            </li>
+            <li>
+              <strong>~38 unused components:</strong> Badge, Card, Avatar,
+              Table, etc. exist in the codebase but are never imported; the
+              pages hand-roll those patterns instead.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <div class="footer">
+        Generated from DESIGN_SYSTEM.md — the single source of truth. No
+        application code was modified.
+      </div>
+    </div>
+  </body>
+</html>
