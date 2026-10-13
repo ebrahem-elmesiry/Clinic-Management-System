@@ -1,3 +1,4 @@
+import WrapperComponent from "@/shared/components/WrapperComponent";
 import {
   LineChart,
   Line,
@@ -14,15 +15,10 @@ interface RevenueChartProps {
 
 export default function RevenueChart({ data }: RevenueChartProps) {
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
-      <div className="mb-6">
-        <h2 className="text-lg text-gray-900 dark:text-slate-100">
-          Revenue Overview
-        </h2>
-        <p className="text-sm text-gray-500 dark:text-slate-400">
-          Last 6 months performance
-        </p>
-      </div>
+    <WrapperComponent
+      title="Revenue Overview"
+      description="Last 6 months performance"
+    >
       <ResponsiveContainer width="100%" height={300}>
         <LineChart data={data}>
           <CartesianGrid
@@ -47,6 +43,6 @@ export default function RevenueChart({ data }: RevenueChartProps) {
           />
         </LineChart>
       </ResponsiveContainer>
-    </div>
+    </WrapperComponent>
   );
 }

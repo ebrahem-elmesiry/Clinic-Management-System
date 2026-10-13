@@ -9,6 +9,7 @@ import MedicationsPrescription from "@/role/doctor/components/VisitNote/Medicati
 import DoctorNotes from "@/role/doctor/components/VisitNote/DoctorNotes";
 import FollowUp from "@/role/doctor/components/VisitNote/FollowUp";
 import RecentVisits from "@/role/doctor/components/VisitNote/RecentVisits";
+import Diagnosis from "./Diagnosis";
 
 type VisitStatusValue = "scheduled" | "completed" | "cancelled";
 
@@ -35,7 +36,9 @@ export default function VisitNotesPage() {
   return (
     <div className="p-8 space-y-6">
       <div>
-        <h1 className="text-2xl text-gray-900 dark:text-slate-100 mb-2">Visit Notes</h1>
+        <h1 className="text-2xl text-gray-900 dark:text-slate-100 mb-2">
+          Visit Notes
+        </h1>
         <p className="text-gray-600 dark:text-slate-300">
           Record medications, prescription, visit outcome, and follow-up plan
         </p>
@@ -46,6 +49,7 @@ export default function VisitNotesPage() {
           <PatientInformation />
           <VisitStatus status={status} onStatusChange={setStatus} />
           <MedicationsPrescription />
+          <Diagnosis />
           <DoctorNotes />
           <FollowUp />
 
@@ -53,10 +57,7 @@ export default function VisitNotesPage() {
             <Button variant="outline" className="flex-1">
               Save as Draft
             </Button>
-            <Button
-              className="flex-1"
-              onClick={() => setStatus("completed")}
-            >
+            <Button className="flex-1" onClick={() => setStatus("completed")}>
               <CheckCircle2 className="w-4 h-4 mr-2" />
               Complete Visit
             </Button>

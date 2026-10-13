@@ -1,3 +1,4 @@
+import WrapperComponent from "@/shared/components/WrapperComponent";
 import {
   BarChart,
   Bar,
@@ -14,15 +15,10 @@ interface AppointmentsChartProps {
 
 export default function AppointmentsChart({ data }: AppointmentsChartProps) {
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
-      <div className="mb-6">
-        <h2 className="text-lg text-gray-900 dark:text-slate-100">
-          Weekly Appointments
-        </h2>
-        <p className="text-sm text-gray-500 dark:text-slate-400">
-          Current week statistics
-        </p>
-      </div>
+    <WrapperComponent
+      title="Weekly Appointments"
+      description="Current week statistics"
+    >
       <ResponsiveContainer width="100%" height={300}>
         <BarChart data={data}>
           <CartesianGrid
@@ -41,6 +37,6 @@ export default function AppointmentsChart({ data }: AppointmentsChartProps) {
           <Bar dataKey="appointments" fill="#14B8A6" radius={[8, 8, 0, 0]} />
         </BarChart>
       </ResponsiveContainer>
-    </div>
+    </WrapperComponent>
   );
 }

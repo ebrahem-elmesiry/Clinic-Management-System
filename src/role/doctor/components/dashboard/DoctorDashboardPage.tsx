@@ -10,34 +10,34 @@ import RecentPatients from "@/role/doctor/components/dashboard/RecentPatients";
 export default function DoctorDashboard() {
   const stats = [
     {
-      title: "Today's Appointments",
+      title: "Today's Appointments" as const,
       value: '12',
-      change: '+3 from yesterday',
+      changeValue: '+3',
+      changeLabel: 'from yesterday',
       icon: Calendar,
-      color: 'blue',
     },
     {
-      title: 'Total Patients',
+      title: 'Total Patients' as const,
       value: '248',
-      change: '+12 this week',
+      changeValue: '+12',
+      changeLabel: 'this week',
       icon: Users,
-      color: 'teal',
     },
     {
-      title: 'Pending Reviews',
+      title: 'Pending Reviews' as const,
       value: '8',
-      change: '3 urgent',
+      changeValue: '3',
+      changeLabel: 'urgent',
       icon: Clock,
-      color: 'orange',
     },
     {
-      title: 'Completed Today',
+      title: 'Completed Today' as const,
       value: '7',
-      change: '58% completion rate',
+      changeValue: '58%',
+      changeLabel: 'completion rate',
       icon: CheckCircle,
-      color: 'green',
     },
-  ] as const;
+  ];
 
   const todaysAppointments = [
     { id: 1, time: '09:00 AM', patient: 'John Smith', reason: 'Regular Checkup', status: 'completed' as const },

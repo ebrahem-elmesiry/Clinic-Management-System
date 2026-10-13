@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import WrapperComponent from "@/shared/components/WrapperComponent";
 
 interface RecentVisit {
   id: number;
@@ -16,11 +17,8 @@ interface RecentVisitsProps {
 
 export default function RecentVisits({ visits }: RecentVisitsProps) {
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700">
-      <div className="p-6 border-b border-gray-200 dark:border-slate-700">
-        <h2 className="text-lg text-gray-900 dark:text-slate-100">Recent Visits</h2>
-      </div>
-      <div className="p-6 space-y-4">
+    <WrapperComponent title="Recent Visits">
+      <div className="space-y-4">
         {visits.map((visit) => (
           <div
             key={visit.id}
@@ -47,6 +45,6 @@ export default function RecentVisits({ visits }: RecentVisitsProps) {
           </div>
         ))}
       </div>
-    </div>
+    </WrapperComponent>
   );
 }

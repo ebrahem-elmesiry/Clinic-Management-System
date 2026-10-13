@@ -4,11 +4,11 @@ import React from "react";
 import { Search, User } from "lucide-react";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
+import WrapperComponent from "@/shared/components/WrapperComponent";
 
 export default function PatientInformation() {
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
-      <h2 className="text-lg text-gray-900 dark:text-slate-100 mb-4">Patient Information</h2>
+    <WrapperComponent title="Patient Information">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <Label htmlFor="patient">Select Patient</Label>
@@ -44,6 +44,6 @@ export default function PatientInformation() {
           </div>
         </div>
       </div>
-    </div>
+    </WrapperComponent>
   );
 }

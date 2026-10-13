@@ -1,36 +1,71 @@
 "use client";
 
-import React from "react";
 import { Camera, User } from "lucide-react";
+import { Button } from "../../ui/button";
+import { Input } from "../../ui/input";
+import { Label } from "../../ui/label";
+import AvatarUploadHook from "@/role/admin/hooks/AvatarUploadHook";
+import Image from "next/image";
 
 interface AvatarUploadProps {
-  name: string;
+  userName: { firstName: string; lastName: string };
   userRole: string | null;
 }
 
-export default function AvatarUpload({ name, userRole }: AvatarUploadProps) {
+export default function AvatarUpload({
+  userName,
+  userRole,
+}: AvatarUploadProps) {
+  const { avatar, handleFileChange, handleRemove } = AvatarUploadHook();
+
   return (
-    <div className="flex items-center gap-6 mb-8">
+    <div className="flex items-center max-sm:flex-col gap-6 mb-8">
       <div className="relative">
-        <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center">
-          <User className="w-12 h-12 text-white" />
+        <div className="w-24 h-24 bg-linear-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center overflow-hidden">
+          {avatar ? (
+            <Image
+              priority
+              src={avatar}
+              width={200}
+              height={200}
+              alt={userName.firstName + " " + userName.lastName}
+              className="w-full h-full object-cover"
+            />
+          ) : (
+            <User className="w-12 h-12 text-white" />
+          )}
         </div>
-        <button className="absolute -bottom-1 -right-1 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 shadow-md">
+        <Label
+          htmlFor="image-avatar"
+          className="absolute -bottom-1 -right-1 w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center hover:bg-blue-700 shadow-md cursor-pointer"
+        >
           <Camera className="w-4 h-4" />
-        </button>
+        </Label>
       </div>
       <div>
-        <h3 className="text-gray-900 dark:text-slate-100 mb-1">{name}</h3>
+        <h3 className="text-gray-900 dark:text-slate-100 mb-1">
+          {userName.firstName + " " + userName.lastName}
+        </h3>
         <p className="text-sm text-gray-500 dark:text-slate-400 capitalize mb-3">
           {userRole} Account
         </p>
-        <div className="flex gap-2">
-          <button className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+        <div className="flex flex-wrap gap-2">
+          <Input
+            type="file"
+            id="image-avatar"
+            hidden
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+          <Label
+            htmlFor="image-avatar"
+            className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 cursor-pointer"
+          >
             Upload Photo
-          </button>
-          <button className="px-4 py-2 text-sm border border-gray-300 dark:border-slate-600 text-gray-600 dark:text-slate-400 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-700/50">
+          </Label>
+          <Button variant="outline" onClick={handleRemove} disabled={!avatar}>
             Remove
-          </button>
+          </Button>
         </div>
       </div>
     </div>

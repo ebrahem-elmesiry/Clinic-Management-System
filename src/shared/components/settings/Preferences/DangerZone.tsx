@@ -1,8 +1,8 @@
-"use client";
-
 import { Trash2 } from "lucide-react";
+import { Button } from "../../ui/button";
 
 export default function DangerZone() {
+  function DeleteAccount() {}
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-red-200 dark:border-red-900/50 p-6">
       <h2 className="text-lg text-red-700 dark:text-red-400 mb-2">
@@ -24,9 +24,9 @@ export default function DangerZone() {
               </p>
             </div>
           </div>
-          <button className="px-4 py-2 bg-red-600 dark:bg-red-700 text-white text-sm rounded-lg hover:bg-red-700 dark:hover:bg-red-600">
+          <Button onClick={DeleteAccount} variant={"danger"}>
             Delete
-          </button>
+          </Button>
         </div>
       </div>
     </div>

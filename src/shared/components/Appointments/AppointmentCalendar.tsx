@@ -1,137 +1,69 @@
-"use client";
-
-import React, { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-
-export interface CalendarAppointment {
-  id: number;
-  patientId: string;
-  time: string;
-  patient: string;
-  doctor: string;
-  type: string;
-  status: string;
-  date: string;
-}
+import { Calendar, CalendarDayButton } from "@/shared/components/ui/calendar";
+import type { DayButtonProps } from "react-day-picker";
+import { toDateKey } from "@/role/admin/hooks/AppointmentCalendarHook";
+import { Dispatch, SetStateAction } from "react";
 
 interface AppointmentCalendarProps {
-  appointments: CalendarAppointment[];
-}
-
-function useCalendar() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const getDaysInMonth = (date: Date) => {
-    const year = date.getFullYear();
-    const month = date.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const days: (number | null)[] = [];
-    for (let i = 0; i < firstDay.getDay(); i++) days.push(null);
-    for (let i = 1; i <= lastDay.getDate(); i++) days.push(i);
-    return days;
-  };
-  const days = getDaysInMonth(selectedDate);
-  const monthName = selectedDate.toLocaleString("default", {
-    month: "long",
-    year: "numeric",
-  });
-  const prevMonth = () =>
-    setSelectedDate(
-      new Date(selectedDate.getFullYear(), selectedDate.getMonth() - 1),
-    );
-  const nextMonth = () =>
-    setSelectedDate(
-      new Date(selectedDate.getFullYear(), selectedDate.getMonth() + 1),
-    );
-  const goToday = () => setSelectedDate(new Date());
-  return { selectedDate, days, monthName, prevMonth, nextMonth, goToday };
+  month: Date;
+  setMonth: Dispatch<SetStateAction<Date>>;
+  handleDay: (date: Date, outside: boolean) => void;
+  appointmentDays: string[];
 }
 
 export default function AppointmentCalendar({
-  appointments,
+  month,
+  setMonth,
+  handleDay,
+  appointmentDays,
 }: AppointmentCalendarProps) {
-  const { selectedDate, days, monthName, prevMonth, nextMonth, goToday } =
-    useCalendar();
-  const today = new Date();
-
-  const countByDay: Record<number, number> = {};
-  appointments.forEach((a) => {
-    const d = new Date(a.date);
-    if (
-      d.getFullYear() === selectedDate.getFullYear() &&
-      d.getMonth() === selectedDate.getMonth()
-    ) {
-      countByDay[d.getDate()] = (countByDay[d.getDate()] ?? 0) + 1;
-    }
-  });
-
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
-      <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl text-gray-900 dark:text-gray-100">{monthName}</h2>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={prevMonth}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
-          >
-            <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-          </button>
-          <button
-            onClick={goToday}
-            className="px-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700"
-          >
-            Today
-          </button>
-          <button
-            onClick={nextMonth}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg"
-          >
-            <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-          </button>
-        </div>
-      </div>
+    <Calendar
+      month={month}
+      onMonthChange={setMonth}
+      weekStartsOn={0}
+      showOutsideDays={true}
+      className="w-full min-w-120 p-0"
+      onDayClick={(date, modifiers) => void handleDay(date, modifiers.outside)}
+      classNames={{
+        root: "w-full dark:bg-slate-800 rounded-lg",
+        months: "w-full",
+        month: "w-full",
+        month_grid: "w-full border-collapse",
+        day: "h-[118px] w-full p-1 align-top hover:dark:bg-slate-900 rounded-md duration-300",
+        nav: "hidden",
+        button_previous: "hidden",
+        button_next: "hidden",
+        today: "dark:bg-slate-900",
+      }}
+      components={{
+        DayButton: (props: DayButtonProps) => {
+          const outside = props.modifiers.outside;
+          const isToday = props.modifiers.today;
+          const dayKey = toDateKey(props.day.date);
+          const booked = !outside && appointmentDays.includes(dayKey);
 
-      <div className="grid grid-cols-7 gap-px bg-gray-200 dark:bg-gray-700 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-        {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map((d) => (
-          <div key={d} className="bg-gray-50 dark:bg-gray-900 p-3 text-center">
-            <span className="text-sm text-gray-600 dark:text-gray-400">{d}</span>
-          </div>
-        ))}
-        {days.map((day, index) => {
-          const isToday =
-            day === today.getDate() &&
-            selectedDate.getMonth() === today.getMonth() &&
-            selectedDate.getFullYear() === today.getFullYear();
-          const count = day ? (countByDay[day] ?? 0) : 0;
           return (
             <div
-              key={index}
-              className={`bg-white dark:bg-gray-800 p-3 min-h-[100px] ${day ? "hover:bg-blue-50 dark:hover:bg-blue-900/20 cursor-pointer" : ""}`}
+              className={`group relative bg-white dark:bg-slate-900 p-2.5 min-h-29.5 border border-gray-200 dark:border-slate-800 rounded-lg transition-all hover:shadow-md hover:border-blue-200 dark:hover:border-blue-700 ${outside ? "opacity-45 bg-gray-50 dark:bg-slate-900/40" : ""}`}
             >
-              {day && (
-                <>
-                  <span
-                    className={`text-sm ${
-                      isToday
-                        ? "w-7 h-7 bg-blue-600 text-white rounded-full inline-flex items-center justify-center"
-                        : "text-gray-900 dark:text-gray-100"
-                    }`}
-                  >
-                    {day}
-                  </span>
-                  {count > 0 && (
-                    <div className="mt-1 space-y-1">
-                      <div className="text-xs bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 px-2 py-1 rounded truncate">
-                        {count} {count === 1 ? "appointment" : "appointments"}
-                      </div>
-                    </div>
+              <div className="flex h-7 items-center justify-center">
+                <div className="relative">
+                  {booked && (
+                    <span
+                      aria-hidden
+                      className="pointer-events-none absolute -inset-0.5 rounded-full border-2 border-blue-500/70 dark:border-violet-400/70"
+                    />
                   )}
-                </>
-              )}
+                  <CalendarDayButton
+                    {...props}
+                    className={`w-7 h-7 min-w-0 inline-flex items-center justify-center rounded-full text-[13px] font-medium ${isToday ? "bg-blue-600 text-white shadow-md ring-2 ring-blue-200 dark:bg-linear-to-br dark:from-violet-600 dark:to-indigo-600 dark:text-white dark:ring-violet-900 dark:ring-2 bg-linear-to-br from-blue-600 to-teal-500" : "text-gray-700 dark:text-slate-300 group-hover:text-blue-600 dark:group-hover:text-violet-400"}`}
+                  />
+                </div>
+              </div>
             </div>
           );
-        })}
-      </div>
-    </div>
+        },
+      }}
+    />
   );
 }

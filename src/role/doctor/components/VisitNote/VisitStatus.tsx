@@ -4,6 +4,7 @@ import React from "react";
 import { XCircle } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import { Label } from "@/shared/components/ui/label";
+import WrapperComponent from "@/shared/components/WrapperComponent";
 import {
   Select,
   SelectContent,
@@ -39,26 +40,23 @@ export default function VisitStatus({
     setShowCancel(false);
   };
 
+  const statusBadge =
+    status === "cancelled" ? (
+      <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 text-xs rounded-full">
+        Cancelled
+      </span>
+    ) : status === "completed" ? (
+      <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 text-xs rounded-full">
+        Completed
+      </span>
+    ) : (
+      <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-500 text-xs rounded-full">
+        Scheduled
+      </span>
+    );
+
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg text-gray-900 dark:text-slate-100">
-          Visit Status
-        </h2>
-        {status === "cancelled" ? (
-          <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 text-xs rounded-full">
-            Cancelled
-          </span>
-        ) : status === "completed" ? (
-          <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 text-xs rounded-full">
-            Completed
-          </span>
-        ) : (
-          <span className="px-3 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-500 text-xs rounded-full">
-            Scheduled
-          </span>
-        )}
-      </div>
+    <WrapperComponent title="Visit Status" showButton Button={statusBadge}>
 
       {status === "cancelled" ? (
         <div className="p-4 bg-red-50 dark:bg-red-900/20 rounded-lg border border-red-200 dark:border-red-800/50 flex items-start gap-3">
@@ -132,6 +130,6 @@ export default function VisitStatus({
           )}
         </>
       )}
-    </div>
+    </WrapperComponent>
   );
 }

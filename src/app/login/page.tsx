@@ -17,7 +17,7 @@ export default function LoginRoute() {
 
   useEffect(() => {
     if (isLoggedIn) {
-      router.replace(roleHome[role || "patient"]);
+      router.replace(roleHome[role!]);
     }
   }, [role, isLoggedIn, router]);
 

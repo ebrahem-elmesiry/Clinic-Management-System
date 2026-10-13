@@ -1,5 +1,7 @@
+import Link from "next/link";
 import { actionColorClass } from "../../constants";
 import { QuickAction } from "../../types/type";
+import WrapperComponent from "@/shared/components/WrapperComponent";
 
 interface QuickActionsProps {
   actions: QuickAction[];
@@ -7,16 +9,14 @@ interface QuickActionsProps {
 
 export default function QuickActions({ actions }: QuickActionsProps) {
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
-      <h2 className="text-lg text-gray-900 dark:text-slate-100 mb-4">
-        Quick Actions
-      </h2>
+    <WrapperComponent title="Quick Actions">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
         {actions.map((action, index) => {
           const Icon = action.icon;
           return (
-            <button
+            <Link
               key={index}
+              href={action.href}
               className="flex flex-col items-center p-4 border-2 border-gray-200 dark:border-slate-700 rounded-xl hover:border-blue-500 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-all group"
             >
               <div
@@ -27,10 +27,10 @@ export default function QuickActions({ actions }: QuickActionsProps) {
               <p className="text-sm text-gray-900 dark:text-slate-100 group-hover:text-blue-600">
                 {action.label}
               </p>
-            </button>
+            </Link>
           );
         })}
       </div>
-    </div>
+    </WrapperComponent>
   );
 }

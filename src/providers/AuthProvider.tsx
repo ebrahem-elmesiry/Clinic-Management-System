@@ -1,8 +1,8 @@
 "use client";
 
-import React, { createContext, useCallback, useContext, useState } from "react";
-
-export type UserRole = "doctor" | "admin" | "patient";
+import { UserRole } from "@/shared/types/type";
+import { useRouter } from "next/navigation";
+import React, { createContext, useContext, useState } from "react";
 
 interface AuthContextValue {
   role: UserRole | null;
@@ -14,20 +14,20 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [role, setRole] = useState<UserRole | null>(null);
+  const router = useRouter();
 
-  const login = useCallback((nextRole: UserRole) => {
+  const [role, setRole] = useState<UserRole | null>("admin");
+  const login = (nextRole: UserRole) => {
     setRole(nextRole);
-  }, []);
+  };
 
-  const logout = useCallback(() => {
+  const logout = () => {
+    router.push("/login");
     setRole(null);
-  }, []);
+  };
 
   return (
-    <AuthContext.Provider
-      value={{ role, isLoggedIn: role !== null, login, logout }}
-    >
+    <AuthContext.Provider value={{ role, isLoggedIn: !!role, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

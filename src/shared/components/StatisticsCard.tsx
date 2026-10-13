@@ -1,5 +1,5 @@
 import { colorClasses } from "@/role/admin/constants";
-import { StatisticsCardType } from "@/role/admin/types/type";
+import { StatisticsAdminDashboardType } from "@/role/admin/types/type";
 
 export default function StatisticsCard({
   title,
@@ -7,7 +7,7 @@ export default function StatisticsCard({
   changeLabel,
   changeValue,
   icon: Icon,
-}: StatisticsCardType) {
+}: StatisticsAdminDashboardType) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
       <div className="flex items-start justify-between">

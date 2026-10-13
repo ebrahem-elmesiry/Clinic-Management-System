@@ -5,6 +5,7 @@ import { Plus, Trash2 } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
+import WrapperComponent from "@/shared/components/WrapperComponent";
 import {
   Select,
   SelectContent,
@@ -45,16 +46,16 @@ export default function MedicationsPrescription() {
   };
 
   return (
-    <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
-      <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg text-gray-900 dark:text-slate-100">
-          Medications & Prescription
-        </h2>
+    <WrapperComponent
+      title="Medications & Prescription"
+      showButton
+      Button={
         <Button onClick={addMedicine} variant="outline" size="sm">
           <Plus className="w-4 h-4 mr-2" />
           Add Medicine
         </Button>
-      </div>
+      }
+    >
 
       <div className="space-y-4">
         {medicines.map((medicine, index) => (
@@ -152,6 +153,6 @@ export default function MedicationsPrescription() {
           </div>
         ))}
       </div>
-    </div>
+    </WrapperComponent>
   );
 }

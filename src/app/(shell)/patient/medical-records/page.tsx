@@ -7,9 +7,9 @@ import {
   TabsList,
   TabsTrigger,
 } from "@/shared/components/ui/tabs";
-import VisitHistory from "@/shared/components/PatientMedicalRecords/VisitHistory";
-import Vitals from "@/shared/components/PatientMedicalRecords/Vitals";
-import Prescriptions from "@/shared/components/PatientMedicalRecords/Prescriptions";
+import VisitHistory from "@/shared/components/PatientMedicalRecords/VisitHistory/VisitHistory";
+import Vitals from "@/shared/components/PatientMedicalRecords/Vitals/Vitals";
+import Prescriptions from "@/shared/components/PatientMedicalRecords/Prescriptions/Prescriptions";
 import PageHero from "@/shared/components/PageHero";
 
 const visits = [
@@ -18,7 +18,16 @@ const visits = [
     doctor: "Dr. Sarah Johnson",
     reason: "Regular Checkup",
     diagnosis: "Stable condition, blood pressure normal",
-    prescription: "Continue current medication",
+    prescription: [
+      {
+        medicineName: "Lisinopril 10mg",
+        dosage: "1 tablet",
+        frequency: "Once daily",
+        timing: "After meals",
+        duration: "30 days",
+        specialInstructions: "Continue current medication",
+      },
+    ],
     followUp: "None required",
   },
   {
@@ -26,7 +35,16 @@ const visits = [
     doctor: "Dr. Michael Chen",
     reason: "Consultation - Chest Pain",
     diagnosis: "Anxiety-related chest pain, ECG normal",
-    prescription: "Prescribed relaxation exercises",
+    prescription: [
+      {
+        medicineName: "Propranolol 10mg",
+        dosage: "1 tablet",
+        frequency: "As needed",
+        timing: "Anytime",
+        duration: "14 days",
+        specialInstructions: "Prescribed relaxation exercises",
+      },
+    ],
     followUp: "2 weeks",
   },
   {
@@ -34,7 +52,15 @@ const visits = [
     doctor: "Dr. Sarah Johnson",
     reason: "Blood Sugar Monitoring",
     diagnosis: "Blood sugar levels within target range",
-    prescription: "Continue Metformin 500mg",
+    prescription: [
+      {
+        medicineName: "Metformin 500mg",
+        dosage: "1 tablet",
+        frequency: "Twice daily",
+        timing: "With meals",
+        duration: "30 days",
+      },
+    ],
     followUp: "1 month",
   },
 ];

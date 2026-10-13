@@ -1,25 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Bell, Menu, User } from "lucide-react";
+import { Bell, User } from "lucide-react";
 import Search from "./Search";
 import LogoutButton from "./LogoutButton";
 import DarkModeToggle from "./DarkModeToggle";
 import Avatar from "@/shared/components/Avatar";
+import MobileSidebar from "../sidebar/MobileSidebar";
+import { useAuth } from "@/providers/AuthProvider";
 
-type UserRole = "doctor" | "admin" | "patient";
-
-interface HeaderProps {
-  userRole: UserRole | null;
-  onLogout: () => void;
-  onMenuToggle: () => void;
-}
-
-export default function Header({
-  userRole,
-  onLogout,
-  onMenuToggle,
-}: HeaderProps) {
+export default function Header() {
+  const { role, logout } = useAuth();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
 
@@ -45,24 +36,17 @@ export default function Header({
   ];
 
   const userName =
-    userRole === "doctor"
+    role === "doctor"
       ? "Dr. Sarah Johnson"
-      : userRole === "admin"
+      : role === "admin"
         ? "Admin User"
         : "John Doe";
-
   return (
-    <header className="bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
+    <header className="sticky top-0 z-40 md:ml-60 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
       <div className="flex items-center justify-between">
         {/* Left side - Menu & Search */}
         <div className="flex items-center gap-4 flex-1">
-          <button
-            onClick={onMenuToggle}
-            className="lg:hidden p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg"
-          >
-            <Menu className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-          </button>
-
+          <MobileSidebar />
           <Search />
         </div>
 
@@ -132,7 +116,7 @@ export default function Header({
                   {userName}
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
-                  {userRole}
+                  {role}
                 </p>
               </div>
             </button>
@@ -149,7 +133,7 @@ export default function Header({
                       {userName}
                     </p>
                     <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">
-                      {userRole} Account
+                      {role} Account
                     </p>
                   </div>
                   <div className="p-2">
@@ -159,7 +143,7 @@ export default function Header({
                         My Profile
                       </span>
                     </button>
-                    <LogoutButton onLogout={onLogout} />
+                    <LogoutButton onLogout={logout} />
                   </div>
                 </div>
               </>

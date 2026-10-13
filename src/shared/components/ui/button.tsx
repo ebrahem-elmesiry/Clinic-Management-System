@@ -20,10 +20,13 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-gray-100 text-gray-900 dark:text-gray-100 dark:hover:bg-gray-800",
         link: "text-blue-600 underline-offset-4 hover:underline dark:text-blue-400",
-        teal:
-          "bg-teal-600 text-white hover:bg-teal-700 dark:bg-teal-700 dark:hover:bg-teal-800",
+        teal: "bg-teal-600 text-white hover:bg-teal-700 dark:bg-teal-700 dark:hover:bg-teal-800",
         success:
           "bg-green-600 text-white hover:bg-green-700 dark:bg-green-700 dark:hover:bg-green-800",
+        danger:
+          "bg-red-600 dark:bg-red-800 text-white hover:bg-red-700 dark:hover:bg-red-700",
+        "outline-danger":
+          "text-red-700 border border-red-700 hover:bg-red-100 dark:text-red-400 dark:border-red-500 dark:hover:bg-red-950",
       },
       size: {
         xs: "h-7 rounded-md gap-1 px-2 text-xs has-[>svg]:px-1.5",

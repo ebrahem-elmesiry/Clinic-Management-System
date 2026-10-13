@@ -41,7 +41,7 @@
       .board-header p { font-size: 13px; color: var(--gray-500); }
       .board-header a { color: var(--blue-600); text-decoration: none; font-size: 13px; }
       .board-header a:hover { text-decoration: underline; }
-      .wrap { max-width: 1280px; margin: 0 auto; padding: 0 24px; }
+      .wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
 
       /* ── Groups & artboards ───────────────────────── */
       .group { margin-bottom: 64px; }
@@ -49,19 +49,19 @@
       .group-title .chip { width: 26px; height: 26px; border-radius: 7px; background: linear-gradient(135deg, var(--blue-500), var(--blue-700)); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 12px; }
       .group-title .bar { flex: 1; height: 1px; background: rgba(17, 24, 39, 0.15); }
 
-      .artboards { display: flex; flex-wrap: wrap; gap: 26px; align-items: flex-start; }
-      .artboard { width: 560px; border-radius: 12px; overflow: hidden; margin-bottom: 28px; border: 1px solid var(--gray-200); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.10); background: #fff; }
-      .artboard.tall .screen { height: 700px; }
+      .artboards { display: flex; flex-direction: column; gap: 32px; align-items: center; }
+      .artboard { width: 980px; max-width: 100%; border-radius: 14px; overflow: hidden; margin-bottom: 0; border: 1px solid var(--gray-200); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12); background: #fff; }
+      .artboard.tall .screen { height: 760px; }
       .art-label { display: flex; align-items: center; gap: 12px; padding: 10px 16px; background: #f4f5f7; border-bottom: 1px solid var(--gray-200); font-size: 13px; }
       .art-label .art-name { font-weight: 600; color: var(--gray-900); }
       .art-label .art-route { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12px; color: var(--blue-600); background: var(--blue-50); border: 1px solid var(--blue-100); padding: 2px 8px; border-radius: 6px; }
       .art-label .art-note { margin-left: auto; font-size: 11px; color: var(--gray-500); }
 
-      .screen { height: 620px; overflow: hidden; }
+      .screen { height: 680px; overflow: hidden; }
       .app { height: 100%; display: flex; }
 
-      /* ── App chrome: sidebar (narrowed to fit 2-up frames) ──── */
-      .side { width: 132px; flex-shrink: 0; border-right: 1px solid var(--gray-200); background: #fff; display: flex; flex-direction: column; }
+      /* ── App chrome: sidebar (widened for single-column large view) ──── */
+      .side { width: 190px; flex-shrink: 0; border-right: 1px solid var(--gray-200); background: #fff; display: flex; flex-direction: column; }
       .side .logo { padding: 12px 10px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; gap: 8px; }
       .side .logo .bx { width: 30px; height: 30px; border-radius: 9px; background: linear-gradient(135deg, var(--blue-500), var(--teal-500)); color: #fff; display: flex; align-items: center; justify-content: center; }
       .side .logo b { font-size: 13px; display: block; }
@@ -283,6 +283,30 @@
 
       .artboard.wide .screen { height: 640px; }
       .foot-note { font-size: 12px; color: var(--gray-500); margin-top: 30px; }
+
+      /* ── Modal (MVP) ──────────────────────────────── */
+      .m-overlay { position: absolute; inset: 0; background: rgba(17,24,39,0.48); display: flex; align-items: center; justify-content: center; padding: 14px; z-index: 30; backdrop-filter: blur(2px); }
+      .m-box { width: 100%; max-width: 360px; background: #fff; border-radius: 14px; box-shadow: 0 20px 44px rgba(0,0,0,.28); overflow: hidden; display: flex; flex-direction: column; max-height: 96%; border: 1px solid var(--gray-200); }
+      .m-box.lg { max-width: 380px; }
+      .m-head { padding: 13px 16px 12px; border-bottom: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+      .m-head h3 { font-size: 13px; font-weight: 600; color: var(--gray-900); }
+      .m-head p { font-size: 11px; color: var(--gray-500); margin-top: 2px; }
+      .m-x { width: 28px; height: 28px; border-radius: 8px; border: 1px solid var(--gray-200); background: #fff; display: inline-flex; align-items: center; justify-content: center; color: var(--gray-500); flex-shrink: 0; }
+      .m-body { padding: 14px 16px; overflow: auto; display: flex; flex-direction: column; gap: 12px; }
+      .m-foot { padding: 12px 16px; border-top: 1px solid var(--gray-200); background: var(--gray-50); display: flex; justify-content: flex-end; gap: 8px; }
+      .m-kv { display: flex; justify-content: space-between; gap: 10px; font-size: 11px; padding: 7px 10px; background: var(--gray-50); border-radius: 8px; border: 1px solid var(--gray-100); }
+      .m-kv b { color: var(--gray-900); font-weight: 600; text-align: right; }
+      .m-kv span { color: var(--gray-500); }
+      .m-section { border: 1px solid var(--gray-200); border-radius: 10px; padding: 10px 11px; }
+      .m-section h4 { font-size: 11px; font-weight: 600; color: var(--gray-900); margin-bottom: 6px; display: flex; align-items: center; gap: 6px; }
+      .m-section h4 .i { width: 13px; height: 13px; color: var(--blue-600); }
+      .m-section p { font-size: 11px; color: var(--gray-700); line-height: 1.5; }
+      .m-grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+      .m-field label { font-size: 10px; color: var(--gray-600); display: block; margin-bottom: 4px; font-weight: 500; }
+      .m-field .input { height: 30px; font-size: 11px; }
+      .m-field .textarea { min-height: 56px; font-size: 11px; }
+      .m-badge-row { display: flex; gap: 6px; flex-wrap: wrap; }
+      .screen.rel { position: relative; }
     </style>
   </head>
   <body>
@@ -599,13 +623,14 @@
                         <div class="tabs" style="margin-bottom:10px"><span class="on">Visit History</span><span>Vitals</span><span>Medical History</span><span>Prescriptions</span></div>
                         <div class="card" style="border:1px solid var(--gray-200);padding:11px">
                           <div class="row between"><div><b style="font-size:11px">Dec 20, 2024</b><p class="sub">Dr. Sarah Johnson</p></div><span class="badge b-blue">Regular Checkup</span></div>
-                          <p class="sub" style="margin-top:7px">Diagnosis: Stable condition, blood pressure normal</p>
+                          <p class="sub" style="margin-top:7px">Diagnosis: Stable condition, blood pressure normal (120/80 mmHg). No acute distress.</p>
                           <p class="sub" style="margin-top:3px">Prescription: Continue current medication</p>
+                          <p class="sub" style="margin-top:3px;font-size:9px;color:var(--teal-600)">↳ Same Diagnosis as Visit Notes → View Details shows full text</p>
                         </div>
                         <div class="card" style="border:1px solid var(--gray-200);padding:11px;margin-top:9px">
                           <div class="row between"><div><b style="font-size:11px">Nov 15, 2024</b><p class="sub">Dr. Michael Chen</p></div><span class="badge b-blue">Consultation</span></div>
                           <p class="sub" style="margin-top:7px">Diagnosis: Anxiety-related chest pain, ECG normal</p>
-                          <p class="sub" style="margin-top:3px">Prescription: Relaxation exercises</p>
+                          <p class="sub" style="margin-top:3px">Prescription: Prescribed relaxation exercises</p>
                         </div>
                       </div>
                     </div>
@@ -615,7 +640,102 @@
             </div></div>
           </div>
 
-          <!-- 5. Prescription -->
+          <!-- 5. Visit Notes — with Diagnosis (matches Patient Records) -->
+          <div class="artboard tall">
+            <div class="art-label"><span class="art-name">Visit Notes</span><span class="art-route">/visit-notes</span><span class="art-note">role: doctor · Diagnosis now explicit &amp; matches Patient Records</span></div>
+            <div class="screen"><div class="app">
+              <aside class="side">
+                <div class="logo"><div class="bx"><svg class="i"><use href="#i-steth"/></svg></div><div><b>HealthCare</b><span>Clinic Management</span></div></div>
+                <nav>
+                  <div class="nav-item"><svg class="i"><use href="#i-dash"/></svg> Dashboard</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-cal"/></svg> Appointments</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-users"/></svg> Patient Records</div>
+                  <div class="nav-item on"><svg class="i"><use href="#i-clip"/></svg> Visit Notes</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-clip"/></svg> Prescriptions</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-settings"/></svg> Settings</div>
+                </nav>
+                <div class="role"><div class="bx"><p>Logged in as</p><b>Doctor</b></div></div>
+              </aside>
+              <div class="main">
+                <header class="topbar">
+                  <button class="ic-btn"><svg class="i"><use href="#i-menu"/></svg></button>
+                  <div class="search"><svg class="i"><use href="#i-search"/></svg><input placeholder="Search patients, appointments..." /></div>
+                  <div class="grow"></div>
+                  <button class="ic-btn"><svg class="i"><use href="#i-bell"/></svg><span class="dot"></span></button>
+                  <div class="user-chip"><div class="avatar" style="width:32px;height:32px"><svg class="i" style="width:16px;height:16px"><use href="#i-user"/></svg></div><div><b>Dr. Sarah Johnson</b><span>doctor</span></div></div>
+                </header>
+                <div class="page" style="overflow:auto">
+                  <div class="ph"><div><h1>Visit Notes</h1><p>Record medications, prescription, visit outcome, and follow-up plan</p></div></div>
+                  <div class="cols-2-1" style="flex:1;min-height:0">
+                    <div style="display:flex;flex-direction:column;gap:10px;overflow:auto">
+                      <div class="card pad">
+                        <h2 class="h2" style="margin-bottom:8px">Patient Information</h2>
+                        <div class="grid" style="grid-template-columns:1fr 1fr;gap:8px">
+                          <div><div class="field"><label>Select Patient</label><div class="search" style="position:relative"><svg class="i" style="position:absolute;left:9px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--gray-400)"><use href="#i-search"/></svg><input style="padding-left:28px;width:100%;height:28px;border:1px solid var(--gray-200);border-radius:8px;font-size:11px" placeholder="Search patient by name or ID..." /></div></div></div>
+                          <div><div class="field"><label>Date</label><input class="input" style="height:28px" value="2024-12-20" /></div></div>
+                        </div>
+                        <div class="row" style="gap:9px;background:var(--blue-50);border:1px solid var(--blue-100);border-radius:8px;padding:8px 10px;margin-top:8px"><div class="avatar" style="width:30px;height:30px;font-size:10px;font-weight:600">JS</div><div><b style="font-size:11px">John Smith</b><p class="sub">Age: 45 • Male • Blood Group: O+ • ID #1</p></div></div>
+                      </div>
+                      <div class="card pad">
+                        <div class="row between"><h2 class="h2">Visit Status</h2><span class="badge b-green">Completed</span></div>
+                        <div class="row between" style="margin-top:8px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:8px;padding:8px 10px"><div><b style="font-size:10px">Scheduled → Completed</b><p class="sub">Dec 20, 2024 · 10:00 AM · Regular Checkup</p></div><button class="btn btn-o btn-xs" style="color:var(--red-600);border-color:var(--red-100)">Cancel Visit</button></div>
+                      </div>
+                      <div class="card pad" style="border-left:3px solid var(--teal-600)">
+                        <h2 class="h2" style="margin-bottom:6px;display:flex;align-items:center;gap:6px"><svg class="i" style="width:14px;height:14px;color:var(--teal-600)"><use href="#i-activity"/></svg> Diagnosis <span class="badge b-teal" style="font-size:9px">matches Patient Records</span></h2>
+                        <p class="sub" style="margin-bottom:6px">Primary diagnosis for this visit — same value shown in <b style="color:var(--gray-700)">Patient Records → Visit History</b></p>
+                        <div class="textarea" style="min-height:62px;font-size:11px;color:var(--gray-700);background:#fff">Stable condition, blood pressure normal (120/80 mmHg). No acute distress. General examination within normal limits.</div>
+                        <p class="sub" style="margin-top:6px">Other visits use same source: <span class="tag">Anxiety-related chest pain, ECG normal</span> <span class="tag">Blood sugar levels within target range</span></p>
+                      </div>
+                      <div class="card pad">
+                        <div class="card-head"><h2 class="h2">Medications &amp; Prescription</h2><button class="btn btn-o btn-xs"><svg class="i"><use href="#i-plus"/></svg> Add Medicine</button></div>
+                        <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px 10px">
+                          <div class="row between"><span class="sub">Medicine #1</span><svg class="i" style="width:13px;height:13px;color:var(--gray-400)"><use href="#i-trash"/></svg></div>
+                          <div class="grid" style="grid-template-columns:1fr 1fr;gap:8px;margin-top:7px">
+                            <div style="grid-column:span 2"><div class="field"><label>Medicine Name</label><input class="input" placeholder="e.g., Amoxicillin 500mg" value="— Continue current medication —" /></div></div>
+                            <div><div class="field"><label>Dosage</label><input class="input" value="—" placeholder="1 tablet" /></div></div>
+                            <div><div class="field"><label>Frequency</label><div class="input" style="display:flex;align-items:center;justify-content:space-between;font-size:11px">— <svg class="i" style="width:12px;height:12px;color:var(--gray-400)"><use href="#i-chev"/></svg></div></div></div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card pad">
+                        <h2 class="h2" style="margin-bottom:6px">Doctor's Notes (Advice / Precautions)</h2>
+                        <div class="textarea" style="min-height:48px">Patient advised to continue healthy diet, 30 min walk daily. No alarm symptoms. Reassured.</div>
+                      </div>
+                      <div class="card pad">
+                        <h2 class="h2" style="margin-bottom:6px">Follow-up</h2>
+                        <div class="row between"><div><b style="font-size:11px">Does patient need to come back?</b><p class="sub">Follow-up plan stored with Visit</p></div><span class="badge b-gray">No — None required</span></div>
+                        <div class="row" style="gap:6px;margin-top:8px"><span class="tag">1 week</span><span class="tag">2 weeks</span><span class="tag">1 month</span><span class="tag">3 months</span></div>
+                      </div>
+                      <div class="row" style="gap:8px">
+                        <button class="btn btn-o" style="flex:1">Save as Draft</button>
+                        <button class="btn btn-p" style="flex:1"><svg class="i"><use href="#i-check"/></svg> Complete Visit</button>
+                        <button class="btn btn-t" style="flex:1"><svg class="i"><use href="#i-dl"/></svg> Export PDF</button>
+                      </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px">
+                      <div class="card">
+                        <div class="pad" style="border-bottom:1px solid var(--gray-200)"><h2 class="h2">Recent Visits</h2></div>
+                        <div class="pad" style="display:flex;flex-direction:column;gap:8px">
+                          <div style="border:1px solid var(--blue-200);background:var(--blue-50);border-radius:8px;padding:9px">
+                            <div class="row between"><div><b style="font-size:10px">John Smith</b><p class="sub">Dec 20, 2024 · 120/80 — Stable, BP normal</p></div><span class="badge b-blue">3 items</span></div>
+                            <p class="sub" style="margin-top:5px">By Dr. Sarah Johnson · Diagnosis matches Patient Records</p>
+                            <div class="row" style="gap:6px;margin-top:7px"><button class="btn btn-o btn-xs" style="flex:1">View</button><button class="btn btn-o btn-xs" style="flex:1">Copy</button></div>
+                          </div>
+                          <div style="border:1px solid var(--gray-200);border-radius:8px;padding:9px">
+                            <div class="row between"><div><b style="font-size:10px">Emma Wilson</b><p class="sub">Dec 19, 2024</p></div><span class="badge b-blue">2 items</span></div>
+                            <p class="sub" style="margin-top:5px">By Dr. Sarah Johnson · Healthy, no concerns</p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="notice" style="padding:8px 10px"><div class="dot"><svg class="i" style="width:9px;height:9px"><use href="#i-activity"/></svg></div><div><b style="font-size:10px">Diagnosis synced</b><p style="font-size:10px">Editing Diagnosis here updates Patient Records → Visit History for same date/patient. Single source of truth: <span style="font-family:monospace">patientRecords.visits[].diagnosis</span></p></div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div></div>
+          </div>
+
+          <!-- 5b. Prescription -->
           <div class="artboard tall">
             <div class="art-label"><span class="art-name">Electronic Prescription</span><span class="art-route">/prescription</span><span class="art-note">role: doctor · create form</span></div>
             <div class="screen"><div class="app">
@@ -1528,6 +1648,361 @@
                 </div>
               </div>
             </div></div>
+          </div>
+
+          <!-- 14b. Admin Patient Records — BASE (Visit History) -->
+          <div class="artboard tall">
+            <div class="art-label"><span class="art-name">Patient Records — Admin</span><span class="art-route">/patients</span><span class="art-note">role: admin · Visit History tab · MVP</span></div>
+            <div class="screen rel"><div class="app">
+              <aside class="side">
+                <div class="logo"><div class="bx"><svg class="i"><use href="#i-steth"/></svg></div><div><b>HealthCare</b><span>Clinic Management</span></div></div>
+                <nav>
+                  <div class="nav-item"><svg class="i"><use href="#i-dash"/></svg> Dashboard</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-cal"/></svg> Appointments</div>
+                  <div class="nav-item on"><svg class="i"><use href="#i-users"/></svg> Patients</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-usercog"/></svg> User Management</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-card"/></svg> Billing</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-chart"/></svg> Reports &amp; Stats</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-settings"/></svg> Settings</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-palette"/></svg> Design System</div>
+                </nav>
+                <div class="role"><div class="bx"><p>Logged in as</p><b>Admin</b></div></div>
+              </aside>
+              <div class="main">
+                <header class="topbar">
+                  <button class="ic-btn"><svg class="i"><use href="#i-menu"/></svg></button>
+                  <div class="search"><svg class="i"><use href="#i-search"/></svg><input placeholder="Search patients, appointments..." /></div>
+                  <div class="grow"></div>
+                  <button class="ic-btn"><svg class="i"><use href="#i-bell"/></svg><span class="dot"></span></button>
+                  <div class="user-chip"><div class="avatar" style="width:32px;height:32px"><svg class="i" style="width:16px;height:16px"><use href="#i-user"/></svg></div><div><b>Admin User</b><span>admin</span></div></div>
+                </header>
+                <div class="page">
+                  <div class="ph">
+                    <div><h1>Patient Records</h1><p>View and manage patient medical information — Admin</p></div>
+                    <button class="btn btn-p"><svg class="i"><use href="#i-plus"/></svg> Add Patient</button>
+                  </div>
+                  <div class="cols-1-3" style="flex:1;min-height:0">
+                    <div class="card" style="display:flex;flex-direction:column;overflow:hidden">
+                      <div style="padding:10px;border-bottom:1px solid var(--gray-200)"><div class="search" style="position:relative"><svg class="i" style="position:absolute;left:9px;top:50%;transform:translateY(-50%);width:13px;height:13px;color:var(--gray-400)"><use href="#i-search"/></svg><input style="padding-left:28px;width:100%;height:28px;border:1px solid var(--gray-200);border-radius:8px;font-size:11px" placeholder="Search patients..." /></div></div>
+                      <div style="flex:1;overflow:hidden">
+                        <div class="bdiv" style="padding:9px 10px;background:var(--blue-50);border-left:3px solid var(--blue-600)"><div class="row"><div class="avatar" style="width:30px;height:30px;font-size:10px;font-weight:600">JS</div><div style="flex:1"><b style="font-size:11px;display:block">John Smith</b><span style="font-size:9px;color:var(--gray-500)">45 yrs · Male · O+</span></div><svg class="i" style="width:13px;height:13px;color:var(--blue-600)"><use href="#i-chev"/></svg></div><p style="font-size:9px;color:var(--gray-500);margin-top:4px">Last visit: 2 days ago</p></div>
+                        <div class="bdiv" style="padding:9px 10px"><div class="row"><div class="avatar" style="width:30px;height:30px;font-size:10px;font-weight:600">EW</div><div style="flex:1"><b style="font-size:11px;display:block">Emma Wilson</b><span style="font-size:9px;color:var(--gray-500)">32 yrs · Female · A+</span></div><svg class="i" style="width:13px;height:13px;color:var(--gray-400)"><use href="#i-chev"/></svg></div><p style="font-size:9px;color:var(--gray-500);margin-top:4px">Last visit: 1 week ago</p></div>
+                        <div class="bdiv" style="padding:9px 10px"><div class="row"><div class="avatar" style="width:30px;height:30px;font-size:10px;font-weight:600">MB</div><div style="flex:1"><b style="font-size:11px;display:block">Michael Brown</b><span style="font-size:9px;color:var(--gray-500)">58 yrs · Male · B-</span></div><svg class="i" style="width:13px;height:13px;color:var(--gray-400)"><use href="#i-chev"/></svg></div><p style="font-size:9px;color:var(--gray-500);margin-top:4px">Last visit: 3 days ago</p></div>
+                        <div class="row" style="padding:9px 10px"><div class="row"><div class="avatar" style="width:30px;height:30px;font-size:10px;font-weight:600">SD</div><div style="flex:1"><b style="font-size:11px;display:block">Sarah Davis</b><span style="font-size:9px;color:var(--gray-500)">28 yrs · Female · AB+</span></div><svg class="i" style="width:13px;height:13px;color:var(--gray-400)"><use href="#i-chev"/></svg></div><p style="font-size:9px;color:var(--gray-500);margin-top:4px">Last visit: Today</p></div>
+                      </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:10px;min-height:0">
+                      <div class="card pad">
+                        <div class="row between">
+                          <div class="row" style="gap:10px"><div class="avatar" style="width:42px;height:42px;font-size:14px;font-weight:600">JS</div><div><b style="font-size:13px">John Smith</b><p class="sub">45 years • Male • O+ • ID #1</p></div></div>
+                          <button class="btn btn-o btn-xs">Edit</button>
+                        </div>
+                        <div class="grid" style="grid-template-columns:1fr 1fr;gap:7px;margin-top:11px">
+                          <div class="row" style="gap:7px;background:var(--gray-50);border-radius:8px;padding:6px 8px"><svg class="i" style="width:12px;height:12px;color:var(--gray-400)"><use href="#i-cal"/></svg><div><p class="sub" style="font-size:9px">Date of Birth</p><b style="font-size:10px">Jan 15, 1979</b></div></div>
+                          <div class="row" style="gap:7px;background:var(--gray-50);border-radius:8px;padding:6px 8px"><svg class="i" style="width:12px;height:12px;color:var(--gray-400)"><use href="#i-phone"/></svg><div><p class="sub" style="font-size:9px">Phone</p><b style="font-size:10px">(555) 123-4567</b></div></div>
+                          <div class="row" style="gap:7px;background:var(--gray-50);border-radius:8px;padding:6px 8px"><svg class="i" style="width:12px;height:12px;color:var(--gray-400)"><use href="#i-mail"/></svg><div><p class="sub" style="font-size:9px">Email</p><b style="font-size:10px">john.smith@email.com</b></div></div>
+                          <div class="row" style="gap:7px;background:var(--red-100);border-radius:8px;padding:6px 8px"><svg class="i" style="width:12px;height:12px;color:var(--red-600)"><use href="#i-activity"/></svg><div><p class="sub" style="font-size:9px;color:var(--red-600)">Allergies</p><b style="font-size:10px">Penicillin, Peanuts</b></div></div>
+                        </div>
+                      </div>
+                      <div class="tabs"><span class="on">Visit History</span><span>Vitals</span><span>Prescriptions</span></div>
+                      <div style="display:flex;flex-direction:column;gap:8px;flex:1;overflow:auto">
+                        <div class="card" style="border:1px solid var(--gray-200);padding:10px 11px;border-left:3px solid var(--teal-500)">
+                          <div class="row between"><div><b style="font-size:11px">Dec 20, 2024</b><p class="sub">Dr. Sarah Johnson · Regular Checkup</p></div><span class="badge b-blue">Regular Checkup</span></div>
+                          <p class="sub" style="margin-top:6px"><b style="color:var(--gray-700)">Diagnosis:</b> Stable condition, blood pressure normal (120/80 mmHg). No acute distress.</p>
+                          <p class="sub"><b style="color:var(--gray-700)">Prescription:</b> Continue current medication</p>
+                          <p class="sub" style="margin-top:4px;font-size:9px;color:var(--teal-600)">↳ Same Diagnosis as Visit Notes</p>
+                          <div class="row between" style="margin-top:8px;border-top:1px solid var(--gray-100);padding-top:8px"><span class="sub">Follow-up: None required</span><button class="btn btn-p btn-xs">View Details</button></div>
+                        </div>
+                        <div class="card" style="border:1px solid var(--gray-200);padding:10px 11px">
+                          <div class="row between"><div><b style="font-size:11px">Nov 15, 2024</b><p class="sub">Dr. Michael Chen · Consultation</p></div><span class="badge b-blue">Consultation</span></div>
+                          <p class="sub" style="margin-top:6px"><b style="color:var(--gray-700)">Diagnosis:</b> Anxiety-related chest pain, ECG normal</p>
+                          <div class="row between" style="margin-top:8px;border-top:1px solid var(--gray-100);padding-top:8px"><span class="sub">Follow-up: 2 weeks</span><button class="btn btn-o btn-xs">View Details</button></div>
+                        </div>
+                        <div class="card" style="border:1px solid var(--gray-200);padding:10px 11px">
+                          <div class="row between"><div><b style="font-size:11px">Oct 10, 2024</b><p class="sub">Dr. Sarah Johnson · Blood Sugar</p></div><span class="badge b-blue">Lab Review</span></div>
+                          <p class="sub" style="margin-top:6px"><b style="color:var(--gray-700)">Diagnosis:</b> Blood sugar within target range</p>
+                          <div class="row between" style="margin-top:8px;border-top:1px solid var(--gray-100);padding-top:8px"><span class="sub">Follow-up: 1 month</span><button class="btn btn-o btn-xs">View Details</button></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div></div>
+          </div>
+
+          <!-- 14c. Admin Patient Records — Visit Details Modal -->
+          <div class="artboard tall">
+            <div class="art-label"><span class="art-name">Patient Records — Visit Details Modal</span><span class="art-route">/patients · modal</span><span class="art-note">role: admin · View Details</span></div>
+            <div class="screen rel"><div class="app" style="filter: blur(0px);">
+              <aside class="side">
+                <div class="logo"><div class="bx"><svg class="i"><use href="#i-steth"/></svg></div><div><b>HealthCare</b><span>Clinic Management</span></div></div>
+                <nav>
+                  <div class="nav-item"><svg class="i"><use href="#i-dash"/></svg> Dashboard</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-cal"/></svg> Appointments</div>
+                  <div class="nav-item on"><svg class="i"><use href="#i-users"/></svg> Patients</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-usercog"/></svg> User Management</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-card"/></svg> Billing</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-chart"/></svg> Reports &amp; Stats</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-settings"/></svg> Settings</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-palette"/></svg> Design System</div>
+                </nav>
+                <div class="role"><div class="bx"><p>Logged in as</p><b>Admin</b></div></div>
+              </aside>
+              <div class="main">
+                <header class="topbar">
+                  <button class="ic-btn"><svg class="i"><use href="#i-menu"/></svg></button>
+                  <div class="search"><svg class="i"><use href="#i-search"/></svg><input placeholder="Search patients, appointments..." /></div>
+                  <div class="grow"></div>
+                  <button class="ic-btn"><svg class="i"><use href="#i-bell"/></svg><span class="dot"></span></button>
+                  <div class="user-chip"><div class="avatar" style="width:32px;height:32px"><svg class="i" style="width:16px;height:16px"><use href="#i-user"/></svg></div><div><b>Admin User</b><span>admin</span></div></div>
+                </header>
+                <div class="page" style="opacity:0.95">
+                  <div class="ph"><div><h1>Patient Records</h1><p>John Smith · Visit History</p></div><button class="btn btn-p btn-xs"><svg class="i"><use href="#i-plus"/></svg> Add Patient</button></div>
+                  <div class="card pad" style="opacity:0.55"><div class="row between"><div class="row" style="gap:8px"><div class="avatar" style="width:28px;height:28px;font-size:10px">JS</div><b style="font-size:11px">John Smith — 45/M · O+</b></div><span class="badge b-blue">Regular Checkup</span></div></div>
+                </div>
+              </div>
+            </div>
+              <!-- Modal Overlay -->
+              <div class="m-overlay">
+                <div class="m-box">
+                  <div class="m-head">
+                    <div>
+                      <h3>Visit Details</h3>
+                      <p>Dec 20, 2024 · Dr. Sarah Johnson</p>
+                    </div>
+                    <button class="m-x"><svg class="i" style="width:14px;height:14px"><use href="#i-x"/></svg></button>
+                  </div>
+                  <div class="m-body">
+                    <div class="m-grid2">
+                      <div class="m-kv"><span>Date</span><b>Dec 20, 2024</b></div>
+                      <div class="m-kv"><span>Time</span><b>10:00 AM</b></div>
+                      <div class="m-kv"><span>Doctor</span><b>Dr. Sarah Johnson</b></div>
+                      <div class="m-kv"><span>Type</span><b>Regular Checkup</b></div>
+                    </div>
+                    <div class="m-section">
+                      <h4><svg class="i"><use href="#i-clip"/></svg> Reason for Visit</h4>
+                      <p>Routine annual checkup. Patient reported no acute complaints, mild headache last week resolved.</p>
+                    </div>
+                    <div class="m-section">
+                      <h4><svg class="i"><use href="#i-activity"/></svg> Diagnosis</h4>
+                      <p>Stable condition, blood pressure normal (120/80 mmHg). No acute distress. General examination within normal limits.</p>
+                    </div>
+                    <div class="m-section">
+                      <h4><svg class="i"><use href="#i-pill"/></svg> Prescription</h4>
+                      <p>Continue current medication — No new prescription issued. (Matches Visit Notes → Medications &amp; Prescription)</p>
+                    </div>
+                    <div class="m-kv"><span>Follow-up</span><b>None required — next visit 6 months</b></div>
+                    <div class="m-section" style="background:var(--blue-50);border-color:var(--blue-100)">
+                      <h4><svg class="i" style="color:var(--blue-600)"><use href="#i-file"/></svg> Visit Notes (Admin view)</h4>
+                      <p style="font-size:10px;color:var(--gray-600)">Recorded by Admin on Dec 20, 2024. Billing code: 99213. Insurance verified. Documents attached: Lab Report PDF.</p>
+                    </div>
+                  </div>
+                  <div class="m-foot">
+                    <button class="btn btn-o btn-xs">Print</button>
+                    <button class="btn btn-p btn-xs">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 14d. Admin Patient Records — Vitals Tab + Record Vitals Modal -->
+          <div class="artboard tall">
+            <div class="art-label"><span class="art-name">Patient Records — Record Vitals Modal</span><span class="art-route">/patients · modal</span><span class="art-note">role: admin · Record Vitals form</span></div>
+            <div class="screen rel"><div class="app">
+              <aside class="side">
+                <div class="logo"><div class="bx"><svg class="i"><use href="#i-steth"/></svg></div><div><b>HealthCare</b><span>Clinic Management</span></div></div>
+                <nav>
+                  <div class="nav-item"><svg class="i"><use href="#i-dash"/></svg> Dashboard</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-cal"/></svg> Appointments</div>
+                  <div class="nav-item on"><svg class="i"><use href="#i-users"/></svg> Patients</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-usercog"/></svg> User Management</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-card"/></svg> Billing</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-chart"/></svg> Reports &amp; Stats</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-settings"/></svg> Settings</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-palette"/></svg> Design System</div>
+                </nav>
+                <div class="role"><div class="bx"><p>Logged in as</p><b>Admin</b></div></div>
+              </aside>
+              <div class="main">
+                <header class="topbar">
+                  <button class="ic-btn"><svg class="i"><use href="#i-menu"/></svg></button>
+                  <div class="search"><svg class="i"><use href="#i-search"/></svg><input placeholder="Search patients..." /></div>
+                  <div class="grow"></div>
+                  <button class="ic-btn"><svg class="i"><use href="#i-bell"/></svg><span class="dot"></span></button>
+                  <div class="user-chip"><div class="avatar" style="width:32px;height:32px"><svg class="i" style="width:16px;height:16px"><use href="#i-user"/></svg></div><div><b>Admin User</b><span>admin</span></div></div>
+                </header>
+                <div class="page" style="opacity:0.95">
+                  <div class="ph"><div><h1>Patient Records</h1><p>John Smith · Vitals</p></div></div>
+                  <div class="tabs"><span>Visit History</span><span class="on">Vitals</span><span>Prescriptions</span></div>
+                  <div class="grid" style="grid-template-columns:1fr 1fr 1fr;gap:8px;opacity:0.6">
+                    <div class="card" style="padding:8px 10px"><p class="sub" style="font-size:9px">Blood Pressure</p><b style="font-size:13px">120/80 <span style="font-size:10px;color:var(--gray-500)">mmHg</span></b><span class="badge b-green" style="margin-top:4px">normal</span></div>
+                    <div class="card" style="padding:8px 10px"><p class="sub" style="font-size:9px">Heart Rate</p><b style="font-size:13px">72 <span style="font-size:10px;color:var(--gray-500)">bpm</span></b><span class="badge b-green" style="margin-top:4px">normal</span></div>
+                    <div class="card" style="padding:8px 10px"><p class="sub" style="font-size:9px">Temperature</p><b style="font-size:13px">98.6 <span style="font-size:10px;color:var(--gray-500)">°F</span></b><span class="badge b-green" style="margin-top:4px">normal</span></div>
+                    <div class="card" style="padding:8px 10px"><p class="sub" style="font-size:9px">Blood Sugar</p><b style="font-size:13px">105 <span style="font-size:10px;color:var(--gray-500)">mg/dL</span></b><span class="badge b-green" style="margin-top:4px">normal</span></div>
+                    <div class="card" style="padding:8px 10px"><p class="sub" style="font-size:9px">Weight</p><b style="font-size:13px">180 <span style="font-size:10px;color:var(--gray-500)">lbs</span></b><span class="badge b-green" style="margin-top:4px">normal</span></div>
+                    <div class="card" style="padding:8px 10px"><p class="sub" style="font-size:9px">Height</p><b style="font-size:13px">5'10"</b><span class="badge b-gray" style="margin-top:4px">recorded</span></div>
+                  </div>
+                  <div class="row" style="justify-content:flex-end;opacity:0.6"><button class="btn btn-p btn-xs"><svg class="i"><use href="#i-plus"/></svg> Record Vitals</button></div>
+                </div>
+              </div>
+            </div>
+              <!-- Modal -->
+              <div class="m-overlay">
+                <div class="m-box lg">
+                  <div class="m-head">
+                    <div>
+                      <h3>Record Vitals</h3>
+                      <p>John Smith · 45/M · Dec 25, 2024</p>
+                    </div>
+                    <button class="m-x"><svg class="i" style="width:14px;height:14px"><use href="#i-x"/></svg></button>
+                  </div>
+                  <div class="m-body">
+                    <div class="notice" style="padding:8px 10px"><div class="dot" style="width:15px;height:15px"><svg class="i" style="width:9px;height:9px"><use href="#i-activity"/></svg></div><div><b style="font-size:10px">Admin can record vitals for any patient</b><p style="font-size:10px">Values are validated before saving. MVP: only required vitals.</p></div></div>
+                    <div class="m-grid2">
+                      <div class="m-field"><label>Blood Pressure (mmHg)</label><input class="input" placeholder="e.g., 120/80" value="120/80" /></div>
+                      <div class="m-field"><label>Heart Rate (bpm)</label><input class="input" placeholder="e.g., 72" value="72" /></div>
+                      <div class="m-field"><label>Temperature (°F)</label><input class="input" placeholder="e.g., 98.6" value="98.6" /></div>
+                      <div class="m-field"><label>Blood Sugar (mg/dL)</label><input class="input" placeholder="e.g., 105" value="105" /></div>
+                      <div class="m-field"><label>Weight (lbs)</label><input class="input" placeholder="e.g., 180" value="180" /></div>
+                      <div class="m-field"><label>Height</label><input class="input" placeholder='e.g., 5&apos;10"' value='5&apos;10"' /></div>
+                    </div>
+                    <div class="m-field"><label>Notes (optional)</label><div class="textarea" style="font-size:11px;color:var(--gray-400)">Patient fasting · measured after 5 min rest...</div></div>
+                    <div class="m-kv"><span>Recorded by</span><b>Admin User · 2024-12-25 10:15 AM</b></div>
+                  </div>
+                  <div class="m-foot">
+                    <button class="btn btn-o btn-xs">Cancel</button>
+                    <button class="btn btn-p btn-xs"><svg class="i"><use href="#i-check"/></svg> Save Vitals</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 14e. Admin Patient Records — Prescriptions Tab (how it looks) -->
+          <div class="artboard tall">
+            <div class="art-label"><span class="art-name">Patient Records — Prescriptions Tab</span><span class="art-route">/patients</span><span class="art-note">role: admin · Prescriptions preview · MVP</span></div>
+            <div class="screen"><div class="app">
+              <aside class="side">
+                <div class="logo"><div class="bx"><svg class="i"><use href="#i-steth"/></svg></div><div><b>HealthCare</b><span>Clinic Management</span></div></div>
+                <nav>
+                  <div class="nav-item"><svg class="i"><use href="#i-dash"/></svg> Dashboard</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-cal"/></svg> Appointments</div>
+                  <div class="nav-item on"><svg class="i"><use href="#i-users"/></svg> Patients</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-usercog"/></svg> User Management</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-card"/></svg> Billing</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-chart"/></svg> Reports &amp; Stats</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-settings"/></svg> Settings</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-palette"/></svg> Design System</div>
+                </nav>
+                <div class="role"><div class="bx"><p>Logged in as</p><b>Admin</b></div></div>
+              </aside>
+              <div class="main">
+                <header class="topbar">
+                  <button class="ic-btn"><svg class="i"><use href="#i-menu"/></svg></button>
+                  <div class="search"><svg class="i"><use href="#i-search"/></svg><input placeholder="Search patients..." /></div>
+                  <div class="grow"></div>
+                  <button class="ic-btn"><svg class="i"><use href="#i-bell"/></svg><span class="dot"></span></button>
+                  <div class="user-chip"><div class="avatar" style="width:32px;height:32px"><svg class="i" style="width:16px;height:16px"><use href="#i-user"/></svg></div><div><b>Admin User</b><span>admin</span></div></div>
+                </header>
+                <div class="page">
+                  <div class="ph">
+                    <div><h1>Patient Records</h1><p>John Smith · Prescriptions</p></div>
+                    <button class="btn btn-p btn-xs"><svg class="i"><use href="#i-plus"/></svg> Add Prescription</button>
+                  </div>
+                  <div class="tabs"><span>Visit History</span><span>Vitals</span><span class="on">Prescriptions</span></div>
+                  <div class="card pad">
+                    <div class="card-head"><h2 class="h2">Current Prescriptions</h2><span class="badge b-gray">0 active — MVP empty state</span></div>
+                    <div style="border:1px dashed var(--gray-300);border-radius:10px;padding:18px 14px;text-align:center;background:var(--gray-50)">
+                      <div class="avatar" style="width:36px;height:36px;margin:0 auto 8px;background:var(--blue-100)"><svg class="i" style="width:18px;height:18px;color:var(--blue-600)"><use href="#i-pill"/></svg></div>
+                      <b style="font-size:11px;display:block">No active prescriptions</b>
+                      <p class="sub" style="margin-top:4px">This patient has no prescriptions yet. Click “Add Prescription” to create one.</p>
+                      <button class="btn btn-p btn-xs" style="margin-top:10px"><svg class="i"><use href="#i-plus"/></svg> Add Prescription</button>
+                    </div>
+                    <div style="margin-top:12px;border:1px solid var(--gray-200);border-radius:10px;padding:10px 11px;background:#fff">
+                      <p class="sub" style="font-size:9px;color:var(--gray-500);margin-bottom:6px">PREVIEW — Example of a saved prescription (how list will look after adding)</p>
+                      <div class="row between"><b style="font-size:11px">Amoxicillin 500mg</b><span class="badge b-green">Active</span></div>
+                      <p class="sub" style="margin-top:4px">Dosage: 1 tablet · 3 times daily · After meals · 7 days</p>
+                      <p class="sub">Prescribed by Dr. Sarah Johnson on Dec 20, 2024 · by Admin</p>
+                      <div class="row" style="gap:6px;margin-top:8px"><button class="btn btn-o btn-xs">View PDF</button><button class="btn btn-o btn-xs" style="color:var(--red-600);border-color:var(--red-100)">Revoke</button></div>
+                    </div>
+                  </div>
+                  <div class="notice" style="padding:8px 10px"><div class="dot"><svg class="i" style="width:9px;height:9px"><use href="#i-shield"/></svg></div><div><b style="font-size:10px">MVP — Admin prescription flow</b><p style="font-size:10px">Admin can view all prescriptions and add new ones via modal. No refill automation in MVP.</p></div></div>
+                </div>
+              </div>
+            </div></div>
+          </div>
+
+          <!-- 14f. Admin Patient Records — Add Prescription Modal -->
+          <div class="artboard tall">
+            <div class="art-label"><span class="art-name">Patient Records — Add Prescription Modal</span><span class="art-route">/patients · modal</span><span class="art-note">role: admin · Add Prescription form</span></div>
+            <div class="screen rel"><div class="app">
+              <aside class="side">
+                <div class="logo"><div class="bx"><svg class="i"><use href="#i-steth"/></svg></div><div><b>HealthCare</b><span>Clinic Management</span></div></div>
+                <nav>
+                  <div class="nav-item"><svg class="i"><use href="#i-dash"/></svg> Dashboard</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-cal"/></svg> Appointments</div>
+                  <div class="nav-item on"><svg class="i"><use href="#i-users"/></svg> Patients</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-usercog"/></svg> User Management</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-card"/></svg> Billing</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-chart"/></svg> Reports &amp; Stats</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-settings"/></svg> Settings</div>
+                  <div class="nav-item"><svg class="i"><use href="#i-palette"/></svg> Design System</div>
+                </nav>
+                <div class="role"><div class="bx"><p>Logged in as</p><b>Admin</b></div></div>
+              </aside>
+              <div class="main">
+                <header class="topbar">
+                  <button class="ic-btn"><svg class="i"><use href="#i-menu"/></svg></button>
+                  <div class="search"><svg class="i"><use href="#i-search"/></svg><input placeholder="Search patients..." /></div>
+                  <div class="grow"></div>
+                  <button class="ic-btn"><svg class="i"><use href="#i-bell"/></svg><span class="dot"></span></button>
+                  <div class="user-chip"><div class="avatar" style="width:32px;height:32px"><svg class="i" style="width:16px;height:16px"><use href="#i-user"/></svg></div><div><b>Admin User</b><span>admin</span></div></div>
+                </header>
+                <div class="page" style="opacity:0.92">
+                  <div class="ph"><div><h1>Patient Records</h1><p>John Smith · Prescriptions</p></div></div>
+                  <div class="tabs"><span>Visit History</span><span>Vitals</span><span class="on">Prescriptions</span></div>
+                  <div class="card pad" style="opacity:0.6"><div class="card-head"><h2 class="h2">Current Prescriptions</h2><span class="badge b-gray">0 active</span></div><p class="sub" style="text-align:center;padding:12px">No active prescriptions</p></div>
+                </div>
+              </div>
+            </div>
+              <!-- Modal -->
+              <div class="m-overlay">
+                <div class="m-box lg">
+                  <div class="m-head">
+                    <div>
+                      <h3>Add Prescription</h3>
+                      <p>John Smith · 45/M · Admin creates on behalf</p>
+                    </div>
+                    <button class="m-x"><svg class="i" style="width:14px;height:14px"><use href="#i-x"/></svg></button>
+                  </div>
+                  <div class="m-body">
+                    <div class="m-grid2">
+                      <div class="m-field"><label>Patient</label><div class="input" style="display:flex;align-items:center;justify-content:space-between;font-size:11px;background:var(--gray-50);">John Smith — O+ <span class="badge b-blue" style="font-size:9px">locked</span></div></div>
+                      <div class="m-field"><label>Date</label><input class="input" value="2024-12-25" /></div>
+                    </div>
+                    <div class="m-section">
+                      <h4><svg class="i"><use href="#i-pill"/></svg> Medicine #1 — MVP single medicine</h4>
+                      <div class="m-grid2" style="margin-top:6px">
+                        <div class="m-field" style="grid-column:span 2"><label>Medicine Name</label><input class="input" placeholder="e.g., Amoxicillin 500mg" value="Amoxicillin 500mg" /></div>
+                        <div class="m-field"><label>Dosage</label><input class="input" placeholder="1 tablet" value="1 tablet" /></div>
+                        <div class="m-field"><label>Frequency</label><div class="input" style="display:flex;align-items:center;justify-content:space-between;font-size:11px">3 times daily <svg class="i" style="width:12px;height:12px;color:var(--gray-400)"><use href="#i-chev"/></svg></div></div>
+                        <div class="m-field"><label>Timing</label><div class="input" style="display:flex;align-items:center;justify-content:space-between;font-size:11px">After meals <svg class="i" style="width:12px;height:12px;color:var(--gray-400)"><use href="#i-chev"/></svg></div></div>
+                        <div class="m-field"><label>Duration</label><input class="input" placeholder="7 days" value="7 days" /></div>
+                      </div>
+                      <div class="m-field" style="margin-top:8px"><label>Special Instructions</label><div class="textarea" style="font-size:11px;color:var(--gray-500)">Take with plenty of water. Complete full course...</div></div>
+                    </div>
+                    <div class="m-field"><label>Additional Notes &amp; Advice</label><div class="textarea" style="min-height:44px;font-size:11px;color:var(--gray-400)">Follow-up in 1 week · Avoid alcohol...</div></div>
+                    <div class="m-kv"><span>Prescribed by</span><b>Admin User (on behalf of Dr. Sarah Johnson)</b></div>
+                  </div>
+                  <div class="m-foot">
+                    <button class="btn btn-o btn-xs">Save as Draft</button>
+                    <button class="btn btn-p btn-xs"><svg class="i"><use href="#i-check"/></svg> Create Prescription</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
           <!-- 15. Design System page -->
