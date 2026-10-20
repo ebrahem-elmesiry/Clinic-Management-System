@@ -15,33 +15,52 @@ import {
   DialogTrigger,
 } from "@/shared/components/ui/dialog";
 import { Label } from "@/shared/components/ui/label";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { format, parseISO } from "date-fns";
 import { Plus } from "lucide-react";
 import { toast } from "sonner";
 import { Calendar } from "@/shared/components/ui/calendar";
+import type { FollowUpAppointment } from "@/role/doctor/types/type";
 
 interface ScheduleData {
   date: string;
   time: string;
-  department: string;
+  specialty: string;
 }
 
 interface AppointmentDetails {
-  patient: string;
+  patientName: string;
   type: string;
   notes: string;
 }
 
-export default function AddNewAppointmentModal() {
-  const [showAddDialog, setShowAddDialog] = useState(false);
+interface AddNewAppointmentModalProps {
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  patientName?: string;
+  specialty?: string;
+  appointmentType?: string;
+  showTrigger?: boolean;
+  onSchedule?: (data: FollowUpAppointment) => void;
+}
+
+export default function AddNewAppointmentModal({
+  open,
+  onOpenChange,
+  patientName,
+  specialty,
+  appointmentType,
+  showTrigger = true,
+  onSchedule,
+}: AddNewAppointmentModalProps) {
   const [schedule, setSchedule] = useState<ScheduleData>({
     date: "",
     time: "",
-    department: "",
+    specialty: specialty ?? "",
   });
   const [details, setDetails] = useState<AppointmentDetails>({
-    patient: "",
-    type: "",
+    patientName: patientName ?? "",
+    type: appointmentType ?? "",
     notes: "",
   });
 
@@ -55,7 +74,15 @@ export default function AddNewAppointmentModal() {
 
   function handleSchedule(e: React.FormEvent) {
     e.preventDefault();
-    setShowAddDialog(false);
+    onSchedule?.({
+      patientName: details.patientName,
+      specialty: schedule.specialty,
+      date: schedule.date,
+      time: schedule.time,
+      type: details.type,
+      notes: details.notes,
+    });
+    onOpenChange?.(false);
     toast.success("Appointment scheduled successfully.");
   }
 
@@ -63,13 +90,15 @@ export default function AddNewAppointmentModal() {
 
   const disabledTimes = ["10:00", "11:00"];
   return (
-    <Dialog open={showAddDialog} onOpenChange={setShowAddDialog}>
-      <DialogTrigger asChild>
-        <Button>
-          <Plus className="w-5 h-5 mr-2" />
-          New Appointment
-        </Button>
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      {showTrigger && (
+        <DialogTrigger asChild>
+          <Button>
+            <Plus className="w-5 h-5 mr-2" />
+            New Appointment
+          </Button>
+        </DialogTrigger>
+      )}
       <DialogContent className="max-w-md max-h-170 overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Schedule New Appointment</DialogTitle>
@@ -81,50 +110,52 @@ export default function AddNewAppointmentModal() {
               id="patient"
               placeholder="Select or search patient"
               className="mt-2"
-              value={details.patient}
-              onChange={(e) => handleDetailsChange("patient", e.target.value)}
+              value={details.patientName}
+              onChange={(e) =>
+                handleDetailsChange("patientName", e.target.value)
+              }
             />
           </div>
           <div>
-            <Label htmlFor="department">department</Label>
+            <Label htmlFor="specialty">Specialty</Label>
             <Select
-              value={schedule.department}
+              value={schedule.specialty}
               onValueChange={(value) =>
-                handleScheduleChange("department", value)
+                handleScheduleChange("specialty", value)
               }
             >
               <SelectTrigger className="mt-2">
-                <SelectValue placeholder="Choose Department" />
+                <SelectValue placeholder="Choose Specialty" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="orthopedics">Orthopedics</SelectItem>
-                <SelectItem value="general-medicine">
-                  General Medicine
+                <SelectItem value="General Physician">
+                  General Physician
                 </SelectItem>
-                <SelectItem value="ophthalmology">Ophthalmology</SelectItem>
+                <SelectItem value="Cardiologist">Cardiologist</SelectItem>
+                <SelectItem value="Dermatologist">Dermatologist</SelectItem>
               </SelectContent>
             </Select>
           </div>
           <div className="grid grid-cols-2 gap-4">
             <div
               onClick={() => {
-                if (!schedule.department)
-                  toast.info("Please Choose Department First");
+                if (!schedule.specialty)
+                  toast.info("Please Choose Specialty First");
               }}
             >
               <Label htmlFor="date">Date</Label>
               <Calendar
                 mode="single"
-                selected={schedule.date ? new Date(schedule.date) : undefined}
+                selected={schedule.date ? parseISO(schedule.date) : undefined}
                 onSelect={(date) => {
                   if (date) {
-                    handleScheduleChange("date", date.toString().split("T")[0]);
+                    handleScheduleChange("date", format(date, "yyyy-MM-dd"));
                   }
                 }}
                 disabled={(date) =>
                   disabledDates.some(
                     (disabledDate) =>
-                      date.toString().split("T")[0] === disabledDate,
+                      format(date, "yyyy-MM-dd") === disabledDate,
                   )
                 }
               />
@@ -178,7 +209,7 @@ export default function AddNewAppointmentModal() {
               type="button"
               variant="outline"
               className="flex-1"
-              onClick={() => setShowAddDialog(false)}
+              onClick={() => onOpenChange?.(false)}
             >
               Cancel
             </Button>

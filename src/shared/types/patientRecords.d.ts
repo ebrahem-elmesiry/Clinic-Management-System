@@ -16,11 +16,11 @@ export interface PatientProfile {
   gender: string;
   dob: string;
   phone: string;
-  email?: string;
+  // email?: string;
   address: string;
   bloodGroup: string;
-  emergencyContact?: string;
-  allergies?: string;
+  // emergencyContact?: string;
+  // allergies?: string;
 }
 
 export interface VisitPrescription {
@@ -59,8 +59,15 @@ export interface Prescription {
   timing: string;
   duration: string;
   specialInstructions?: string;
-  notes?: string;
   status: string;
   prescribedBy: string;
   date: string;
+}
+
+export interface PatientProfile {
+  id: string;
+  name: string;
+  age: number;
+  gender: string;
+  bloodGroup: string;
 }

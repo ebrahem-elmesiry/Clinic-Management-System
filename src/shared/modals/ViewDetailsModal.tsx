@@ -7,7 +7,7 @@ import {
   DialogTitle,
 } from "@/shared/components/ui/dialog";
 import { Button } from "@/shared/components/ui/button";
-import { ClipboardList, Activity, Pill, FileText } from "lucide-react";
+import { ClipboardList, Activity, Pill } from "lucide-react";
 
 export interface VisitPrescription {
   medicineName: string;

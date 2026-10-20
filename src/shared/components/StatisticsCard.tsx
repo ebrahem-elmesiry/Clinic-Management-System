@@ -1,4 +1,3 @@
-import { colorClasses } from "@/role/admin/constants";
 import { StatisticsAdminDashboardType } from "@/role/admin/types/type";
 
 export default function StatisticsCard({
@@ -7,6 +6,7 @@ export default function StatisticsCard({
   changeLabel,
   changeValue,
   icon: Icon,
+  color,
 }: StatisticsAdminDashboardType) {
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow">
@@ -25,7 +25,7 @@ export default function StatisticsCard({
           )}
         </div>
         <div
-          className={`w-12 h-12 bg-linear-to-br ${colorClasses[title]} rounded-xl flex items-center justify-center`}
+          className={`w-12 h-12 bg-linear-to-br ${color} rounded-xl flex items-center justify-center`}
         >
           <Icon className="w-6 h-6 text-white" />
         </div>

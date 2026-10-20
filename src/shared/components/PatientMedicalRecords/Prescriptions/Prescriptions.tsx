@@ -3,23 +3,23 @@
 import { Plus, Pill } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import WrapperComponent from "../../WrapperComponent";
-import PrescriptionCard from "@/role/admin/components/PatientRecords/PrescriptionCard";
-import type { PrescriptionCardData } from "@/role/admin/components/PatientRecords/PrescriptionCard";
+import PrescriptionCard from "@/shared/components/PatientRecords/PrescriptionCard";
+import type { PrescriptionCardData } from "@/shared/components/PatientRecords/PrescriptionCard";
 import EmptyPrescriptions from "./EmptyPrescriptions";
 
 interface PrescriptionsProps {
   doctor?: boolean;
   prescriptions?: PrescriptionCardData[];
   onAdd?: () => void;
-  onViewPDF?: (p: PrescriptionCardData) => void;
-  onRevoke?: (p: PrescriptionCardData) => void;
+  onEdit?: (id: string) => void;
+  onRevoke?: (id: string) => void;
 }
 
 export default function Prescriptions({
   doctor = false,
   prescriptions = [],
   onAdd,
-  onViewPDF,
+  onEdit,
   onRevoke,
 }: PrescriptionsProps) {
   return (
@@ -41,8 +41,9 @@ export default function Prescriptions({
             <PrescriptionCard
               key={p.id}
               prescription={p}
-              onViewPDF={onViewPDF}
               onRevoke={onRevoke}
+              onEdit={onEdit}
+              isDoctor={doctor}
             />
           ))}
         </div>

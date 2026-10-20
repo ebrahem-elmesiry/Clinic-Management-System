@@ -33,7 +33,12 @@ export default function TapWrapper({ profile }: TapWrapperProps) {
   }
   return (
     <div className="flex flex-col gap-6">
-      <TabTitle tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />
+      <TabTitle
+        role={profile.role}
+        tabs={tabs}
+        activeTab={activeTab}
+        onTabChange={setActiveTab}
+      />
       <div className="flex-1 min-w-0">
         {activeTab === "profile" && <ProfilePanel profile={profile} />}
         {activeTab === "notifications" && (

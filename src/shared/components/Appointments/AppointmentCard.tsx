@@ -1,22 +1,28 @@
 "use client";
 
-import React from 'react';
-import { Clock, User, FileText } from 'lucide-react';
-import { Button } from '@/shared/components/ui/button';
-import StatusBadge from './StatusBadge';
+import { Clock, User, FileText } from "lucide-react";
+import { Button } from "@/shared/components/ui/button";
+import StatusBadge from "./StatusBadge";
 
 interface AppointmentCardProps {
   time: string;
   patient: string;
   reason: string;
-  status: 'completed' | 'in-progress' | 'upcoming' | 'cancelled';
+  status: "completed" | "in-progress" | "upcoming" | "cancelled";
+  onViewDetails?: () => void;
 }
 
-export default function AppointmentCard({ time, patient, reason, status }: AppointmentCardProps) {
+export default function AppointmentCard({
+  time,
+  patient,
+  reason,
+  status,
+  onViewDetails,
+}: AppointmentCardProps) {
   return (
     <div className="flex items-center gap-4 p-4 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50/30 dark:hover:bg-blue-900/20 transition-all">
-      <div className="flex-shrink-0">
-        <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-teal-500 rounded-xl flex items-center justify-center">
+      <div className="shrink-0">
+        <div className="w-16 h-16 bg-linear-to-br from-blue-500 to-teal-500 rounded-xl flex items-center justify-center">
           <Clock className="w-8 h-8 text-white" />
         </div>
       </div>
@@ -36,20 +42,9 @@ export default function AppointmentCard({ time, patient, reason, status }: Appoi
         </div>
       </div>
 
-      <div className="flex gap-2">
-        {status === 'upcoming' && (
-          <>
-            <Button size="sm">Start</Button>
-            <Button variant="outline" size="sm">Reschedule</Button>
-          </>
-        )}
-        {status === 'in-progress' && (
-          <Button variant="success" size="sm">Complete</Button>
-        )}
-        {status === 'completed' && (
-          <Button variant="outline" size="sm">View Details</Button>
-        )}
-      </div>
+      <Button variant="outline" size="sm" onClick={onViewDetails}>
+        View Details
+      </Button>
     </div>
   );
 }

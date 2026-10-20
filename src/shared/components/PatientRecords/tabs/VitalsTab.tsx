@@ -4,19 +4,13 @@ import { useState } from "react";
 import Vitals from "@/shared/components/PatientMedicalRecords/Vitals/Vitals";
 import AddOrEditVitals, {
   type VitalsFormData,
-} from "../../../modals/AddOrEditVitals";
-import { vitals } from "../../../constants/patientRecords";
+} from "@/role/doctor/modals/AddOrEditVitals";
+import { vitals } from "@/shared/constants/patientRecords";
 import NoPatientChoose from "../NoPatientChoose";
 import UnknownPatient from "../UnknownPatient";
 import { TabsSkeleton } from "../skeletons";
-
-interface PatientProfile {
-  id: string;
-  name: string;
-  age: number;
-  gender: string;
-  bloodGroup: string;
-}
+import { useAuth } from "@/providers/AuthProvider";
+import { PatientProfile } from "@/shared/types/patientRecords";
 
 interface VitalsTabProps {
   patient?: PatientProfile;
@@ -31,6 +25,8 @@ export default function VitalsTab({
 }: VitalsTabProps) {
   const [vitalsOpen, setVitalsOpen] = useState(false);
   const [localVitals, setLocalVitals] = useState(vitals);
+  const { role } = useAuth();
+  const isDoctor = role === "doctor";
 
   if (isUnknown) return <UnknownPatient patientId={patientId} />;
 
@@ -106,20 +102,22 @@ export default function VitalsTab({
       ) : (
         <Vitals
           vitals={patientVitals}
-          doctor
+          doctor={isDoctor}
           onAddEdit={() => setVitalsOpen(true)}
         />
       )}
 
-      <AddOrEditVitals
-        open={vitalsOpen}
-        onOpenChange={setVitalsOpen}
-        patientName={patient.name}
-        patientMeta={`${patient.age}/${patient.gender[0]} · ${patient.bloodGroup}`}
-        initialData={vitalsInitialData}
-        isEdit={patientVitals.length > 0}
-        onSave={handleSaveVitals}
-      />
+      {isDoctor && (
+        <AddOrEditVitals
+          open={vitalsOpen}
+          onOpenChange={setVitalsOpen}
+          patientName={patient.name}
+          patientMeta={`${patient.age}/${patient.gender[0]} · ${patient.bloodGroup}`}
+          initialData={vitalsInitialData}
+          isEdit={patientVitals.length > 0}
+          onSave={handleSaveVitals}
+        />
+      )}
     </>
   );
 }

@@ -2,14 +2,14 @@
 
 import { useState } from "react";
 import { Bell, User } from "lucide-react";
-import Search from "./Search";
 import LogoutButton from "./LogoutButton";
 import DarkModeToggle from "./DarkModeToggle";
 import Avatar from "@/shared/components/Avatar";
 import MobileSidebar from "../sidebar/MobileSidebar";
 import { useAuth } from "@/providers/AuthProvider";
+import NavbarSearch from "./NavbarSearch/NavbarSearch";
 
-export default function Header() {
+export default function Navbar() {
   const { role, logout } = useAuth();
   const [showNotifications, setShowNotifications] = useState(false);
   const [showProfile, setShowProfile] = useState(false);
@@ -41,13 +41,21 @@ export default function Header() {
       : role === "admin"
         ? "Admin User"
         : "John Doe";
+
+  const placeHolder =
+    role === "admin"
+      ? "Search patients, doctors, or appointments"
+      : role === "doctor"
+        ? "Search appointments or your patients"
+        : "Search your appointments";
+
   return (
     <header className="sticky top-0 z-40 md:ml-60 bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 px-6 py-4">
       <div className="flex items-center justify-between">
         {/* Left side - Menu & Search */}
         <div className="flex items-center gap-4 flex-1">
           <MobileSidebar />
-          <Search />
+          <NavbarSearch placeholder={placeHolder} />
         </div>
 
         {/* Right side - Dark Mode, Notifications & Profile */}

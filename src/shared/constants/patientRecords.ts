@@ -4,7 +4,7 @@ import {
   Prescription,
   VisitRecord,
   Vital,
-} from "../types/patientRecords";
+} from "@/shared/types/patientRecords";
 
 export const patientsList: PatientInformationType[] = [
   {
@@ -271,7 +271,7 @@ export const prescriptions: Prescription[] = [
     timing: "After meals",
     duration: "7 days",
     specialInstructions: "Take with plenty of water. Complete full course.",
-    notes: "Follow-up in 1 week",
+    // notes: "Follow-up in 1 week",
     status: "Active",
     prescribedBy: "Dr. Sarah Johnson",
     date: "Dec 20, 2024",

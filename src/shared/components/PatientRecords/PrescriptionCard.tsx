@@ -5,7 +5,7 @@ import StatusBadge from "@/shared/components/Appointments/StatusBadge";
 
 export interface PrescriptionCardData {
   id: string;
-  patientId: number;
+  patientId: string;
   medicineName: string;
   dosage: string;
   frequency: string;
@@ -20,14 +20,16 @@ export interface PrescriptionCardData {
 
 interface PrescriptionCardProps {
   prescription: PrescriptionCardData;
-  onViewPDF?: (prescription: PrescriptionCardData) => void;
-  onRevoke?: (prescription: PrescriptionCardData) => void;
+  onRevoke?: (id: string) => void;
+  onEdit?: (id: string) => void;
+  isDoctor: boolean;
 }
 
 export default function PrescriptionCard({
   prescription,
-  onViewPDF,
   onRevoke,
+  onEdit,
+  isDoctor,
 }: PrescriptionCardProps) {
   const dosageLine = `Dosage: ${prescription.dosage} · ${prescription.frequency} · ${prescription.timing} · ${prescription.duration}`;
 
@@ -57,19 +59,22 @@ export default function PrescriptionCard({
         <Button
           variant="outline"
           size="sm"
-          onClick={() => onViewPDF?.(prescription)}
-        >
-          View PDF
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
           className="text-red-600 dark:text-red-400 border-red-200 dark:border-red-800 hover:bg-red-50 dark:hover:bg-red-900/20"
-          onClick={() => onRevoke?.(prescription)}
+          onClick={() => onRevoke?.(prescription.id)}
           disabled={prescription.status.toLowerCase() === "revoked"}
         >
           Revoke
         </Button>
+        {onEdit && isDoctor && (
+          <Button
+            variant="outline"
+            size="sm"
+            className="text-green-60 dark:text-green-400 border-green-200 dark:border-green-800 hover:bg-green-50 dark:hover:bg-green-900/20"
+            onClick={() => onEdit(prescription.id)}
+          >
+            Edit
+          </Button>
+        )}
       </div>
     </div>
   );

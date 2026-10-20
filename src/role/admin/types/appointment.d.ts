@@ -17,6 +17,8 @@ export interface Appointment {
   date: string;
   start_time: string;
   end_time: string;
+  start_period: "AM" | "PM";
+  end_period: "AM" | "PM";
   status: AppointmentStatus;
   reason: string;
 }

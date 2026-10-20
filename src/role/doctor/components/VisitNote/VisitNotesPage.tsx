@@ -1,6 +1,5 @@
 "use client";
 
-import React, { useState } from "react";
 import { CheckCircle2, Download } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import PatientInformation from "@/role/doctor/components/VisitNote/PatientInformation";
@@ -8,33 +7,33 @@ import VisitStatus from "@/role/doctor/components/VisitNote/VisitStatus";
 import MedicationsPrescription from "@/role/doctor/components/VisitNote/MedicationsPrescription";
 import DoctorNotes from "@/role/doctor/components/VisitNote/DoctorNotes";
 import FollowUp from "@/role/doctor/components/VisitNote/FollowUp";
-import RecentVisits from "@/role/doctor/components/VisitNote/RecentVisits";
 import Diagnosis from "./Diagnosis";
-
-type VisitStatusValue = "scheduled" | "completed" | "cancelled";
+import VisitNotesPageHook from "@/role/doctor/hooks/VisitNotesPageHook";
 
 export default function VisitNotesPage() {
-  const [status, setStatus] = useState<VisitStatusValue>("scheduled");
-
-  const recentVisits = [
-    {
-      id: 1,
-      patient: "John Smith",
-      date: "Dec 20, 2024",
-      medicines: 3,
-      doctor: "Dr. Sarah Johnson",
-    },
-    {
-      id: 2,
-      patient: "Emma Wilson",
-      date: "Dec 19, 2024",
-      medicines: 2,
-      doctor: "Dr. Sarah Johnson",
-    },
-  ];
+  const {
+    status,
+    setStatus,
+    cancelReason,
+    setCancelReason,
+    cancelNote,
+    setCancelNote,
+    medicines,
+    addMedicine,
+    removeMedicine,
+    updateMedicine,
+    diagnosis,
+    setDiagnosis,
+    doctorNotes,
+    setDoctorNotes,
+    followUp,
+    nextAppointment,
+    handleFollowUpNo,
+    handleScheduleFollowUp,
+  } = VisitNotesPageHook();
 
   return (
-    <div className="p-8 space-y-6">
+    <div className="space-y-6">
       <div>
         <h1 className="text-2xl text-gray-900 dark:text-slate-100 mb-2">
           Visit Notes
@@ -46,12 +45,40 @@ export default function VisitNotesPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
-          <PatientInformation />
-          <VisitStatus status={status} onStatusChange={setStatus} />
-          <MedicationsPrescription />
-          <Diagnosis />
-          <DoctorNotes />
-          <FollowUp />
+          <PatientInformation
+            name="John Smith"
+            age={45}
+            gender="Male"
+            bloodGroup="O+"
+            reason="Regular Checkup"
+            appointmentType="Regular"
+          />
+          <VisitStatus
+            status={status}
+            onStatusChange={setStatus}
+            cancelReason={cancelReason}
+            onCancelReasonChange={setCancelReason}
+            cancelNote={cancelNote}
+            onCancelNoteChange={setCancelNote}
+          />
+          <MedicationsPrescription
+            medicines={medicines}
+            onAddMedicine={addMedicine}
+            onRemoveMedicine={removeMedicine}
+            onUpdateMedicine={updateMedicine}
+          />
+          <Diagnosis value={diagnosis} onChange={setDiagnosis} />
+          <DoctorNotes value={doctorNotes} onChange={setDoctorNotes} />
+
+          <FollowUp
+            followUp={followUp}
+            nextAppointment={nextAppointment}
+            patientName="John Smith"
+            specialty="General Physician"
+            appointmentType="followup"
+            onNo={handleFollowUpNo}
+            onSchedule={handleScheduleFollowUp}
+          />
 
           <div className="flex gap-3">
             <Button variant="outline" className="flex-1">
@@ -66,10 +93,6 @@ export default function VisitNotesPage() {
               Export PDF
             </Button>
           </div>
-        </div>
-
-        <div className="space-y-6">
-          <RecentVisits visits={recentVisits} />
         </div>
       </div>
     </div>

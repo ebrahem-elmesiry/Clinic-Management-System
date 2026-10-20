@@ -11,7 +11,7 @@ import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
 import { toast } from "sonner";
-import { vitalsSchema } from "../validations/settings/validation";
+import { vitalsSchema } from "@/role/doctor/validations/validation";
 
 // Suggested better name: RecordVitalsModal — kept as AddOrEditVitals per your request
 // If you prefer, rename file to RecordVitalsModal.tsx and keep this as wrapper export.

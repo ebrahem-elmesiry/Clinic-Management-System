@@ -9,23 +9,16 @@ import {
 import { Users, Calendar, DollarSign, UserCheck } from "lucide-react";
 
 export const colorClasses = {
-  "Total Patients":
-    "from-teal-500 to-teal-600 dark:from-teal-600 dark:to-teal-700",
-  "Today's Appointments":
-    "from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700",
-  "Active Doctors":
+  teal: "from-teal-500 to-teal-600 dark:from-teal-600 dark:to-teal-700",
+  blue: "from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700",
+  purple:
     "from-purple-500 to-purple-600 dark:from-purple-600 dark:to-purple-700",
-  "Revenue (Monthly)":
-    "from-green-500 to-green-600 dark:from-green-600 dark:to-green-700",
+  green: "from-green-500 to-green-600 dark:from-green-600 dark:to-green-700",
   Doctors: "from-blue-500 to-blue-600 dark:from-blue-700 dark:to-blue-900",
   Patients: "from-teal-500 to-teal-600 dark:from-teal-700 dark:to-teal-900",
-  Admins:
-    "from-purple-500 to-purple-600 dark:from-purple-700 dark:to-purple-900",
   Inactive: "from-red-500 to-red-600 dark:from-red-700 dark:to-red-900",
-  "Pending Reviews":
+  orange:
     "from-orange-500 to-orange-600 dark:from-orange-600 dark:to-orange-700",
-  "Completed Today":
-    "from-green-500 to-green-600 dark:from-green-600 dark:to-green-700",
 };
 
 export const stats: StatisticsAdminDashboardType[] = [
@@ -35,6 +28,7 @@ export const stats: StatisticsAdminDashboardType[] = [
     changeValue: "+12%",
     changeLabel: "from last month",
     icon: Users,
+    color: colorClasses.Patients,
   },
   {
     title: "Today's Appointments",
@@ -42,6 +36,7 @@ export const stats: StatisticsAdminDashboardType[] = [
     changeValue: "8",
     changeLabel: "pending confirmation",
     icon: Calendar,
+    color: colorClasses.blue,
   },
   {
     title: "Revenue (Monthly)",
@@ -49,6 +44,7 @@ export const stats: StatisticsAdminDashboardType[] = [
     changeValue: "+18%",
     changeLabel: "from last month",
     icon: DollarSign,
+    color: colorClasses.green,
   },
   {
     title: "Active Doctors",
@@ -56,6 +52,34 @@ export const stats: StatisticsAdminDashboardType[] = [
     changeValue: "2",
     changeLabel: "on leave",
     icon: UserCheck,
+    color: colorClasses.Doctors,
+  },
+];
+
+export const doctorStatusDashboard = [
+  {
+    title: "Total Patients",
+    value: "1,284",
+    changeValue: "+12%",
+    changeLabel: "from last month",
+    icon: Users,
+    color: colorClasses.Patients,
+  },
+  {
+    title: "Today's Appointments",
+    value: "48",
+    changeValue: "8",
+    changeLabel: "pending confirmation",
+    icon: Calendar,
+    color: colorClasses.blue,
+  },
+  {
+    title: "Pending Visits",
+    value: "24",
+    changeValue: "2",
+    changeLabel: "on leave",
+    icon: UserCheck,
+    color: colorClasses.orange,
   },
 ];
 

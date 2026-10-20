@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/providers/AuthProvider";
 import { ThemeProvider } from "@/providers/ThemeProvider";
-import Header from "@/shared/components/header/Header";
+import Header from "@/shared/components/Navbar/Navbar";
 import Sidebar from "@/shared/components/sidebar/Sidebar";
 import { Toaster } from "sonner";
 

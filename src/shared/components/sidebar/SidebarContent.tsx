@@ -14,7 +14,7 @@ import {
   Users,
   type LucideIcon,
 } from "lucide-react";
-import Search from "../header/Search";
+import Search from "../Navbar/NavbarSearch/NavbarSearch";
 import { useAuth } from "@/providers/AuthProvider";
 
 type UserRole = "doctor" | "admin" | "patient";

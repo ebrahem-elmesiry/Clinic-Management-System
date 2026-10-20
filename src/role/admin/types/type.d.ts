@@ -7,7 +7,7 @@ import {
 } from "../constants";
 
 export interface StatisticsCardType {
-  title: TitleColor;
+  title: string;
   value: string;
   icon: LucideIcon;
 }
@@ -20,6 +20,7 @@ export interface changeStatisticType {
 export interface StatisticsAdminDashboardType extends StatisticsCardType {
   changeValue?: string;
   changeLabel?: string;
+  color: string;
 }
 
 export interface QuickAction {
@@ -28,7 +29,6 @@ export interface QuickAction {
   href: string;
 }
 
-export type TitleColor = keyof typeof colorClasses;
 export type actionColor = keyof typeof actionColorClass;
 
 export type statusType = "confirmed" | "pending";

@@ -3,7 +3,7 @@
 import { User, ChevronRight } from "lucide-react";
 import { Input } from "@/shared/components/ui/input";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { PatientListItem } from "@/role/admin/types/patientRecords";
+import { PatientListItem } from "@/shared/types/patientRecords";
 import { formatLastVisit } from "@/utils/formatLastVisit";
 import { useEffect, useState } from "react";
 

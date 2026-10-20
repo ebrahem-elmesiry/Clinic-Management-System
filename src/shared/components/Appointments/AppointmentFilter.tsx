@@ -11,11 +11,12 @@ import {
 import { Button } from "@/shared/components/ui/button";
 import { APPOINTMENT_STATUSES } from "@/role/admin/constants/appointments";
 import AppointmentFilterHook from "@/shared/hooks/AppointmentFilterHook";
+import { useAuth } from "@/providers/AuthProvider";
 
 export default function AppointmentFilter() {
   const { search, setSearch, view, handleSearch, handleFilter, handleView } =
     AppointmentFilterHook();
-
+  const { role } = useAuth();
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
       <div className="flex flex-wrap items-center gap-4">
@@ -27,17 +28,19 @@ export default function AppointmentFilter() {
             onSubmit={handleSearch}
           />
         </div>
-        <Select onValueChange={(value) => handleFilter("doctor", value)}>
-          <SelectTrigger className="w-45">
-            <SelectValue placeholder="Filter by Doctor" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">All Doctors</SelectItem>
-            <SelectItem value="dr-johnson">Dr. Sarah Johnson</SelectItem>
-            <SelectItem value="dr-chen">Dr. Michael Chen</SelectItem>
-            <SelectItem value="dr-lee">Dr. Robert Lee</SelectItem>
-          </SelectContent>
-        </Select>
+        {role === "admin" && (
+          <Select onValueChange={(value) => handleFilter("doctor", value)}>
+            <SelectTrigger className="w-45">
+              <SelectValue placeholder="Filter by Doctor" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Doctors</SelectItem>
+              <SelectItem value="dr-johnson">Dr. Sarah Johnson</SelectItem>
+              <SelectItem value="dr-chen">Dr. Michael Chen</SelectItem>
+              <SelectItem value="dr-lee">Dr. Robert Lee</SelectItem>
+            </SelectContent>
+          </Select>
+        )}
         <Select onValueChange={(value) => handleFilter("status", value)}>
           <SelectTrigger className="w-45">
             <SelectValue placeholder="Filter by Status" />

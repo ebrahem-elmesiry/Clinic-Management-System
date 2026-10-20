@@ -1,6 +1,3 @@
-"use client";
-
-import { useState, useEffect } from "react";
 import {
   Dialog,
   DialogContent,
@@ -17,8 +14,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select";
-import { Pill, Check } from "lucide-react";
-import { toast } from "sonner";
+import { Pill } from "lucide-react";
 
 export interface PrescriptionFormData {
   medicineName: string;
@@ -27,7 +23,6 @@ export interface PrescriptionFormData {
   timing: string;
   duration: string;
   specialInstructions?: string;
-  notes?: string;
 }
 
 interface AddPrescriptionProps {
@@ -35,19 +30,15 @@ interface AddPrescriptionProps {
   onOpenChange: (open: boolean) => void;
   patientName: string;
   patientMeta?: string;
-  onCreate: (data: PrescriptionFormData & { date: string }) => void;
-  onSaveDraft?: (data: PrescriptionFormData & { date: string }) => void;
+  onCreate: (data: PrescriptionFormData) => void;
+  form: PrescriptionFormData;
+  handleChange: (field: keyof PrescriptionFormData, value: string) => void;
+  validate: () => boolean;
+  handlePrescriptionEdit: (id: string) => void;
+  isEdit: boolean;
+  prescriptionId?: string;
+  emptyForm: () => void;
 }
-
-const defaultForm: PrescriptionFormData = {
-  medicineName: "",
-  dosage: "",
-  frequency: "",
-  timing: "",
-  duration: "",
-  specialInstructions: "",
-  notes: "",
-};
 
 export default function AddPrescription({
   open,
@@ -55,50 +46,31 @@ export default function AddPrescription({
   patientName,
   patientMeta,
   onCreate,
-  onSaveDraft,
+  form,
+  handleChange,
+  validate,
+  handlePrescriptionEdit,
+  isEdit,
+  prescriptionId,
+  emptyForm,
 }: AddPrescriptionProps) {
-  const [form, setForm] = useState<PrescriptionFormData>(defaultForm);
-  const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
-
-  useEffect(() => {
-    if (open) {
-      setForm(defaultForm);
-      setDate(new Date().toISOString().split("T")[0]);
-    }
-  }, [open]);
-
-  const handleChange = (field: keyof PrescriptionFormData, value: string) =>
-    setForm((prev) => ({ ...prev, [field]: value }));
-
-  const validate = () => {
-    if (!form.medicineName.trim()) {
-      toast.error("Medicine Name is required");
-      return false;
-    }
-    return true;
-  };
-
-  const handleCreate = (e: React.FormEvent) => {
+  function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     if (!validate()) return;
-    onCreate({ ...form, date });
-    toast.success("Prescription created successfully");
+    if (isEdit) {
+      if (prescriptionId) handlePrescriptionEdit(prescriptionId);
+    } else {
+      onCreate({ ...form });
+    }
     onOpenChange(false);
-  };
-
-  const handleDraft = () => {
-    if (!validate()) return;
-    onSaveDraft?.({ ...form, date });
-    toast.success("Draft saved");
-    onOpenChange(false);
-  };
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700">
         <DialogHeader>
           <DialogTitle className="text-lg text-gray-900 dark:text-gray-100">
-            Add Prescription
+            {isEdit ? "Edit" : "Add"} Prescription
           </DialogTitle>
           <p className="text-sm text-gray-500 dark:text-gray-400">
             {patientName} {patientMeta ? `· ${patientMeta}` : ""} · Admin
@@ -204,29 +176,19 @@ export default function AddPrescription({
             </div>
           </div>
 
-          <div>
-            <Label htmlFor="notes">Additional Notes & Advice</Label>
-            <textarea
-              id="notes"
-              rows={2}
-              className="w-full mt-2 px-3 py-2 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
-              placeholder="Follow-up in 1 week · Avoid alcohol..."
-              value={form.notes}
-              onChange={(e) => handleChange("notes", e.target.value)}
-            />
-          </div>
-
-          <div className="flex gap-3 pt-2">
+          <div className="flex gap-3">
             <Button
               type="button"
-              variant="outline"
-              className="flex-1"
-              onClick={handleDraft}
+              onClick={() => {
+                emptyForm();
+                onOpenChange(false);
+              }}
+              variant={"outline"}
             >
-              Save as Draft
+              Cancel
             </Button>
-            <Button type="submit" className="flex-1">
-              Create Prescription
+            <Button type="submit">
+              {isEdit ? "Edit" : "Create"} Prescription
             </Button>
           </div>
         </form>

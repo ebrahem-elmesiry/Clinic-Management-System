@@ -1,5 +1,6 @@
 "use client";
 
+import { UserRole } from "@/shared/types/type";
 import React from "react";
 
 export type SettingsTab =
@@ -21,14 +22,16 @@ interface TabTitleProps {
   tabs: SettingsTabItem[];
   activeTab: SettingsTab;
   onTabChange: (tab: SettingsTab) => void;
+  role: UserRole;
 }
 
 export default function TabTitle({
   tabs,
   activeTab,
   onTabChange,
+  role,
 }: TabTitleProps) {
-  const isAdmin = true;
+  const isAdmin = role === "admin";
   return (
     <div className="w-52 shrink-0">
       <nav className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-2 space-y-1">

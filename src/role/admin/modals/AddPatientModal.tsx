@@ -21,7 +21,7 @@ import { Dispatch, SetStateAction, useState } from "react";
 import {
   PatientInformationType,
   PatientProfile,
-} from "../types/patientRecords";
+} from "@/shared/types/patientRecords";
 import { toast } from "sonner";
 import { FormData, patientSchema } from "../validations/settings/validation";
 

@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { Plus, Trash2 } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
@@ -13,50 +12,32 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select";
+import type { Medicine } from "../../types/type";
 
-interface Medicine {
-  id: number;
-  name: string;
-  dosage: string;
-  frequency: string;
-  timing: string;
-  duration: string;
-  instructions: string;
+interface MedicationsPrescriptionProps {
+  medicines: Medicine[];
+  onAddMedicine: () => void;
+  onRemoveMedicine: (id: number) => void;
+  onUpdateMedicine: (id: number, field: keyof Medicine, value: string) => void;
 }
 
-const newMedicine = (): Medicine => ({
-  id: Date.now(),
-  name: "",
-  dosage: "",
-  frequency: "",
-  timing: "",
-  duration: "",
-  instructions: "",
-});
-
-export default function MedicationsPrescription() {
-  const [medicines, setMedicines] = React.useState<Medicine[]>([newMedicine()]);
-
-  const addMedicine = () => {
-    setMedicines((prev) => [...prev, newMedicine()]);
-  };
-
-  const removeMedicine = (id: number) => {
-    setMedicines((prev) => prev.filter((m) => m.id !== id));
-  };
-
+export default function MedicationsPrescription({
+  medicines,
+  onAddMedicine,
+  onRemoveMedicine,
+  onUpdateMedicine,
+}: MedicationsPrescriptionProps) {
   return (
     <WrapperComponent
       title="Medications & Prescription"
       showButton
       Button={
-        <Button onClick={addMedicine} variant="outline" size="sm">
+        <Button onClick={onAddMedicine} variant="outline" size="sm">
           <Plus className="w-4 h-4 mr-2" />
           Add Medicine
         </Button>
       }
     >
-
       <div className="space-y-4">
         {medicines.map((medicine, index) => (
           <div
@@ -69,7 +50,7 @@ export default function MedicationsPrescription() {
               </span>
               {medicines.length > 1 && (
                 <button
-                  onClick={() => removeMedicine(medicine.id)}
+                  onClick={() => onRemoveMedicine(medicine.id)}
                   className="p-1 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 rounded"
                 >
                   <Trash2 className="w-4 h-4" />
@@ -86,6 +67,10 @@ export default function MedicationsPrescription() {
                   id={`medicine-name-${medicine.id}`}
                   placeholder="e.g., Amoxicillin 500mg"
                   className="mt-2"
+                  value={medicine.name}
+                  onChange={(e) =>
+                    onUpdateMedicine(medicine.id, "name", e.target.value)
+                  }
                 />
               </div>
               <div>
@@ -94,13 +79,20 @@ export default function MedicationsPrescription() {
                   id={`dosage-${medicine.id}`}
                   placeholder="e.g., 1 tablet"
                   className="mt-2"
+                  value={medicine.dosage}
+                  onChange={(e) =>
+                    onUpdateMedicine(medicine.id, "dosage", e.target.value)
+                  }
                 />
               </div>
               <div>
-                <Label htmlFor={`frequency-${medicine.id}`}>
-                  Frequency
-                </Label>
-                <Select>
+                <Label htmlFor={`frequency-${medicine.id}`}>Frequency</Label>
+                <Select
+                  value={medicine.frequency}
+                  onValueChange={(value) =>
+                    onUpdateMedicine(medicine.id, "frequency", value)
+                  }
+                >
                   <SelectTrigger className="mt-2">
                     <SelectValue placeholder="Select frequency" />
                   </SelectTrigger>
@@ -115,7 +107,12 @@ export default function MedicationsPrescription() {
               </div>
               <div>
                 <Label htmlFor={`timing-${medicine.id}`}>Timing</Label>
-                <Select>
+                <Select
+                  value={medicine.timing}
+                  onValueChange={(value) =>
+                    onUpdateMedicine(medicine.id, "timing", value)
+                  }
+                >
                   <SelectTrigger className="mt-2">
                     <SelectValue placeholder="Select timing" />
                   </SelectTrigger>
@@ -129,13 +126,15 @@ export default function MedicationsPrescription() {
                 </Select>
               </div>
               <div>
-                <Label htmlFor={`duration-${medicine.id}`}>
-                  Duration
-                </Label>
+                <Label htmlFor={`duration-${medicine.id}`}>Duration</Label>
                 <Input
                   id={`duration-${medicine.id}`}
                   placeholder="e.g., 7 days"
                   className="mt-2"
+                  value={medicine.duration}
+                  onChange={(e) =>
+                    onUpdateMedicine(medicine.id, "duration", e.target.value)
+                  }
                 />
               </div>
               <div className="md:col-span-2">
@@ -146,6 +145,14 @@ export default function MedicationsPrescription() {
                   id={`instructions-${medicine.id}`}
                   rows={2}
                   placeholder="Any additional instructions..."
+                  value={medicine.instructions}
+                  onChange={(e) =>
+                    onUpdateMedicine(
+                      medicine.id,
+                      "instructions",
+                      e.target.value,
+                    )
+                  }
                   className="w-full mt-2 px-3 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-100 dark:placeholder:text-slate-500"
                 />
               </div>
