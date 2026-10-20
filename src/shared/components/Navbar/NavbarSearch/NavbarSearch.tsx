@@ -17,14 +17,10 @@ import DoctorSearchView from "./views/DoctorSearchView";
 import PatientSearchView from "./views/PatientSearchView";
 
 interface SearchProps {
-  placeholder?: string;
   searchSidebar?: boolean;
 }
 
-export default function NavbarSearch({
-  searchSidebar = false,
-  placeholder = "Search patients, appointments...",
-}: SearchProps) {
+export default function NavbarSearch({ searchSidebar = false }: SearchProps) {
   const {
     query,
     setQuery,
@@ -38,6 +34,13 @@ export default function NavbarSearch({
     hint,
   } = useNavbarSearchHook();
 
+  const placeHolder =
+    role === "admin"
+      ? "Search patients, doctors, or appointments"
+      : role === "doctor"
+        ? "Search appointments or your patients"
+        : "Search your appointments";
+
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
@@ -46,7 +49,7 @@ export default function NavbarSearch({
           className={`flex h-9 w-full max-w-md items-center gap-2 rounded-md border border-input bg-input-background dark:bg-input/30 px-3 text-sm text-muted-foreground ${searchSidebar ? "sm:hidden" : "max-sm:hidden"}`}
         >
           <SearchIcon className="w-5 h-5 shrink-0 text-gray-400 dark:text-gray-500" />
-          <span className="truncate">{placeholder}</span>
+          <span className="truncate">{placeHolder}</span>
         </button>
       </DialogTrigger>
 
@@ -64,7 +67,7 @@ export default function NavbarSearch({
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder={placeholder}
+              placeholder={placeHolder}
               className="pl-10 w-full h-11 text-base"
             />
           </div>

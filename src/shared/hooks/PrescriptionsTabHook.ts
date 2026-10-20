@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { PrescriptionFormData } from "@/role/doctor/modals/AddPrescription";
 import { PatientProfile, Prescription } from "@/shared/types/patientRecords";
@@ -16,7 +16,6 @@ interface PrescriptionsTabHookProps {
 export default function usePrescriptionsTabHook({
   patient,
 }: PrescriptionsTabHookProps) {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -66,7 +65,13 @@ export default function usePrescriptionsTabHook({
     }
 
     const qs = params.toString();
-    router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
+    // Native replaceState avoids the Suspense re-render scroll reset that
+    // router.replace causes on the patient-records page.
+    window.history.replaceState(
+      null,
+      "",
+      qs ? `${pathname}?${qs}` : pathname,
+    );
   }
 
   function openAddPrescription() {

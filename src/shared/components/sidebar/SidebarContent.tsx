@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import Search from "../Navbar/NavbarSearch/NavbarSearch";
 import { useAuth } from "@/providers/AuthProvider";
+import LogoutButton from "../Navbar/LogoutButton";
 
 type UserRole = "doctor" | "admin" | "patient";
 
@@ -54,7 +55,7 @@ const menuItems: Record<UserRole, NavItem[]> = {
 };
 
 export default function SidebarContent() {
-  const { role } = useAuth();
+  const { role, logout } = useAuth();
 
   const pathname = usePathname();
   const items = menuItems[role!];
@@ -105,12 +106,13 @@ export default function SidebarContent() {
 
       {/* User Role Badge */}
       <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-        <div className="px-4 py-3 bg-linear-to-r from-blue-50 to-teal-50 dark:from-blue-900/30 dark:to-teal-900/30 rounded-lg">
+        <div className="px-4 py-3 mb-2 bg-linear-to-r from-blue-50 to-teal-50 dark:from-blue-900/30 dark:to-teal-900/30 rounded-lg">
           <p className="text-xs text-gray-500 dark:text-gray-400">
             Logged in as
           </p>
           <p className="text-gray-900 dark:text-gray-100 capitalize">{role}</p>
         </div>
+        <LogoutButton onLogout={logout} />
       </div>
     </div>
   );
