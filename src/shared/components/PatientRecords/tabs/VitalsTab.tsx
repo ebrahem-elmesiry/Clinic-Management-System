@@ -5,22 +5,24 @@ import Vitals from "@/shared/components/PatientMedicalRecords/Vitals/Vitals";
 import AddOrEditVitals, {
   type VitalsFormData,
 } from "@/role/doctor/modals/AddOrEditVitals";
-import { vitals } from "@/shared/constants/patientRecords";
 import NoPatientChoose from "../NoPatientChoose";
 import UnknownPatient from "../UnknownPatient";
 import { TabsSkeleton } from "../skeletons";
 import { useAuth } from "@/providers/AuthProvider";
-import { PatientProfile } from "@/shared/types/patientRecords";
+import { personalData } from "@/shared/types/type";
+import { Vital } from "@/shared/types/patientRecords";
 
 interface VitalsTabProps {
-  patient?: PatientProfile;
+  patient: personalData | undefined;
   isUnknown?: boolean;
-  patientId?: string | null;
+  vitals: Vital[];
+  patientId: string | null;
 }
 
 export default function VitalsTab({
   patient,
   isUnknown,
+  vitals,
   patientId,
 }: VitalsTabProps) {
   const [vitalsOpen, setVitalsOpen] = useState(false);
@@ -32,15 +34,13 @@ export default function VitalsTab({
 
   if (!patient) return <NoPatientChoose />;
 
-  const patientVitals = localVitals.filter((v) => v.patientId === patient.id);
-
   const vitalsInitialData: VitalsFormData = {
-    bloodPressure: patientVitals[0]?.value ?? "",
-    heartRate: patientVitals[1]?.value ?? "",
-    temperature: patientVitals[2]?.value ?? "",
-    bloodSugar: patientVitals[3]?.value ?? "",
-    weight: patientVitals[4]?.value ?? "",
-    height: patientVitals[5]?.value ?? "",
+    bloodPressure: localVitals[0]?.value ?? "",
+    heartRate: localVitals[1]?.value ?? "",
+    temperature: localVitals[2]?.value ?? "",
+    bloodSugar: localVitals[3]?.value ?? "",
+    weight: localVitals[4]?.value ?? "",
+    height: localVitals[5]?.value ?? "",
   };
 
   const handleSaveVitals = (data: VitalsFormData) => {
@@ -101,7 +101,7 @@ export default function VitalsTab({
         <TabsSkeleton variant="vitals" />
       ) : (
         <Vitals
-          vitals={patientVitals}
+          vitals={localVitals}
           doctor={isDoctor}
           onAddEdit={() => setVitalsOpen(true)}
         />
@@ -112,9 +112,10 @@ export default function VitalsTab({
           open={vitalsOpen}
           onOpenChange={setVitalsOpen}
           patientName={patient.name}
-          patientMeta={`${patient.age}/${patient.gender[0]} · ${patient.bloodGroup}`}
+          patientMeta={`${patient.age}/${patient.gender[0]} ·`}
+          // patientMeta={`${patient.age}/${patient.gender[0]} · ${patient.bloodGroup}`}
           initialData={vitalsInitialData}
-          isEdit={patientVitals.length > 0}
+          isEdit={localVitals.length > 0}
           onSave={handleSaveVitals}
         />
       )}

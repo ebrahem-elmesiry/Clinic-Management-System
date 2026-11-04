@@ -4,17 +4,17 @@ import { useState } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { PrescriptionFormData } from "@/role/doctor/modals/AddPrescription";
-import { PatientProfile, Prescription } from "@/shared/types/patientRecords";
+import { Prescription } from "@/shared/types/patientRecords";
 import { prescriptions } from "@/shared/constants/patientRecords";
 import { useAuth } from "@/providers/AuthProvider";
 import { format } from "date-fns";
 
 interface PrescriptionsTabHookProps {
-  patient?: PatientProfile;
+  patientId: string | null;
 }
 
 export default function usePrescriptionsTabHook({
-  patient,
+  patientId,
 }: PrescriptionsTabHookProps) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
@@ -67,11 +67,7 @@ export default function usePrescriptionsTabHook({
     const qs = params.toString();
     // Native replaceState avoids the Suspense re-render scroll reset that
     // router.replace causes on the patient-records page.
-    window.history.replaceState(
-      null,
-      "",
-      qs ? `${pathname}?${qs}` : pathname,
-    );
+    window.history.replaceState(null, "", qs ? `${pathname}?${qs}` : pathname);
   }
 
   function openAddPrescription() {
@@ -89,7 +85,7 @@ export default function usePrescriptionsTabHook({
     if (!rx) return;
 
     setForm({
-      medicineName: rx.medicineName,
+      medicineName: rx.medicine,
       dosage: rx.dosage,
       frequency: rx.frequency,
       timing: rx.timing,
@@ -101,7 +97,7 @@ export default function usePrescriptionsTabHook({
   }
 
   const patientPrescriptions = localPrescriptions.filter(
-    (p) => p.patientId === patient?.id,
+    (p) => p.patientId === patientId,
   );
 
   function handlePrescriptionEdit(id: string) {
@@ -122,12 +118,12 @@ export default function usePrescriptionsTabHook({
     specialInstructions?: string;
     notes?: string;
   }) => {
-    if (!patient) return;
     const date = format(new Date(), "yyyy-MM-dd");
+    if (!patientId) return;
     const newRx: Prescription = {
       id: `rx-${Date.now()}`,
-      patientId: patient.id,
-      medicineName: data.medicineName,
+      patientId: patientId,
+      medicine: data.medicineName,
       dosage: data.dosage,
       frequency: data.frequency,
       timing: data.timing,
@@ -136,6 +132,7 @@ export default function usePrescriptionsTabHook({
       status: "Active",
       prescribedBy: "Dr. Sarah Johnson",
       date: date,
+      remainingDays: parseInt(data.duration, 10) || 0,
     };
     setLocalPrescriptions((prev) => [newRx, ...prev]);
     toast.success("Prescription created successfully");

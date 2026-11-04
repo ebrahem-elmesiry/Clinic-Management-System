@@ -1,15 +1,15 @@
 "use client";
 
-import { Plus, Pill } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import WrapperComponent from "../../WrapperComponent";
 import PrescriptionCard from "@/shared/components/PatientRecords/PrescriptionCard";
-import type { PrescriptionCardData } from "@/shared/components/PatientRecords/PrescriptionCard";
 import EmptyPrescriptions from "./EmptyPrescriptions";
+import { Prescription } from "@/shared/types/patientRecords";
 
 interface PrescriptionsProps {
   doctor?: boolean;
-  prescriptions?: PrescriptionCardData[];
+  prescriptions: Prescription[];
   onAdd?: () => void;
   onEdit?: (id: string) => void;
   onRevoke?: (id: string) => void;

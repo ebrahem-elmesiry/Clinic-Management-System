@@ -5,21 +5,25 @@ import AddPrescription from "@/role/doctor/modals/AddPrescription";
 
 import NoPatientChoose from "../NoPatientChoose";
 import UnknownPatient from "../UnknownPatient";
-import { PatientProfile } from "@/shared/types/patientRecords";
 import { TabsSkeleton } from "../skeletons";
 import usePrescriptionsTabHook from "@/shared/hooks/PrescriptionsTabHook";
+import { personalData } from "@/shared/types/type";
+import { Prescription } from "@/shared/types/patientRecords";
+import { useSearchParams } from "next/navigation";
 
 interface PrescriptionsTabProps {
-  patient?: PatientProfile;
+  patient: personalData | undefined;
   isUnknown?: boolean;
-  patientId?: string | null;
+  prescriptions: Prescription[];
 }
 
 export default function PrescriptionsTab({
   patient,
   isUnknown,
-  patientId,
+  prescriptions,
 }: PrescriptionsTabProps) {
+  const searchParams = useSearchParams();
+  const patientId = searchParams.get("patientID");
   const {
     form,
     isEdit,
@@ -37,7 +41,7 @@ export default function PrescriptionsTab({
     emptyForm,
     handleCreatePrescription,
     handleRevoke,
-  } = usePrescriptionsTabHook({ patient });
+  } = usePrescriptionsTabHook({ patientId });
 
   if (isUnknown) return <UnknownPatient patientId={patientId} />;
 
@@ -50,7 +54,7 @@ export default function PrescriptionsTab({
       ) : (
         <Prescriptions
           doctor={isDoctor}
-          prescriptions={patientPrescriptions}
+          prescriptions={prescriptions}
           onAdd={openAddPrescription}
           onEdit={startEditPrescription}
           onRevoke={handleRevoke}

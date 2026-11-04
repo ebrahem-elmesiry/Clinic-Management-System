@@ -1,7 +1,6 @@
 "use client";
 
-import React from "react";
-import { Plus, Activity } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import StatusBadge from "@/shared/components/Appointments/StatusBadge";
 import WrapperComponent from "../../WrapperComponent";

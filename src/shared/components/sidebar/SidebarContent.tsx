@@ -2,57 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  Calendar,
-  ClipboardList,
-  FileText,
-  LayoutDashboard,
-  Palette,
-  Settings,
-  Stethoscope,
-  UserCog,
-  Users,
-  type LucideIcon,
-} from "lucide-react";
+
 import Search from "../Navbar/NavbarSearch/NavbarSearch";
 import { useAuth } from "@/providers/AuthProvider";
 import LogoutButton from "../Navbar/LogoutButton";
-
-type UserRole = "doctor" | "admin" | "patient";
-
-interface NavItem {
-  href: string;
-  label: string;
-  icon: LucideIcon;
-}
-
-const menuItems: Record<UserRole, NavItem[]> = {
-  doctor: [
-    { href: "/doctor/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/doctor/appointments", label: "Appointments", icon: Calendar },
-    { href: "/doctor/patient-records", label: "Patient Records", icon: Users },
-    { href: "/doctor/visit-notes", label: "Visit Notes", icon: ClipboardList },
-    { href: "/doctor/settings", label: "Settings", icon: Settings },
-  ],
-  admin: [
-    { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/admin/appointments", label: "Appointments", icon: Calendar },
-    { href: "/admin/patients", label: "Patients", icon: Users },
-    { href: "/admin/user-management", label: "User Management", icon: UserCog },
-    { href: "/admin/settings", label: "Settings", icon: Settings },
-    { href: "/admin/design-system", label: "Design System", icon: Palette },
-  ],
-  patient: [
-    { href: "/patient/dashboard", label: "Dashboard", icon: LayoutDashboard },
-    { href: "/patient/appointments", label: "My Appointments", icon: Calendar },
-    {
-      href: "/patient/medical-records",
-      label: "Medical Records",
-      icon: FileText,
-    },
-    { href: "/patient/settings", label: "Settings", icon: Settings },
-  ],
-};
+import { menuItems } from "@/shared/constants/constants";
+import { Stethoscope } from "lucide-react";
 
 export default function SidebarContent() {
   const { role, logout } = useAuth();
@@ -80,7 +35,8 @@ export default function SidebarContent() {
       <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
         {items.map((item) => {
           const Icon = item.icon;
-          const isActive = pathname === item.href;
+          const currentPath = item.href.match(/^[^?]*/)?.[0];
+          const isActive = pathname === currentPath;
 
           return (
             <Link
@@ -106,12 +62,6 @@ export default function SidebarContent() {
 
       {/* User Role Badge */}
       <div className="p-4 border-t border-gray-200 dark:border-gray-700">
-        <div className="px-4 py-3 mb-2 bg-linear-to-r from-blue-50 to-teal-50 dark:from-blue-900/30 dark:to-teal-900/30 rounded-lg">
-          <p className="text-xs text-gray-500 dark:text-gray-400">
-            Logged in as
-          </p>
-          <p className="text-gray-900 dark:text-gray-100 capitalize">{role}</p>
-        </div>
         <LogoutButton onLogout={logout} />
       </div>
     </div>

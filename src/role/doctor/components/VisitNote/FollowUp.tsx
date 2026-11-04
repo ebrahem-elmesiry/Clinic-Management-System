@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { format, isValid, parseISO } from "date-fns";
 import { CalendarClock } from "lucide-react";
-import AddNewAppointmentModal from "@/role/patient/modals/AddNewAppointment";
+import AddNewAppointmentModal from "@/role/patient/modals/addNewAppointment/AddNewAppointment";
 import type { FollowUpAppointment } from "../../types/type";
 
 interface FollowUpProps {
@@ -100,7 +100,7 @@ export default function FollowUp({
         onOpenChange={setModalOpen}
         showTrigger={false}
         patientName={patientName}
-        specialty={specialty}
+        specialty_id={specialty}
         appointmentType={appointmentType}
         onSchedule={onSchedule}
       />

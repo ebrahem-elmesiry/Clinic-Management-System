@@ -9,7 +9,7 @@ import VitalsTab from "./tabs/VitalsTab";
 import PrescriptionsTab from "./tabs/PrescriptionsTab";
 import { PatientInformationSkeleton } from "./skeletons";
 import PatientInformation from "@/shared/components/PatientRecords/PatientInformation";
-import usePatientRecordsPageHook from "@/shared/hooks/PatientRecordsPageHook";
+import usePatientRecordsPageHook from "@/role/admin/hooks/PatientRecordsPageHook";
 import { Suspense } from "react";
 
 export default function PatientRecordsPage() {
@@ -73,7 +73,6 @@ export default function PatientRecordsPage() {
 
           {tab === "visit-history" && (
             <VisitHistoryTab
-              patient={selectedProfile}
               isUnknown={isUnknownPatient}
               patientId={selectedPatientId}
             />

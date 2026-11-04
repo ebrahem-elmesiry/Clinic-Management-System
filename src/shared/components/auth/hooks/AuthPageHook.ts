@@ -34,11 +34,11 @@ export default function useAuthPageHook() {
     e.preventDefault();
 
     if (isLogin) {
-      const result = loginSchema.safeParse({ email, password });
-      if (!result.success) {
-        toast.error(result.error.issues[0].message);
-        return;
-      }
+      // const result = loginSchema.safeParse({ email, password });
+      // if (!result.success) {
+      //   toast.error(result.error.issues[0].message);
+      //   return;
+      // }
 
       login(selectedRole);
       router.push(roleHome[selectedRole]);

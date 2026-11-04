@@ -1,28 +1,22 @@
 "use client";
 
+import { Button } from "@/shared/components/ui/button";
 import { User } from "lucide-react";
 import StatusBadge from "@/shared/components/Appointments/StatusBadge";
-import { appointmentWithDoctors } from "@/role/admin/constants/appointments";
-import { Button } from "../ui/button";
+import { Appointment } from "@/shared/types/appointments";
+import { handleTime } from "@/utils/handlers";
+import { useAuth } from "@/providers/AuthProvider";
 
 interface AppointmentTableProps {
-  onCancel: () => void;
+  onCancel: (id: string) => void;
+  appointments: Appointment[];
 }
 
-export default function AppointmentTable({ onCancel }: AppointmentTableProps) {
-  const rows = appointmentWithDoctors
-    .flatMap((group) =>
-      group.appointments.map((appointment) => ({
-        appointment,
-        doctor: group.doctor,
-      })),
-    )
-    .sort(
-      (a, b) =>
-        a.appointment.date.localeCompare(b.appointment.date) ||
-        a.appointment.start_time.localeCompare(b.appointment.start_time),
-    );
-
+export default function AppointmentTable({
+  onCancel,
+  appointments,
+}: AppointmentTableProps) {
+  const { role } = useAuth();
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
       <div className="overflow-x-auto">
@@ -47,13 +41,17 @@ export default function AppointmentTable({ onCancel }: AppointmentTableProps) {
               <th className="px-6 py-4 text-left text-sm text-gray-600 dark:text-gray-400">
                 Date
               </th>
-              <th className="px-6 py-4 text-left text-sm text-gray-600 dark:text-gray-400">
-                Actions
-              </th>
+              {role === "admin" && (
+                <th className="px-6 py-4 text-left text-sm text-gray-600 dark:text-gray-400">
+                  Actions
+                </th>
+              )}
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-            {rows.map(({ appointment, doctor }) => {
+            {appointments?.map((appointment) => {
+              const startTime = handleTime(appointment.start_time);
+              const endTime = handleTime(appointment.end_time);
               return (
                 <tr
                   key={appointment.id}
@@ -71,11 +69,11 @@ export default function AppointmentTable({ onCancel }: AppointmentTableProps) {
                   </td>
                   <td className="px-6 py-4">
                     <div className="flex items-center gap-2 text-sm text-gray-900 dark:text-gray-100">
-                      {appointment.start_time} to {appointment.end_time}
+                      {startTime} to {endTime}
                     </div>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
-                    {doctor.name}
+                    {appointment.doctor?.name}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
                     {appointment.reason}
@@ -83,12 +81,20 @@ export default function AppointmentTable({ onCancel }: AppointmentTableProps) {
                   <td className="px-6 py-4">
                     <StatusBadge status={appointment.status} />
                   </td>
-                  <td className="px-6 py-4">{appointment.date}</td>
-                  <td className="px-6 py-4">
-                    <Button variant={"outline-danger"} onClick={onCancel}>
-                      Cancel
-                    </Button>
+                  <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
+                    {appointment.date}
                   </td>
+                  {role === "admin" && (
+                    <td className="px-6 py-4">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => onCancel(appointment.id)}
+                      >
+                        Cancel
+                      </Button>
+                    </td>
+                  )}
                 </tr>
               );
             })}

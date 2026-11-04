@@ -117,6 +117,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Stable condition, blood pressure normal",
     prescription: [
       {
+        id: "pr-1",
         medicineName: "Lisinopril 10mg",
         dosage: "1 tablet",
         frequency: "Once daily",
@@ -135,6 +136,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Anxiety-related chest pain, ECG normal",
     prescription: [
       {
+        id: "pr-2",
         medicineName: "Propranolol 10mg",
         dosage: "1 tablet",
         frequency: "As needed",
@@ -154,6 +156,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Blood sugar levels within target range",
     prescription: [
       {
+        id: "pr-3",
         medicineName: "Metformin 500mg",
         dosage: "1 tablet",
         frequency: "Twice daily",
@@ -171,6 +174,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Healthy, no concerns",
     prescription: [
       {
+        id: "pr-4",
         medicineName: "Prenatal Vitamins",
         dosage: "1 tablet",
         frequency: "Once daily",
@@ -188,6 +192,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Stress-related migraines",
     prescription: [
       {
+        id: "pr-5",
         medicineName: "Sumatriptan 50mg",
         dosage: "1 tablet",
         frequency: "As needed",
@@ -206,6 +211,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Hypertension, improving",
     prescription: [
       {
+        id: "pr-6",
         medicineName: "Lisinopril 10mg",
         dosage: "1 tablet",
         frequency: "Once daily",
@@ -223,6 +229,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Angina, stable",
     prescription: [
       {
+        id: "pr-7",
         medicineName: "Nitroglycerin 0.4mg",
         dosage: "1 tablet",
         frequency: "As needed",
@@ -250,6 +257,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Contact dermatitis",
     prescription: [
       {
+        id: "pr-8",
         medicineName: "Hydrocortisone 1% Cream",
         dosage: "Thin layer",
         frequency: "Twice daily",
@@ -265,15 +273,15 @@ export const prescriptions: Prescription[] = [
   {
     id: "rx-1",
     patientId: "1",
-    medicineName: "Amoxicillin 500mg",
+    medicine: "Amoxicillin 500mg",
     dosage: "1 tablet",
     frequency: "3 times daily",
     timing: "After meals",
     duration: "7 days",
     specialInstructions: "Take with plenty of water. Complete full course.",
-    // notes: "Follow-up in 1 week",
-    status: "Active",
+    remainingDays: 7,
     prescribedBy: "Dr. Sarah Johnson",
+    status: "Active",
     date: "Dec 20, 2024",
   },
 ];

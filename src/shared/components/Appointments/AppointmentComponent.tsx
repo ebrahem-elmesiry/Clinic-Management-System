@@ -1,62 +1,36 @@
 "use client";
 
-import AppointmentModal from "@/shared/components/Appointments/AppointmentModal";
-import AppointmentCalendarHook from "@/role/admin/hooks/AppointmentCalendarHook";
-import AppointmentTable from "../Tables/AppointmentTable";
-import AppointmentCalendar from "./AppointmentCalendar";
+import AppointmentTable from "@/shared/components/Tables/AppointmentTable";
 import AppointmentHeader from "./AppointmentHeader";
+import { Loader2 } from "lucide-react";
+import { Appointment } from "@/shared/types/appointments";
 
-export default function AppointmentComponent() {
-  const {
-    month,
-    setMonth,
-    pending,
-    isLoadingAppointments,
-    appointmentDays,
-    appointments,
-    selection,
-    setSelection,
-    handleDay,
-    handleToday,
-    handleGetAppointmentDays,
-    handleCancel,
-    view,
-  } = AppointmentCalendarHook();
+interface AppointmentComponentProps {
+  appointments: Appointment[];
+  onCancel: (id: string) => void;
+  pending: boolean;
+}
 
+export default function AppointmentComponent({
+  appointments,
+  onCancel,
+  pending,
+}: AppointmentComponentProps) {
   return (
     <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-800 p-6">
       <div className={pending ? "pointer-events-none opacity-50" : ""}>
-        <AppointmentHeader
-          month={month}
-          setMonth={setMonth}
-          pending={pending}
-          handleGetAppointmentDays={handleGetAppointmentDays}
-          handleToday={handleToday}
-        />
+        <AppointmentHeader pending={pending} />
 
-        <div className="overflow-x-auto overflow-y-hidden">
-          {view === "calendar" ? (
-            <AppointmentCalendar
-              month={month}
-              setMonth={setMonth}
-              appointmentDays={appointmentDays}
-              handleDay={handleDay}
-            />
+        <div className="overflow-x-auto overflow-y-hidden mt-6">
+          {pending ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-6 w-6 animate-spin text-primary" />
+            </div>
           ) : (
-            <AppointmentTable onCancel={handleCancel} />
+            <AppointmentTable onCancel={onCancel} appointments={appointments} />
           )}
         </div>
       </div>
-
-      <AppointmentModal
-        open={selection !== null}
-        onOpenChange={(open) => {
-          if (!open) setSelection(null);
-        }}
-        date={selection}
-        groups={appointments}
-        loading={isLoadingAppointments}
-      />
     </div>
   );
 }

@@ -8,15 +8,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select";
-import { Button } from "@/shared/components/ui/button";
-import { APPOINTMENT_STATUSES } from "@/role/admin/constants/appointments";
 import AppointmentFilterHook from "@/shared/hooks/AppointmentFilterHook";
 import { useAuth } from "@/providers/AuthProvider";
+import {
+  APPOINTMENT_STATUSES,
+  doctorsFilter,
+} from "@/shared/constants/appointments";
 
 export default function AppointmentFilter() {
-  const { search, setSearch, view, handleSearch, handleFilter, handleView } =
+  const { search, setSearch, handleSearch, handleFilter } =
     AppointmentFilterHook();
   const { role } = useAuth();
+
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 p-6">
       <div className="flex flex-wrap items-center gap-4">
@@ -35,6 +38,9 @@ export default function AppointmentFilter() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Doctors</SelectItem>
+              {doctorsFilter.map((d) => (
+                <SelectItem value={d.label}>{d.name}</SelectItem>
+              ))}
               <SelectItem value="dr-johnson">Dr. Sarah Johnson</SelectItem>
               <SelectItem value="dr-chen">Dr. Michael Chen</SelectItem>
               <SelectItem value="dr-lee">Dr. Robert Lee</SelectItem>
@@ -54,22 +60,6 @@ export default function AppointmentFilter() {
             ))}
           </SelectContent>
         </Select>
-        <div className="flex items-center gap-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-1">
-          <Button
-            variant={view === "calendar" ? "default" : "ghost"}
-            size="sm"
-            onClick={() => handleView("calendar")}
-          >
-            Calendar
-          </Button>
-          <Button
-            variant={view === "list" ? "default" : "ghost"}
-            size="sm"
-            onClick={() => handleView("list")}
-          >
-            List
-          </Button>
-        </div>
       </div>
     </div>
   );
