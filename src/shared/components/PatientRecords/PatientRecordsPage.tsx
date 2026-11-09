@@ -5,7 +5,7 @@ import SelectedPatient from "@/shared/components/PatientRecords/SelectedPatient"
 import AddPatientModal from "@/role/admin/modals/AddPatientModal";
 import { PatientInformationSkeleton } from "./skeletons";
 import PatientInformation from "@/shared/components/PatientRecords/PatientInformation";
-import usePatientRecordsPageHook from "@/role/admin/hooks/PatientRecordsPageHook";
+import usePatientRecordsPageHook from "@/role/admin/hooks/usePatientRecordsPageHook";
 import { Suspense } from "react";
 import PatientRecordsWrapper from "./PatientRecordsWrapper";
 
