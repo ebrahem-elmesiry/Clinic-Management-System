@@ -2,7 +2,7 @@ import type {
   AppointmentWithDoctor,
   Doctor,
   Specialty,
-} from "../types/appointment";
+} from "../../../shared/types/appointment";
 import type { ViewType } from "../types/type";
 
 export const APPOINTMENT_STATUSES = [

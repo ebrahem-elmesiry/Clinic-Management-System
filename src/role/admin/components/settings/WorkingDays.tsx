@@ -1,5 +1,3 @@
-"use client";
-
 import { Label } from "@/shared/components/ui/label";
 import { Button } from "@/shared/components/ui/button";
 

@@ -16,14 +16,14 @@ export interface PatientProfile {
   gender: string;
   dob: string;
   phone: string;
-  email?: string;
   address: string;
   bloodGroup: string;
-  emergencyContact?: string;
-  allergies?: string;
 }
 
+export type Tab = "visit-history" | "prescriptions" | "vitals";
+
 export interface VisitPrescription {
+  id: string;
   medicineName: string;
   dosage: string;
   frequency: string;
@@ -53,14 +53,14 @@ export interface Vital {
 export interface Prescription {
   id: string;
   patientId: string;
-  medicineName: string;
+  medicine: string;
   dosage: string;
   frequency: string;
   timing: string;
   duration: string;
   specialInstructions?: string;
-  notes?: string;
-  status: string;
+  remainingDays: number;
   prescribedBy: string;
+  status: string;
   date: string;
 }

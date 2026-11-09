@@ -14,7 +14,7 @@ import {
   patientProfile,
   Profile,
   UserRole,
-} from "@/shared/types/type";
+} from "@/shared/types/Roletype";
 import { isAdminProfile, isDoctorProfile, isPatientProfile } from "@/lib/utils";
 
 export default function ProfileInputsHook(
@@ -91,6 +91,8 @@ export default function ProfileInputsHook(
       blood: patientInfo.blood,
       date: patientInfo.date,
       role: userRole as UserRole,
+      gender: "Male",
+      age: 20,
     };
     console.log("patient", patient);
     const result = patientProfileSchema.safeParse(patient);

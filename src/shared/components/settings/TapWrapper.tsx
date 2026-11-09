@@ -5,11 +5,11 @@ import ProfilePanel from "./tabs/ProfilePanel";
 import NotificationsPanel from "./tabs/Notifications/NotificationsPanel";
 import PreferencesPanel from "./tabs/PreferencesPanel";
 import ClinicInfo from "@/role/admin/components/settings/ClinicInfo";
-import DoctorFees from "@/role/admin/components/settings/DoctorFees";
+import DoctorFees from "@/role/admin/components/settings/DoctorFees/DoctorFees";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { tabs } from "@/shared/constants/constants";
 import SecurityPanel from "./tabs/SecurityPanel";
-import { Profile } from "@/shared/types/type";
+import { Profile } from "@/shared/types/Roletype";
 
 interface TapWrapperProps {
   profile: Profile;
@@ -18,9 +18,7 @@ interface TapWrapperProps {
 export default function TapWrapper({ profile }: TapWrapperProps) {
   const searchParams = useSearchParams();
   const router = useRouter();
-
   const activeTab = (searchParams.get("tab") || "profile") as SettingsTab;
-
   const pathname = usePathname();
   function setActiveTab(tab: SettingsTab) {
     const params = new URLSearchParams(searchParams.toString());
@@ -31,6 +29,7 @@ export default function TapWrapper({ profile }: TapWrapperProps) {
     }
     router.replace(`${pathname}?${params}`, { scroll: false });
   }
+
   return (
     <div className="flex flex-col gap-6">
       <TabTitle tabs={tabs} activeTab={activeTab} onTabChange={setActiveTab} />

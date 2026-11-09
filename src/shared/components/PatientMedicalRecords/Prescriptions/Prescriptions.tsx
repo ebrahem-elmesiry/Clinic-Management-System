@@ -1,26 +1,26 @@
 "use client";
 
-import { Plus, Pill } from "lucide-react";
+import { Plus } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import WrapperComponent from "../../WrapperComponent";
-import PrescriptionCard from "@/role/admin/components/PatientRecords/PrescriptionCard";
-import type { PrescriptionCardData } from "@/role/admin/components/PatientRecords/PrescriptionCard";
+import PrescriptionCard from "@/shared/components/PatientRecords/PrescriptionCard";
 import EmptyPrescriptions from "./EmptyPrescriptions";
+import { Prescription } from "@/shared/types/patientRecords";
 
 interface PrescriptionsProps {
   doctor?: boolean;
-  prescriptions?: PrescriptionCardData[];
+  prescriptions?: Prescription[];
   onAdd?: () => void;
-  onViewPDF?: (p: PrescriptionCardData) => void;
-  onRevoke?: (p: PrescriptionCardData) => void;
+  onEdit?: (id: string) => void;
+  onRevoke?: (p: string) => void;
 }
 
 export default function Prescriptions({
   doctor = false,
   prescriptions = [],
   onAdd,
-  onViewPDF,
   onRevoke,
+  onEdit,
 }: PrescriptionsProps) {
   return (
     <WrapperComponent
@@ -39,9 +39,9 @@ export default function Prescriptions({
         <div className="space-y-4">
           {prescriptions.map((p) => (
             <PrescriptionCard
+              isDoctor={doctor}
               key={p.id}
               prescription={p}
-              onViewPDF={onViewPDF}
               onRevoke={onRevoke}
             />
           ))}

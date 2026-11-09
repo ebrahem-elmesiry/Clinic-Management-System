@@ -7,7 +7,7 @@ import {
   appointmentWithDoctors,
   DEFAULT_VIEW,
 } from "@/role/admin/constants/appointments";
-import type { AppointmentWithDoctor } from "@/role/admin/types/appointment";
+import type { AppointmentWithDoctor } from "@/shared/types/appointment";
 import { toast } from "sonner";
 import { useSearchParams } from "next/navigation";
 

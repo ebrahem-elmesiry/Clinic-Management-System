@@ -1,95 +1,36 @@
 "use client";
 
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import AppointmentModal from "@/shared/components/Appointments/AppointmentModal";
-import AppointmentCalendarHook from "@/role/admin/hooks/AppointmentCalendarHook";
-import AppointmentTable from "../Tables/AppointmentTable";
-import AppointmentCalendar from "./AppointmentCalendar";
+import AppointmentTable from "@/shared/components/Tables/AppointmentTable";
+import AppointmentHeader from "./AppointmentHeader";
+import { Loader2 } from "lucide-react";
+import { Appointment } from "@/shared/types/appointments";
 
-export default function AppointmentComponent() {
-  const {
-    month,
-    setMonth,
-    pending,
-    isLoadingAppointments,
-    appointmentDays,
-    appointments,
-    selection,
-    setSelection,
-    handleDay,
-    handleToday,
-    handleGetAppointmentDays,
-    handleCancel,
-    view,
-  } = AppointmentCalendarHook();
+interface AppointmentComponentProps {
+  appointments: Appointment[];
+  onCancel: (id: string) => void;
+  pending: boolean;
+}
 
+export default function AppointmentComponent({
+  appointments,
+  onCancel,
+  pending,
+}: AppointmentComponentProps) {
   return (
     <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-800 p-6">
       <div className={pending ? "pointer-events-none opacity-50" : ""}>
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl text-gray-900 dark:text-gray-100">
-            {month.toLocaleString("default", {
-              month: "long",
-              year: "numeric",
-            })}
-          </h2>
-          <div className="flex items-center gap-2">
-            <button
-              type="button"
-              disabled={pending}
-              onClick={() => {
-                handleGetAppointmentDays();
-                setMonth(new Date(month.getFullYear(), month.getMonth() - 1));
-              }}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              <ChevronLeft className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-            </button>
-            <button
-              type="button"
-              disabled={pending}
-              onClick={handleToday}
-              className="px-4 py-2 text-sm border border-gray-300 dark:border-gray-600 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              Today
-            </button>
-            <button
-              type="button"
-              disabled={pending}
-              onClick={() => {
-                handleGetAppointmentDays();
-                setMonth(new Date(month.getFullYear(), month.getMonth() + 1));
-              }}
-              className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 disabled:cursor-not-allowed disabled:opacity-50"
-            >
-              <ChevronRight className="w-5 h-5 text-gray-600 dark:text-gray-400" />
-            </button>
-          </div>
-        </div>
+        <AppointmentHeader pending={pending} />
 
-        <div className="overflow-x-auto overflow-y-hidden">
-          {view === "calendar" ? (
-            <AppointmentCalendar
-              month={month}
-              setMonth={setMonth}
-              appointmentDays={appointmentDays}
-              handleDay={handleDay}
-            />
+        <div className="overflow-x-auto overflow-y-hidden mt-6">
+          {pending ? (
+            <div className="flex items-center justify-center py-12">
+              <Loader2 className="h-6 w-6 animate-spin text-primary" />
+            </div>
           ) : (
-            <AppointmentTable onCancel={handleCancel} />
+            <AppointmentTable onCancel={onCancel} appointments={appointments} />
           )}
         </div>
       </div>
-
-      <AppointmentModal
-        open={selection !== null}
-        onOpenChange={(open) => {
-          if (!open) setSelection(null);
-        }}
-        date={selection}
-        groups={appointments}
-        loading={isLoadingAppointments}
-      />
     </div>
   );
 }

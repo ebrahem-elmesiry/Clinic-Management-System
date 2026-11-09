@@ -5,7 +5,7 @@ import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
 import { Button } from "@/shared/components/ui/button";
 import ProfileInputsHook from "@/role/admin/hooks/ProfileInputsHook";
-import { Profile, UserRole } from "@/shared/types/type";
+import { Profile, UserRole } from "@/shared/types/Roletype";
 
 interface ProfileInputsProps {
   profile: Profile;

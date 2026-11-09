@@ -94,7 +94,7 @@ export default function AddNewUserHook({
     return user.role === "patient";
   }
 
-  const populateForEdit = (user: UserRecord) => {
+  function populateForEdit(user: UserRecord) {
     setRole(user.role);
     const [first_name, last_name] = user.name.split(" ");
     setCommonData({
@@ -108,9 +108,9 @@ export default function AddNewUserHook({
     }
     if (isAdmin(user)) setEmail(user.email);
     if (isPatient(user)) setPhone(user.phone);
-  };
+  }
   // it's fire when Dialog status changed (true => open, false => close)
-  const handleOpenChange = (nextOpen: boolean) => {
+  function handleOpenChange(nextOpen: boolean) {
     if (nextOpen) {
       if (editingUser) {
         populateForEdit(editingUser);
@@ -125,7 +125,7 @@ export default function AddNewUserHook({
       setFace(1);
     }
     onOpenChange(nextOpen);
-  };
+  }
 
   // reset all things
   const handleCreateClick = () => {

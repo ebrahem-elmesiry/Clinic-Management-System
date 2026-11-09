@@ -1,22 +1,10 @@
 "use client";
 
-import NoPatientChoose from "@/role/admin/components/PatientRecords/NoPatientChoose";
-import UnknownPatient from "@/role/admin/components/PatientRecords/UnknownPatient";
-import { User, Calendar, Phone, Mail, MapPin, Activity } from "lucide-react";
+import NoPatientChoose from "./NoPatientChoose";
+import UnknownPatient from "./UnknownPatient";
+import { User, Calendar, Phone, MapPin } from "lucide-react";
 import WrapperComponent from "../WrapperComponent";
-
-interface PatientProfile {
-  name: string;
-  age: number;
-  gender: string;
-  dob: string;
-  phone: string;
-  email: string;
-  address: string;
-  bloodGroup: string;
-  allergies: string;
-  emergencyContact: string;
-}
+import { PatientProfile } from "@/shared/types/patientRecords";
 
 interface PatientInformationProps {
   patient: PatientProfile | undefined;

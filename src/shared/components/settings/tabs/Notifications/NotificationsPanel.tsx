@@ -4,7 +4,7 @@ import { Button } from "@/shared/components/ui/button";
 import NotificationToggle from "@/shared/components/settings/tabs/Notifications/NotificationToggle";
 import NotificationsPanelHook from "@/shared/hooks/NotificationsPanelHook";
 import { toast } from "sonner";
-import { UserRole } from "@/shared/types/type";
+import { UserRole } from "@/shared/types/Roletype";
 
 interface NotificationsPanelProps {
   userRole: UserRole;

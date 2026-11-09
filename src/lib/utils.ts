@@ -3,7 +3,7 @@ import {
   doctorProfile,
   patientProfile,
   Profile,
-} from "@/shared/types/type";
+} from "@/shared/types/Roletype";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 

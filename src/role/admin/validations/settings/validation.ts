@@ -189,3 +189,32 @@ export const patientProfileSchema = profileBase.extend({
 });
 
 export type PatientProfileFormData = z.infer<typeof patientProfileSchema>;
+
+export const clinicInfoSchema = z.object({
+  name: z
+    .string()
+    .trim()
+    .min(3, "Clinic name must be at least 3 characters")
+    .regex(
+      /^[a-zA-Z\u0600-\u06FF\s]+$/,
+      "Clinic name must contain letters only",
+    ),
+  working_days: z
+    .array(z.string())
+    .min(1, "At least one working day is required"),
+  openingTime: z.string().trim().min(1, "Opening time is required"),
+  closingTime: z.string().trim().min(1, "Closing time is required"),
+  description: z.string().trim().min(1, "Description is required"),
+  phone: z
+    .string()
+    .trim()
+    .min(1, "Phone is required")
+    .regex(
+      /^(010|011|012|015)\d{8}$/,
+      "Phone must be 11 digits starting with 010, 011, 012 or 015",
+    ),
+  duration: z.string().trim().min(1, "Appointment duration is required"),
+  bufferTime: z.string().trim().min(1, "Buffer time is required"),
+});
+
+export type ClinicInfoType = z.infer<typeof clinicInfoSchema>;

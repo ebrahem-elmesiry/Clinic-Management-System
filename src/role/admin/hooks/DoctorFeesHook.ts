@@ -6,20 +6,14 @@ import {
   DoctorFeeChange,
   OriginalValues,
   SpecialtyPrice,
-} from "@/role/admin/types/settings";
-import { doctors } from "@/role/admin/constants/user-managment";
+  TypeRow,
+} from "@/role/admin/types/doctorFees";
 import { MESSAGES } from "@/role/admin/constants/messages";
-
-const doctorsWithSpecialty: SpecialtyPrice[] = [
-  { id: "1", specialty_id: "3", doctor_name: "Dr. Sarah Johnson", price: 150 },
-  { id: "2", specialty_id: "2", doctor_name: "Dr. Michael Chen", price: 150 },
-  { id: "3", specialty_id: "1", doctor_name: "Dr. Sarah Johnson", price: 150 },
-  { id: "4", specialty_id: "4", doctor_name: "Dr. Robert Lee", price: 150 },
-];
+import { DOCTOR_FEES_VALIDATION } from "@/role/admin/constants/doctorFees";
+import { useAppointmentContext } from "@/shared/context/AppointmentContext";
 
 export default function DoctorFeesHook() {
-  const [doctorFees, setDoctorFees] =
-    useState<SpecialtyPrice[]>(doctorsWithSpecialty);
+  const { doctorFees, setDoctorFees } = useAppointmentContext();
 
   // ---- Edit Mode State: rows currently editable (multiple allowed) ----
   const [editingIds, setEditingIds] = useState<string[]>([]);
@@ -70,49 +64,44 @@ export default function DoctorFeesHook() {
   function upsertChange(id: string, row: SpecialtyPrice) {
     const change: DoctorFeeChange = {
       id,
-      doctor_id: doctors.find((d) => d.name === row.doctor_name)?.id ?? "",
+      doctor_name: row.doctor_name,
       specialty_id: row.specialty_id,
       price: row.price,
     };
+    setDoctorFees((prev) =>
+      prev.map((doc) => {
+        if (doc.id === id) {
+          const { is_new, ...row } = doc;
+          return row;
+        } else {
+          return doc;
+        }
+      }),
+    );
     setChanges((prev) => [...prev.filter((c) => c.id !== id), change]);
   }
 
-  function updatePrice(id: string, value: number) {
+  function updateRow(id: string, value: string, type: TypeRow) {
+    if (type === "price" && Number(value) <= DOCTOR_FEES_VALIDATION.minPrice) {
+      toast.info(DOCTOR_FEES_VALIDATION.priceLowMessage);
+      return;
+    }
     setDoctorFees((prev) =>
       prev.map((item) => {
         if (item.id !== id) return item;
-        const updated = { ...item, price: value };
-        upsertChange(id, updated);
-        return updated;
-      }),
-    );
-  }
-
-  function updateSpecialty(id: string, value: string) {
-    setDoctorFees((prev) =>
-      prev.map((item) => {
-        if (item.id !== id) return item;
-        const updated = { ...item, specialty_id: value };
-        upsertChange(id, updated);
-        return updated;
-      }),
-    );
-  }
-
-  function updateDoctor(id: string, value: string) {
-    setDoctorFees((prev) =>
-      prev.map((item) => {
-        if (item.id !== id) return item;
-        const updated = { ...item, doctor_name: value };
-        upsertChange(id, updated);
+        const updated = { ...item, [type]: value };
         return updated;
       }),
     );
   }
 
   function checkDocData(ID: string) {
-    const getDoc = doctorFees.find((doc) => doc.id === ID);
+    const getDoc: SpecialtyPrice = doctorFees.find((doc) => doc.id === ID);
     if (!getDoc?.doctor_name || !getDoc?.price || !getDoc?.specialty_id) {
+      if (getDoc.price <= DOCTOR_FEES_VALIDATION.minPrice) {
+        toast.info(DOCTOR_FEES_VALIDATION.priceLowMessage);
+        return;
+      }
       toast.info(MESSAGES.clinicSettings.doctorSpecialties.completeAdd);
       return false;
     }
@@ -120,19 +109,11 @@ export default function DoctorFeesHook() {
     return true;
   }
 
-  function handleAcceptNew(ID: string) {
+  function handleAcceptNew(ID: string, row: SpecialtyPrice) {
     const check = checkDocData(ID);
     if (!check) return;
-    setDoctorFees((prev) =>
-      prev.map((doc) => {
-        if (doc.id === ID) {
-          const { is_new, ...updatedDoc } = doc;
-          return updatedDoc;
-        } else {
-          return doc;
-        }
-      }),
-    );
+    upsertChange(ID, row);
+    toast.success(MESSAGES.clinicSettings.doctorSpecialties.success);
   }
 
   function addSpecialty() {
@@ -154,30 +135,15 @@ export default function DoctorFeesHook() {
     setChanges((prev) => prev.filter((c) => c.id !== id));
   }
 
-  // Mock save — no backend. Later this sends `changes` to the backend.
-  function handleSave() {
-    if (editingIds.length > 0) {
-      toast.info(MESSAGES.clinicSettings.doctorSpecialties.completeAdd);
-      return;
-    }
-    toast.success(MESSAGES.clinicSettings.doctorSpecialties.success);
-    setEditingIds([]);
-    setOriginalValues({});
-    setChanges([]);
-  }
-
   return {
     doctorFees,
     editingIds,
     changes,
     startEditing,
     cancelEditing,
-    updatePrice,
-    updateSpecialty,
-    updateDoctor,
+    updateRow,
     addSpecialty,
     removeSpecialty,
-    handleSave,
     handleAcceptNew,
   };
 }

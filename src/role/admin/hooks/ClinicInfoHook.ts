@@ -1,53 +1,56 @@
 "use client";
 
-import { useState } from "react";
 import { toast } from "sonner";
 import { MESSAGES } from "@/role/admin/constants/messages";
+import { useAppointmentContext } from "@/shared/context/AppointmentContext";
+import { clinicInfoSchema } from "@/role/admin/validations/settings/validation";
+import { ClinicFieldType } from "@/role/admin/types/clinicInfo";
 
-interface ClinicInfoHookProps {
-  defaultWorkingDays: string[];
-  defaultDuration: string;
-  defaultBufferTime: string;
-  defaultTime: { start: string; end: string };
-}
+export default function ClinicInfoHook() {
+  const { clinicInfo, setClinicInfo } = useAppointmentContext();
 
-export default function ClinicInfoHook({
-  defaultWorkingDays,
-  defaultDuration,
-  defaultBufferTime,
-  defaultTime,
-}: ClinicInfoHookProps) {
-  const [clinicName, setClinicName] = useState("HealthCare Clinic");
-  const [time, setTime] = useState<{ start: string; end: string }>(defaultTime);
-  const [workingDays, setWorkingDays] = useState<string[]>(defaultWorkingDays);
-  const [duration, setDuration] = useState(defaultDuration);
-  const [bufferTime, setBufferTime] = useState(defaultBufferTime);
-
-  function toggleDay(day: string) {
-    setWorkingDays((prev) =>
-      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day],
-    );
+  function setClinicField(
+    value: string,
+    type: ClinicFieldType,
+    timeType?: "start" | "end",
+  ) {
+    setClinicInfo((prev) => {
+      if (type === "time") {
+        return {
+          ...prev,
+          ...(timeType === "start"
+            ? { openingTime: value }
+            : { closingTime: value }),
+        };
+      }
+      return { ...prev, [type]: value };
+    });
   }
 
-  const setHandleTime = (type: "start" | "end", value: string) =>
-    setTime((prev) => ({ ...prev, [type]: value }));
+  function toggleDay(day: string) {
+    setClinicInfo((prev) => ({
+      ...prev,
+      working_days: prev.working_days.includes(day)
+        ? prev.working_days.filter((d) => d !== day)
+        : [...prev.working_days, day],
+    }));
+  }
 
-  // Mock save — later sends clinicName/time/workingDays + preferences to the backend.
   function handleSave() {
-    toast.success(MESSAGES.clinicSettings.workingDays.success);
+    const result = clinicInfoSchema.safeParse(clinicInfo);
+
+    if (!result.success) {
+      toast.error(result.error.issues[0].message);
+      return;
+    }
+
+    toast.success(MESSAGES.clinicSettings.clinicInfo.success);
   }
 
   return {
-    clinicName,
-    setClinicName,
-    time,
-    setHandleTime,
-    workingDays,
+    clinicInfo,
+    setClinicField,
     toggleDay,
-    duration,
-    setDuration,
-    bufferTime,
-    setBufferTime,
     handleSave,
   };
 }

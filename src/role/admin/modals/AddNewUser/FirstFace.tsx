@@ -36,7 +36,7 @@ export default function FirstFace({
           }`}
         >
           <Stethoscope
-            className={`w-8 h-8 ${
+            className={`w-6! h-6! ${
               role === "doctor" ? "text-blue-600" : "text-gray-500"
             }`}
           />
@@ -54,7 +54,7 @@ export default function FirstFace({
           }`}
         >
           <Shield
-            className={`w-8 h-8 ${
+            className={`w-6! h-6! ${
               role === "admin" ? "text-purple-600" : "text-gray-500"
             }`}
           />
@@ -72,7 +72,7 @@ export default function FirstFace({
           }`}
         >
           <User
-            className={`w-8 h-8 ${
+            className={`w-6! h-6! ${
               role === "patient" ? "text-teal-600" : "text-gray-500"
             }`}
           />

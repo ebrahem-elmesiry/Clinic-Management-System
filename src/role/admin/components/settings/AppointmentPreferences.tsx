@@ -1,19 +1,16 @@
-"use client";
-
 import { Label } from "@/shared/components/ui/label";
+import { ClinicFieldType } from "@/role/admin/types/clinicInfo";
 
 interface AppointmentPreferencesProps {
-  duration: string;
   bufferTime: string;
-  onDurationChange: (value: string) => void;
-  onBufferTimeChange: (value: string) => void;
+  duration: string;
+  onChange: (value: string, type: ClinicFieldType) => void;
 }
 
 export default function AppointmentPreferences({
   duration,
   bufferTime,
-  onDurationChange,
-  onBufferTimeChange,
+  onChange,
 }: AppointmentPreferencesProps) {
   return (
     <div className="mt-6 pt-6 border-t border-gray-200 dark:border-slate-700">
@@ -29,7 +26,7 @@ export default function AppointmentPreferences({
           <select
             id="appointmentDuration"
             value={duration}
-            onChange={(e) => onDurationChange(e.target.value)}
+            onChange={(e) => onChange(e.target.value, "duration")}
             className="w-full max-w-xs mt-2 px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm dark:bg-slate-800 dark:text-slate-100"
           >
             <option value="15">15 minutes</option>
@@ -44,7 +41,7 @@ export default function AppointmentPreferences({
           <select
             id="bufferTime"
             value={bufferTime}
-            onChange={(e) => onBufferTimeChange(e.target.value)}
+            onChange={(e) => onChange(e.target.value, "bufferTime")}
             className="w-full max-w-xs mt-2 px-3 py-2 border border-gray-200 dark:border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm dark:bg-slate-800 dark:text-slate-100"
           >
             <option value="0">No buffer</option>

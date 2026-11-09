@@ -13,7 +13,7 @@ import {
 import type {
   Appointment,
   AppointmentWithDoctor,
-} from "@/role/admin/types/appointment";
+} from "@/shared/types/appointment";
 
 function toMinutes(time: string) {
   const [hour = "0", minute = "0"] = time.split(":");
