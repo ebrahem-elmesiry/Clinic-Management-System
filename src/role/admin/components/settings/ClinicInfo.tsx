@@ -5,10 +5,10 @@ import ClinicInfoHook from "../../hooks/ClinicInfoHook";
 import ClinicDetails from "./ClinicDetails";
 import WorkingDays from "./WorkingDays";
 import AppointmentPreferences from "./AppointmentPreferences";
-import { allDays } from "../../constants/clinicInfo";
 
 export default function ClinicInfo() {
-  const { clinicInfo, setClinicField, toggleDay, handleSave } = ClinicInfoHook();
+  const { clinicInfo, setClinicField, toggleDay, handleSave } =
+    ClinicInfoHook();
 
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
@@ -20,7 +20,6 @@ export default function ClinicInfo() {
 
       <WorkingDays
         workingDays={clinicInfo.working_days}
-        allDays={allDays}
         onToggleDay={toggleDay}
       />
 

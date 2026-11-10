@@ -27,7 +27,7 @@ export default function ClinicInfoHook() {
     });
   }
 
-  function toggleDay(day: string) {
+  function toggleDay(day: number) {
     setClinicInfo((prev) => ({
       ...prev,
       working_days: prev.working_days.includes(day)

@@ -39,7 +39,6 @@ const menuItems: Record<UserRole, NavItem[]> = {
     { href: "/admin/patients", label: "Patients", icon: Users },
     { href: "/admin/user-management", label: "User Management", icon: UserCog },
     { href: "/admin/settings", label: "Settings", icon: Settings },
-    { href: "/admin/design-system", label: "Design System", icon: Palette },
   ],
   patient: [
     { href: "/patient/dashboard", label: "Dashboard", icon: LayoutDashboard },

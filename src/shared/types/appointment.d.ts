@@ -49,4 +49,5 @@ export interface AppointmentMonth {
 
 export interface ClinicType extends ClinicInfoType {
   id: string;
+  owner_id: string;
 }
