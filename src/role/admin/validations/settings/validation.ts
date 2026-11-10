@@ -90,7 +90,13 @@ export const clinicInfoSchema = z.object({
     .min(1, "At least one working day is required"),
   openingTime: z.string().trim().min(1, "Opening time is required"),
   closingTime: z.string().trim().min(1, "Closing time is required"),
-  description: z.string().trim().min(1, "Description is required"),
+  description: z
+    .string()
+    .min(3, "Description must be at least 3 characters")
+    .regex(
+      /^[a-zA-Z\u0600-\u06FF\s]+$/,
+      "Clinic name must contain letters only",
+    ),
   phone: z
     .string()
     .trim()
