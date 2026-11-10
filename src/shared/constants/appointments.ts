@@ -12,23 +12,6 @@ export const APPOINTMENT_STATUSES = [
   "cancelled",
 ] as const;
 
-export const doctorsFilter = [
-  {
-    id: "d1",
-    name: "Dr. Ahmed Hassan",
-    label: "dr-ahmed-hassan",
-  },
-  {
-    id: "d2",
-    name: "Dr. Mohamed Ali",
-    label: "dr-mohamed-ali",
-  },
-  {
-    id: "d3",
-    name: "Dr. Omar Khaled",
-    label: "dr-omar-khaled",
-  },
-];
 export const doctors: Doctor[] = [
   {
     id: "d1",
@@ -172,57 +155,164 @@ export const appointmentsMonth: AppointmentMonth[] = [
 
 export const busySchedule = [
   {
-    day: "2026-10-05",
-    times: [
-      { start: "09:00", end: "09:30" },
-      { start: "10:00", end: "10:30" },
-      { start: "14:00", end: "14:30" },
+    day: "2026-11-03",
+    appointments: [
+      {
+        time: { start: "09:30", end: "10:00" },
+        specialty: {
+          id: doctors[0].specialty_id,
+          name: doctors[0].specialty_name,
+        },
+      },
+      {
+        time: { start: "14:00", end: "14:30" },
+        specialty: {
+          id: doctors[1].specialty_id,
+          name: doctors[1].specialty_name,
+        },
+      },
     ],
   },
   {
-    day: "2026-10-08",
-    times: [
-      { start: "08:30", end: "09:00" },
-      { start: "11:00", end: "11:30" },
-      { start: "13:00", end: "13:30" },
+    day: "2026-11-10",
+    appointments: [
+      {
+        time: { start: "14:00", end: "14:30" },
+        specialty: {
+          id: doctors[2].specialty_id,
+          name: doctors[2].specialty_name,
+        },
+      },
+      {
+        time: { start: "11:00", end: "11:30" },
+        specialty: {
+          id: doctors[0].specialty_id,
+          name: doctors[0].specialty_name,
+        },
+      },
+      {
+        time: { start: "13:00", end: "13:30" },
+        specialty: {
+          id: doctors[1].specialty_id,
+          name: doctors[1].specialty_name,
+        },
+      },
     ],
   },
   {
-    day: "2026-10-12",
-    times: [
-      { start: "09:30", end: "10:00" },
-      { start: "12:00", end: "12:30" },
+    day: "2026-11-12",
+    appointments: [
+      {
+        time: { start: "09:30", end: "10:00" },
+        specialty: {
+          id: doctors[0].specialty_id,
+          name: doctors[0].specialty_name,
+        },
+      },
+      {
+        time: { start: "12:00", end: "12:30" },
+        specialty: {
+          id: doctors[2].specialty_id,
+          name: doctors[2].specialty_name,
+        },
+      },
     ],
   },
   {
     day: "2026-10-15",
-    times: [
-      { start: "10:00", end: "10:30" },
-      { start: "11:30", end: "12:00" },
-      { start: "15:00", end: "15:30" },
+    appointments: [
+      {
+        time: { start: "10:00", end: "10:30" },
+        specialty: {
+          id: doctors[1].specialty_id,
+          name: doctors[1].specialty_name,
+        },
+      },
+      {
+        time: { start: "11:30", end: "12:00" },
+        specialty: {
+          id: doctors[0].specialty_id,
+          name: doctors[0].specialty_name,
+        },
+      },
+      {
+        time: { start: "15:00", end: "15:30" },
+        specialty: {
+          id: doctors[2].specialty_id,
+          name: doctors[2].specialty_name,
+        },
+      },
     ],
   },
   {
     day: "2026-10-20",
-    times: [
-      { start: "08:00", end: "08:30" },
-      { start: "09:00", end: "09:30" },
-      { start: "13:30", end: "14:00" },
+    appointments: [
+      {
+        time: { start: "08:00", end: "08:30" },
+        specialty: {
+          id: doctors[2].specialty_id,
+          name: doctors[2].specialty_name,
+        },
+      },
+      {
+        time: { start: "09:00", end: "09:30" },
+        specialty: {
+          id: doctors[0].specialty_id,
+          name: doctors[0].specialty_name,
+        },
+      },
+      {
+        time: { start: "13:30", end: "14:00" },
+        specialty: {
+          id: doctors[1].specialty_id,
+          name: doctors[1].specialty_name,
+        },
+      },
     ],
   },
   {
     day: "2026-10-25",
-    times: [
-      { start: "10:30", end: "11:00" },
-      { start: "12:30", end: "13:00" },
+    appointments: [
+      {
+        time: { start: "10:30", end: "11:00" },
+        specialty: {
+          id: doctors[1].specialty_id,
+          name: doctors[1].specialty_name,
+        },
+      },
+      {
+        time: { start: "12:30", end: "13:00" },
+        specialty: {
+          id: doctors[2].specialty_id,
+          name: doctors[2].specialty_name,
+        },
+      },
     ],
   },
   {
     day: "2026-10-27",
-    times: [
-      { start: "09:00", end: "09:30" },
-      { start: "11:00", end: "11:30" },
-      { start: "14:30", end: "15:00" },
+    appointments: [
+      {
+        time: { start: "09:00", end: "09:30" },
+        specialty: {
+          id: doctors[0].specialty_id,
+          name: doctors[0].specialty_name,
+        },
+      },
+      {
+        time: { start: "11:00", end: "11:30" },
+        specialty: {
+          id: doctors[1].specialty_id,
+          name: doctors[1].specialty_name,
+        },
+      },
+      {
+        time: { start: "14:30", end: "15:00" },
+        specialty: {
+          id: doctors[2].specialty_id,
+          name: doctors[2].specialty_name,
+        },
+      },
     ],
   },
 ];

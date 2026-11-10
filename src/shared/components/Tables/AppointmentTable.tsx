@@ -49,55 +49,63 @@ export default function AppointmentTable({
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-            {appointments?.map((appointment) => {
-              const startTime = handleTime(appointment.start_time);
-              const endTime = handleTime(appointment.end_time);
-              return (
-                <tr
-                  key={appointment.id}
-                  className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
-                >
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-3">
-                      <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center">
-                        <User className="w-4 h-4 text-white" />
-                      </div>
-                      <span className="text-sm text-gray-900 dark:text-gray-100">
-                        {appointment.patient?.name ?? "Unknown patient"}
-                      </span>
-                    </div>
-                  </td>
-                  <td className="px-6 py-4">
-                    <div className="flex items-center gap-2 text-sm text-gray-900 dark:text-gray-100">
-                      {startTime} to {endTime}
-                    </div>
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
-                    {appointment.doctor?.name}
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
-                    {appointment.reason}
-                  </td>
-                  <td className="px-6 py-4">
-                    <StatusBadge status={appointment.status} />
-                  </td>
-                  <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
-                    {appointment.date}
-                  </td>
-                  {role === "admin" && (
+            {appointments.length > 0 ? (
+              appointments?.map((appointment) => {
+                const startTime = handleTime(appointment.start_time);
+                const endTime = handleTime(appointment.end_time);
+                return (
+                  <tr
+                    key={appointment.id}
+                    className="hover:bg-gray-50 dark:hover:bg-gray-700/50"
+                  >
                     <td className="px-6 py-4">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => onCancel(appointment.id)}
-                      >
-                        Cancel
-                      </Button>
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-linear-to-br from-blue-500 to-teal-500 rounded-full flex items-center justify-center">
+                          <User className="w-4 h-4 text-white" />
+                        </div>
+                        <span className="text-sm text-gray-900 dark:text-gray-100">
+                          {appointment.patient?.name ?? "Unknown patient"}
+                        </span>
+                      </div>
                     </td>
-                  )}
-                </tr>
-              );
-            })}
+                    <td className="px-6 py-4">
+                      <div className="flex items-center gap-2 text-sm text-gray-900 dark:text-gray-100">
+                        {startTime} to {endTime}
+                      </div>
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
+                      {appointment.doctor?.name}
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
+                      {appointment.reason}
+                    </td>
+                    <td className="px-6 py-4">
+                      <StatusBadge status={appointment.status} />
+                    </td>
+                    <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
+                      {appointment.date}
+                    </td>
+                    {role === "admin" && (
+                      <td className="px-6 py-4">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => onCancel(appointment.id)}
+                        >
+                          Cancel
+                        </Button>
+                      </td>
+                    )}
+                  </tr>
+                );
+              })
+            ) : (
+              <tr>
+                <td colSpan={6} className="text-center p-4 font-semibold">
+                  No Appointments Found
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

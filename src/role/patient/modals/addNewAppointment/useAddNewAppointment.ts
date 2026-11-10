@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
-import { useAppointmentContext } from "@/shared/context/AppointmentContext";
 import { useAuth } from "@/providers/AuthProvider";
 import { Appointment } from "@/shared/types/appointments";
 import {
@@ -16,6 +15,8 @@ import {
   ScheduleData,
   UseAddNewAppointmentProps,
 } from "../../types/appointment";
+import { addMinutes, parse, format } from "date-fns";
+import { useAppointmentContext } from "@/shared/context/AppointmentContext";
 
 export default function useAddNewAppointment({
   open,
@@ -25,34 +26,44 @@ export default function useAddNewAppointment({
   appointmentType,
   showTrigger = true,
   onSchedule,
+  clinicInfo,
+  setAppointmentsDB,
 }: UseAddNewAppointmentProps) {
-  const { setAppointmentsDB } = useAppointmentContext();
-  const { profile, clinicInfo } = useAuth();
+  const { profile } = useAuth();
+  const { doctorFees } = useAppointmentContext();
 
   const [schedule, setSchedule] = useState<ScheduleData>({
     date: "",
     time: "",
-    specialty: specialty_id ?? "",
+    specialty_id: specialty_id ?? "",
   });
-
-  const workTime = {
-    start: "07:00",
-    end: "22:00",
-  };
-
-  function handleBusyAppointment(value: string) {
-    const busyAppointment = busySchedule.find((b) => b.day === schedule.date);
-    return (
-      busyAppointment?.times.some((b) => value >= b.start && value <= b.end) ||
-      false
-    );
-  }
-
   const [details, setDetails] = useState<AppointmentDetails>({
     patientName: patientName ?? profile.name,
     type: appointmentType ?? "",
     notes: "",
   });
+
+  function handleBusyAppointment(value: string) {
+    const busyAppointment = busySchedule.find((b) => b.day === schedule.date);
+
+    return (
+      busyAppointment?.appointments.some((b) => {
+        if (b.specialty.id !== schedule.specialty_id) return;
+        const busyStart = parse(b.time.start, "HH:mm", new Date());
+        const busyEnd = addMinutes(
+          parse(b.time.end, "HH:mm", new Date()),
+          Number(clinicInfo.bufferTime),
+        );
+
+        const selectedTime = parse(value, "HH:mm", new Date());
+        console.log(
+          "selectedTime >= busyStart && selectedTime <= busyEnd",
+          selectedTime >= busyStart && selectedTime <= busyEnd,
+        );
+        return selectedTime >= busyStart && selectedTime <= busyEnd;
+      }) || false
+    );
+  }
 
   function empty() {
     setDetails({
@@ -63,7 +74,7 @@ export default function useAddNewAppointment({
     setSchedule({
       date: "",
       time: "",
-      specialty: "",
+      specialty_id: "",
     });
   }
 
@@ -84,28 +95,37 @@ export default function useAddNewAppointment({
 
   function handleSchedule(e: React.FormEvent) {
     e.preventDefault();
-    const specialty = specialties.find((s) => s.id === schedule.specialty);
+    const specialty = specialties.find((s) => s.id === schedule.specialty_id);
     if (!specialty) {
-      toast.info("please select specialty");
+      toast.info("Please select a specialty.");
       return;
     }
-    const time = schedule.time;
+    const start_time = schedule.time;
 
-    if (!time) {
-      toast.info("please select time");
+    if (!start_time) {
+      toast.info("Please select time.");
       return;
     }
+
+    const end_time = format(
+      addMinutes(
+        parse(start_time, "HH:mm", new Date()),
+        Number(clinicInfo.duration),
+      ),
+      "HH:mm",
+    );
+
     const doctor = doctors.find((d) => d.id === specialty.doctor_id);
     if (!doctor) {
-      toast.info("please select specialty");
+      toast.info("Please select a specialty.");
       return;
     }
 
     const appointment: Appointment = {
       id: crypto.randomUUID(),
       date: schedule.date,
-      start_time: time,
-      end_time: time,
+      start_time,
+      end_time,
       status: "pending",
       reason: details.type,
       patient: {
@@ -118,12 +138,22 @@ export default function useAddNewAppointment({
       clinic_id: clinicInfo.id,
     };
 
+    const result = handleBusyAppointment(start_time);
+    if (result) {
+      toast.info("Please select a different time.");
+      return;
+    }
+
     handleAddNewAppointment(appointment);
     empty();
 
     onOpenChange?.(false);
     toast.success("Appointment scheduled successfully.");
   }
+
+  const specialty_price =
+    doctorFees.find((d) => d.specialty_id === schedule.specialty_id)?.price ||
+    0;
 
   return {
     open,
@@ -132,7 +162,10 @@ export default function useAddNewAppointment({
     schedule,
     setSchedule,
     details,
-    workTime,
+    workTime: {
+      start: clinicInfo?.openingTime,
+      end: clinicInfo?.closingTime,
+    },
     handleBusyAppointment,
     empty,
     handleScheduleChange,
@@ -140,5 +173,6 @@ export default function useAddNewAppointment({
     handleSchedule,
     specialties,
     appointmentReasons,
+    specialty_price,
   };
 }

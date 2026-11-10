@@ -1,5 +1,5 @@
 import SettingsPageWrapper from "@/shared/components/settings/SettingsPageWrapper";
-import { UserRole } from "@/shared/types/type";
+import { UserRole } from "@/shared/types/Roletype";
 
 export default function Page() {
   const profile = {

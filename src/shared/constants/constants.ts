@@ -16,7 +16,7 @@ import {
   UserCog,
   Users,
 } from "lucide-react";
-import { NavItem, UserRole } from "../types/type";
+import { NavItem, UserRole } from "../types/Roletype";
 
 export const themes = [
   { id: "light", label: "Light", icon: Sun },
@@ -71,6 +71,6 @@ export const menuItems: Record<UserRole, NavItem[]> = {
       label: "Medical Records",
       icon: FileText,
     },
-    { href: "/patient/settings", label: "Profile", icon: Settings },
+    { href: "/patient/settings", label: "Settings", icon: Settings },
   ],
 };

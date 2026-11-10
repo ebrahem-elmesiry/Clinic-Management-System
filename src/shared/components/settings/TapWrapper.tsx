@@ -9,7 +9,7 @@ import DoctorFees from "@/role/admin/components/settings/DoctorFees";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { tabs } from "@/shared/constants/constants";
 import SecurityPanel from "./tabs/SecurityPanel";
-import { Profile } from "@/shared/types/type";
+import { Profile } from "@/shared/types/Roletype";
 
 interface TapWrapperProps {
   profile: Profile;

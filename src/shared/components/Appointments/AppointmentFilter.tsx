@@ -10,10 +10,7 @@ import {
 } from "@/shared/components/ui/select";
 import AppointmentFilterHook from "@/shared/hooks/AppointmentFilterHook";
 import { useAuth } from "@/providers/AuthProvider";
-import {
-  APPOINTMENT_STATUSES,
-  doctorsFilter,
-} from "@/shared/constants/appointments";
+import { APPOINTMENT_STATUSES, doctors } from "@/shared/constants/appointments";
 
 export default function AppointmentFilter() {
   const { search, setSearch, handleSearch, handleFilter } =
@@ -38,12 +35,11 @@ export default function AppointmentFilter() {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="all">All Doctors</SelectItem>
-              {doctorsFilter.map((d) => (
-                <SelectItem value={d.label}>{d.name}</SelectItem>
+              {doctors.map((d) => (
+                <SelectItem value={d.name.toLocaleLowerCase().trim()}>
+                  {d.name}
+                </SelectItem>
               ))}
-              <SelectItem value="dr-johnson">Dr. Sarah Johnson</SelectItem>
-              <SelectItem value="dr-chen">Dr. Michael Chen</SelectItem>
-              <SelectItem value="dr-lee">Dr. Robert Lee</SelectItem>
             </SelectContent>
           </Select>
         )}

@@ -46,6 +46,7 @@ export default function AddNewAppointmentModal(
     empty,
     specialties,
     appointmentReasons,
+    specialty_price,
   } = useAddNewAppointment(props);
 
   return (
@@ -86,9 +87,9 @@ export default function AddNewAppointmentModal(
           <div>
             <Label htmlFor="specialty">Specialty</Label>
             <Select
-              value={schedule.specialty}
+              value={schedule.specialty_id}
               onValueChange={(value) =>
-                handleScheduleChange("specialty", value)
+                handleScheduleChange("specialty_id", value)
               }
             >
               <SelectTrigger className="mt-2">
@@ -106,7 +107,7 @@ export default function AddNewAppointmentModal(
           <div className="flex flex-col sm:flex-row">
             <div
               onClick={() => {
-                if (!schedule.specialty) {
+                if (!schedule.specialty_id) {
                   toast.info("please choose specialty first");
                   return;
                 }
@@ -120,7 +121,7 @@ export default function AddNewAppointmentModal(
                   day_button:
                     "hover:bg-gray-100 dark:hover:bg-slate-700 data-[selected-single=true]:bg-black data-[selected-single=true]:text-white data-[selected-single=true]:hover:bg-black dark:data-[selected-single=true]:bg-white dark:data-[selected-single=true]:text-black dark:data-[selected-single=true]:hover:bg-white data-[today=true]:data-[selected-single=true]:bg-black data-[today=true]:data-[selected-single=true]:text-white dark:data-[today=true]:data-[selected-single=true]:bg-white dark:data-[today=true]:data-[selected-single=true]:text-black",
                 }}
-                hideNavigation={!schedule.specialty}
+                hideNavigation={!schedule.specialty_id}
                 mode="single"
                 selected={schedule.date ? parseISO(schedule.date) : undefined}
                 onSelect={(date) => {
@@ -128,7 +129,10 @@ export default function AddNewAppointmentModal(
                     handleScheduleChange("date", format(date, "yyyy-MM-dd"));
                   }
                 }}
-                disabled={!schedule.specialty}
+                disabled={(date) =>
+                  !schedule.specialty_id ||
+                  !props.clinicInfo.working_days.includes(date.getDay())
+                }
               />
             </div>
             <div
@@ -184,6 +188,16 @@ export default function AddNewAppointmentModal(
                 ))}
               </SelectContent>
             </Select>
+          </div>
+          <div className="flex items-center justify-between rounded-lg border p-4">
+            <div>
+              <p className="text-sm font-medium">Appointment Price</p>
+              <p className="text-xs text-muted-foreground">
+                Total amount for this appointment
+              </p>
+            </div>
+
+            <p className="text-lg font-semibold">{specialty_price} EGP</p>
           </div>
           <div className="flex gap-3 pt-4">
             <Button

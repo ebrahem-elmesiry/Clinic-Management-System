@@ -12,7 +12,7 @@ import {
 } from "@/shared/components/ui/select";
 import { Plus, Trash2, Pencil, X, Check } from "lucide-react";
 import DoctorFeesHook from "../../hooks/DoctorFeesHook";
-import { doctors, specialties } from "@/role/admin/constants/user-managment";
+import { doctors, specialties } from "@/shared/constants/appointments";
 
 export default function DoctorFees() {
   const {

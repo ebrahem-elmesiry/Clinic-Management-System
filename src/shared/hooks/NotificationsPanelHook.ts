@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { UserRole } from "../types/type";
+import { UserRole } from "../types/Roletype";
 
 export default function NotificationsPanelHook(userRole: UserRole) {
   const isAdmin = userRole === "admin";

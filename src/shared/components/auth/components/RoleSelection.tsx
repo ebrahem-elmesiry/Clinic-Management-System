@@ -2,7 +2,7 @@
 
 import { User } from "lucide-react";
 import { Label } from "@/shared/components/ui/label";
-import { UserRole } from "@/shared/types/type";
+import { UserRole } from "@/shared/types/Roletype";
 import { RoleSelectionProps } from "../types/types";
 
 export default function RoleSelection({

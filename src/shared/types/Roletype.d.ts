@@ -9,7 +9,7 @@ interface NavItem {
 export type Profile = doctorProfile | patientProfile | adminProfile;
 export type Gender = "Male" | "Female";
 
-export type personalData = {
+export type patientData = {
   id: string;
   name: string;
   role: UserRole;
@@ -17,18 +17,9 @@ export type personalData = {
   age: number;
   bloodGroup: string;
 };
-export type clinicType = {
-  id: string;
-  name: string;
-  owner_id: string;
-  working_days: string[];
-  openingTime: string;
-  closingTime: string;
-  description: string;
-  phone: string;
-};
 
 interface sharedProfileData {
+  id: string;
   firstName: string;
   lastName: string;
   role: UserRole;

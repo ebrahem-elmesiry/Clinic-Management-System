@@ -64,11 +64,3 @@ export interface Prescription {
   status: string;
   date: string;
 }
-
-export interface PatientProfile {
-  id: string;
-  name: string;
-  age: number;
-  gender: string;
-  bloodGroup: string;
-}

@@ -4,8 +4,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 import VisitHistoryTab from "./tabs/VisitHistoryTab";
 import VitalsTab from "./tabs/VitalsTab";
 import PrescriptionsTab from "./tabs/PrescriptionsTab";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { personalData } from "@/shared/types/type";
+import { patientData } from "@/shared/types/Roletype";
 import {
   Prescription,
   VisitRecord,
@@ -18,7 +17,9 @@ interface PatientRecordsWrapperProps {
   vitals: Vital[];
   visits: VisitRecord[];
   prescriptions: Prescription[];
-  patient: personalData | undefined;
+  patient: patientData;
+  isPending: boolean;
+  isDoctor?: boolean;
 }
 
 export default function PatientRecordsWrapper({
@@ -27,8 +28,10 @@ export default function PatientRecordsWrapper({
   vitals,
   prescriptions,
   patient,
+  isPending,
+  isDoctor = false,
 }: PatientRecordsWrapperProps) {
-  const { tab, patientId, handleTabChange } = usePatientRecordsNavigation();
+  const { tab, handleTabChange } = usePatientRecordsNavigation();
   return (
     <>
       <Tabs value={tab} onValueChange={handleTabChange} className="space-y-6">
@@ -57,7 +60,8 @@ export default function PatientRecordsWrapper({
         <VisitHistoryTab
           visits={visits}
           isUnknown={isUnknownPatient}
-          patientId={patientId}
+          patientId={patient?.id}
+          isPending={isPending}
         />
       )}
 
@@ -65,16 +69,19 @@ export default function PatientRecordsWrapper({
         <VitalsTab
           vitals={vitals}
           patient={patient}
+          patientId={patient.id}
           isUnknown={isUnknownPatient}
-          patientId={patientId}
+          isPending={isPending}
         />
       )}
 
       {tab === "prescriptions" && (
         <PrescriptionsTab
+          isDoctor={isDoctor}
           prescriptions={prescriptions}
           patient={patient}
           isUnknown={isUnknownPatient}
+          isPending={isPending}
         />
       )}
     </>

@@ -1,5 +1,5 @@
 import { FormEvent } from "react";
-import { UserRole } from "@/shared/types/type";
+import { UserRole } from "@/shared/types/Roletype";
 
 export interface AuthRightSideProps {
   isLogin: boolean;

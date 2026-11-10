@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import TapWrapper from "./TapWrapper";
-import { Profile } from "@/shared/types/type";
+import { Profile } from "@/shared/types/Roletype";
 
 export default function SettingsPageWrapper({ profile }: { profile: Profile }) {
   return (

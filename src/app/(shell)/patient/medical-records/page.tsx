@@ -1,7 +1,7 @@
 import PageHero from "@/shared/components/PageHero";
 import PatientRecordsWrapper from "@/shared/components/PatientRecords/PatientRecordsWrapper";
 import { Prescription } from "@/shared/types/patientRecords";
-import { Gender, personalData, UserRole } from "@/shared/types/type";
+import { Gender, patientData, UserRole } from "@/shared/types/Roletype";
 
 const visits = [
   {
@@ -125,19 +125,15 @@ const prescriptions: Prescription[] = [
 ];
 
 export default function page() {
-  const patient: personalData = {
+  const patient: patientData = {
     id: "patient_id",
     name: "Ahmed",
     gender: "Male" as Gender,
     age: 24,
-    role: "patient" as UserRole,
     bloodGroup: "O+",
+    role: "patient" as UserRole,
   };
-  /*
-    make condition here:
-      1. if role is admin wait for patientId from url to make fetch.
-      2. if role is patient make fetch instantly.
-  */
+  const isPending = false;
   return (
     <div className="space-y-6 max-w-7xl mx-auto">
       <PageHero
@@ -146,6 +142,7 @@ export default function page() {
       />
 
       <PatientRecordsWrapper
+        isPending={isPending}
         patient={patient}
         vitals={vitals}
         visits={visits}

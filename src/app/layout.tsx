@@ -3,7 +3,9 @@ import type { ReactNode } from "react";
 import { AuthProvider } from "@/providers/AuthProvider";
 import "./globals.css";
 import Providers from "./providers/Providers";
-import { Gender, UserRole } from "@/shared/types/type";
+import { Gender, UserRole } from "@/shared/types/Roletype";
+import { AppointmentProvider } from "@/shared/context/AppointmentContext";
+import { ClinicType } from "@/shared/types/appointments";
 
 export const metadata: Metadata = {
   title: "HealthCare Clinic Management System",
@@ -20,22 +22,34 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     age: 20,
     bloodGroup: "O+",
   };
-  const clinicInfo = {
+  const clinicInfoS: ClinicType = {
     id: "clinic_id",
-    name: "clinic",
+    name: "HealthCare Clinic",
     owner_id: "owner_id",
-    working_days: ["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday"],
-    openingTime: "09:00",
+    working_days: [6, 0, 1, 2, 3, 4],
+    // working_days: [
+    //   "Saturday",
+    //   "Sunday",
+    //   "Monday",
+    //   "Tuesday",
+    //   "Wednesday",
+    //   "Thursday",
+    // ],
+    openingTime: "07:00",
     closingTime: "17:00",
     description: "description",
     phone: "01239482371",
+    duration: "30",
+    bufferTime: "10",
   };
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
-        <AuthProvider profile={profile} clinicInfo={clinicInfo}>
-          <Providers>{children}</Providers>
-        </AuthProvider>
+        <AppointmentProvider clinicInfoS={clinicInfoS}>
+          <AuthProvider profile={profile}>
+            <Providers>{children}</Providers>
+          </AuthProvider>
+        </AppointmentProvider>
       </body>
     </html>
   );

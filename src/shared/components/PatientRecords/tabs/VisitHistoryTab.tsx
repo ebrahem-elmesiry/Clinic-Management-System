@@ -12,12 +12,14 @@ interface VisitHistoryTabProps {
   isUnknown?: boolean;
   patientId: string | null;
   visits: VisitRecord[];
+  isPending: boolean;
 }
 
 export default function VisitHistoryTab({
   isUnknown,
   patientId,
   visits,
+  isPending,
 }: VisitHistoryTabProps) {
   const [selectedVisit, setSelectedVisit] = useState<
     (typeof visits)[number] | null
@@ -26,8 +28,6 @@ export default function VisitHistoryTab({
   if (isUnknown) return <UnknownPatient patientId={patientId} />;
 
   if (!patientId) return <NoPatientChoose />;
-
-  const isPending = false;
 
   return (
     <>

@@ -2,7 +2,7 @@
 
 import AvatarUpload from "@/shared/components/settings/Profile/AvatarUpload";
 import ProfileInputs from "@/shared/components/settings/Profile/ProfileInputs";
-import { Profile } from "@/shared/types/type";
+import { Profile } from "@/shared/types/Roletype";
 
 interface ProfilePanelProps {
   profile: Profile;

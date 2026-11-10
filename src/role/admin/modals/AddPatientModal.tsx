@@ -24,6 +24,7 @@ import {
 } from "@/shared/types/patientRecords";
 import { toast } from "sonner";
 import { FormData, patientSchema } from "../validations/settings/validation";
+import { calcAge } from "../utils/utils";
 
 interface Props {
   setPatients: Dispatch<SetStateAction<PatientInformationType[]>>;
@@ -71,17 +72,6 @@ export default function AddPatientModal({
 
   const updateField = <K extends keyof FormData>(field: K, value: string) =>
     setFormData((prev) => ({ ...prev, [field]: value }));
-
-  function calcAge(birthDayValue: string): number {
-    if (!birthDayValue) return 0;
-    const birth = new Date(birthDayValue);
-    if (Number.isNaN(birth.getTime())) return 0;
-    const today = new Date();
-    let age = today.getFullYear() - birth.getFullYear();
-    const m = today.getMonth() - birth.getMonth();
-    if (m < 0 || (m === 0 && today.getDate() < birth.getDate())) age--;
-    return Math.max(0, age);
-  }
 
   function handleAddPatient(e: React.FormEvent) {
     e.preventDefault();

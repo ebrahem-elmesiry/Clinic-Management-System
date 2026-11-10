@@ -44,3 +44,16 @@ export interface AppointmentMonth {
   end: string;
   appointments: Appointment[];
 }
+
+export type ClinicType = {
+  id: string;
+  name: string;
+  owner_id: string;
+  working_days: number[];
+  openingTime: string;
+  closingTime: string;
+  description: string;
+  phone: string;
+  bufferTime: string;
+  duration: string;
+};

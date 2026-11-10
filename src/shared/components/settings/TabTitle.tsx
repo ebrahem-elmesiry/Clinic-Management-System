@@ -1,6 +1,6 @@
 "use client";
 
-import { UserRole } from "@/shared/types/type";
+import { UserRole } from "@/shared/types/Roletype";
 import React from "react";
 
 export type SettingsTab =

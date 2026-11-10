@@ -14,8 +14,9 @@ import {
   patientProfile,
   Profile,
   UserRole,
-} from "@/shared/types/type";
+} from "@/shared/types/Roletype";
 import { isAdminProfile, isDoctorProfile, isPatientProfile } from "@/lib/utils";
+import { calcAge } from "@/role/admin/utils/utils";
 
 export default function ProfileInputsHook(
   profile: Profile,
@@ -36,6 +37,8 @@ export default function ProfileInputsHook(
         blood: profile.blood,
         date: profile.date,
         phone: profile.phone,
+        gender: profile.gender,
+        age: calcAge(profile.date),
       };
     }
   });
@@ -48,7 +51,7 @@ export default function ProfileInputsHook(
     setEmail(value);
   }
   function setPatientInfoData(
-    type: "address" | "blood" | "date" | "phone",
+    type: "address" | "blood" | "date" | "phone" | "gender",
     value: string,
   ) {
     setPatientInfo((prev) => {
@@ -63,6 +66,7 @@ export default function ProfileInputsHook(
   function handleDoctorSave() {
     if (!email) return toast.info("please write email");
     const doctor: doctorProfile = {
+      id: "",
       firstName: name.first,
       lastName: name.last,
       email,
@@ -84,6 +88,7 @@ export default function ProfileInputsHook(
     if (!patientInfo.date) return toast.info("Please enter your date of birth");
 
     const patient: patientProfile = {
+      id: "",
       firstName: name.first,
       lastName: name.last,
       phone: patientInfo.phone,
@@ -91,10 +96,10 @@ export default function ProfileInputsHook(
       blood: patientInfo.blood,
       date: patientInfo.date,
       role: userRole as UserRole,
+      gender: patientInfo.gender,
+      age: calcAge(patientInfo.date),
     };
-    console.log("patient", patient);
     const result = patientProfileSchema.safeParse(patient);
-    console.log("result", result);
     if (!result.success) {
       toast.error(result.error.issues[0].message);
       return false;
@@ -104,6 +109,7 @@ export default function ProfileInputsHook(
   function handleAdminSave() {
     if (!email) return toast.info("please write email");
     const admin: adminProfile = {
+      id: "",
       firstName: name.first,
       lastName: name.last,
       email,
@@ -119,7 +125,6 @@ export default function ProfileInputsHook(
 
   function handleSave(e: React.FormEvent) {
     e.preventDefault();
-    console.log("userRole", userRole);
     if (userRole === "doctor") {
       const check = handleDoctorSave();
       if (!check) return;
@@ -128,7 +133,6 @@ export default function ProfileInputsHook(
       if (!check) return;
     } else if (userRole === "admin") {
       const check = handleAdminSave();
-      console.log("check", check);
       if (!check) return;
     }
     toast.success(MESSAGES.profile.saved);

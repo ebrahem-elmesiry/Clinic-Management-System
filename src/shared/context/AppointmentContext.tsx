@@ -8,25 +8,43 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { Appointment } from "../types/appointments";
+import { Appointment, ClinicType } from "../types/appointments";
+import { doctorsWithSpecialty } from "@/role/admin/constants/clinicInfo";
+import { SpecialtyPrice } from "@/role/admin/types/doctorFees";
 
 interface AppointmentContextType {
   appointmentsDB: Appointment[];
   setAppointmentsDB: Dispatch<SetStateAction<Appointment[]>>;
+  clinicInfo: ClinicType;
+  setClinicInfo: Dispatch<SetStateAction<ClinicType>>;
+  doctorFees: SpecialtyPrice[];
+  setDoctorFees: Dispatch<SetStateAction<SpecialtyPrice[]>>;
 }
 
 const AppointmentContext = createContext<AppointmentContextType | undefined>(
   undefined,
 );
 
-export const AppointmentProvider = ({ children }: { children: ReactNode }) => {
+export const AppointmentProvider = ({
+  children,
+  clinicInfoS,
+}: {
+  children: ReactNode;
+  clinicInfoS: ClinicType;
+}) => {
   const [appointmentsDB, setAppointmentsDB] = useState<Appointment[]>([]);
-
+  const [clinicInfo, setClinicInfo] = useState<ClinicType>(clinicInfoS);
+  const [doctorFees, setDoctorFees] =
+    useState<SpecialtyPrice[]>(doctorsWithSpecialty);
   return (
     <AppointmentContext.Provider
       value={{
         appointmentsDB,
         setAppointmentsDB,
+        clinicInfo,
+        setClinicInfo,
+        doctorFees,
+        setDoctorFees,
       }}
     >
       {children}

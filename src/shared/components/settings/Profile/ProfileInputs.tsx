@@ -4,8 +4,16 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
 import { Button } from "@/shared/components/ui/button";
-import ProfileInputsHook from "@/role/admin/hooks/ProfileInputsHook";
-import { Profile, UserRole } from "@/shared/types/type";
+import { Profile, UserRole } from "@/shared/types/Roletype";
+import ProfileInputsHook from "@/shared/hooks/ProfileInputsHook";
+import { calcAge } from "@/role/admin/utils/utils";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/components/ui/select";
 
 interface ProfileInputsProps {
   profile: Profile;
@@ -134,6 +142,32 @@ export default function ProfileInputs({
             </div>
           </div>
         )}
+        <div>
+          <Label htmlFor="age">Age</Label>
+          <Input
+            id="age"
+            type="text"
+            disabled
+            value={calcAge(patientInfo?.date || "")}
+            className="mt-2"
+          />
+        </div>
+
+        <div>
+          <Label htmlFor="gender">Gender</Label>
+          <Select
+            value={patientInfo?.gender ?? ""}
+            onValueChange={(value) => setPatientInfoData("gender", value)}
+          >
+            <SelectTrigger className="mt-2">
+              <SelectValue placeholder="Select gender" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Male">Male</SelectItem>
+              <SelectItem value="Female">Female</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
       </div>
 
       <div className="flex justify-end mt-6">

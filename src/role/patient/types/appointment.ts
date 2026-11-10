@@ -1,4 +1,6 @@
 import { FollowUpAppointment } from "@/role/doctor/types/type";
+import { Appointment, ClinicType } from "@/shared/types/appointments";
+import { Dispatch, SetStateAction } from "react";
 
 export interface UseAddNewAppointmentProps {
   open?: boolean;
@@ -8,12 +10,14 @@ export interface UseAddNewAppointmentProps {
   appointmentType?: string;
   showTrigger?: boolean;
   onSchedule?: (data: FollowUpAppointment) => void;
+  clinicInfo: ClinicType;
+  setAppointmentsDB: Dispatch<SetStateAction<Appointment[]>>;
 }
 
 export interface ScheduleData {
   date: string;
   time: string | null;
-  specialty: string;
+  specialty_id: string;
 }
 
 export interface AppointmentDetails {

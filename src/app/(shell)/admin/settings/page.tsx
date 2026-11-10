@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import TapWrapper from "@/shared/components/settings/TapWrapper";
-import { UserRole } from "@/shared/types/type";
+import { UserRole } from "@/shared/types/Roletype";
 
 export default function SettingsRoute() {
   const profile = {

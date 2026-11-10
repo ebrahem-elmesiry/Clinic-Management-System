@@ -7,20 +7,24 @@ import NoPatientChoose from "../NoPatientChoose";
 import UnknownPatient from "../UnknownPatient";
 import { TabsSkeleton } from "../skeletons";
 import usePrescriptionsTabHook from "@/shared/hooks/PrescriptionsTabHook";
-import { personalData } from "@/shared/types/type";
 import { Prescription } from "@/shared/types/patientRecords";
 import { useSearchParams } from "next/navigation";
+import { patientData } from "@/shared/types/Roletype";
 
 interface PrescriptionsTabProps {
-  patient: personalData | undefined;
+  patient: patientData;
   isUnknown?: boolean;
   prescriptions: Prescription[];
+  isDoctor: boolean;
+  isPending: boolean;
 }
 
 export default function PrescriptionsTab({
   patient,
   isUnknown,
   prescriptions,
+  isPending,
+  isDoctor,
 }: PrescriptionsTabProps) {
   const searchParams = useSearchParams();
   const patientId = searchParams.get("patientID");
@@ -29,9 +33,9 @@ export default function PrescriptionsTab({
     isEdit,
     editingId,
     prescriptionOpen,
-    isDoctor,
-    patientPrescriptions,
-    isPending,
+    // isDoctor,
+    // patientPrescriptions,
+    // isPending,
     handleChange,
     validate,
     openAddPrescription,

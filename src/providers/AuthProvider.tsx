@@ -1,6 +1,6 @@
 "use client";
 
-import { clinicType, personalData, UserRole } from "@/shared/types/type";
+import { patientData, UserRole } from "@/shared/types/Roletype";
 import { useRouter } from "next/navigation";
 import React, { createContext, useContext, useState } from "react";
 
@@ -9,8 +9,7 @@ interface AuthContextValue {
   isLoggedIn: boolean;
   login: (role: UserRole) => void;
   logout: () => void;
-  profile: personalData;
-  clinicInfo: clinicType;
+  profile: patientData;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -18,11 +17,9 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 export function AuthProvider({
   children,
   profile,
-  clinicInfo,
 }: {
   children: React.ReactNode;
-  profile: personalData;
-  clinicInfo: clinicType;
+  profile: patientData;
 }) {
   const router = useRouter();
 
@@ -38,7 +35,7 @@ export function AuthProvider({
 
   return (
     <AuthContext.Provider
-      value={{ role, isLoggedIn: !!role, login, logout, profile, clinicInfo }}
+      value={{ role, isLoggedIn: !!role, login, logout, profile }}
     >
       {children}
     </AuthContext.Provider>

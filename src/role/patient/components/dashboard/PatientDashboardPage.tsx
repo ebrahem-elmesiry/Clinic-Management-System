@@ -41,7 +41,7 @@ export default function PatientDashboard() {
     <div className="space-y-8 max-w-7xl mx-auto">
       <PageHero
         title={`Welcome back, ${authenticatedPatient.name}`}
-        description="Here's your personal health dashboard"
+        description="Here's your personal Appointments"
         showStats
         stats={[
           {

@@ -6,7 +6,7 @@ import AppointmentFilter from "@/shared/components/Appointments/AppointmentFilte
 import PageTitleWithButton from "@/shared/components/page-title/PageTitleWithButton";
 import AppointmentComponent from "@/shared/components/Appointments/AppointmentComponent";
 import AppointmentHeaderAction from "@/shared/components/Appointments/AppointmentHeaderAction";
-import { Appointment, AppointmentMonth } from "@/shared/types/appointments";
+import { Appointment } from "@/shared/types/appointments";
 import { toast } from "sonner";
 import { useAppointmentContext } from "@/shared/context/AppointmentContext";
 
@@ -53,12 +53,12 @@ export default function AppointmentsPage({
         title="Appointments Management"
         subtitle="Schedule and manage appointments"
         action={
-          <Suspense fallback={null}>
+          <Suspense>
             <AppointmentHeaderAction />
           </Suspense>
         }
       />
-      <Suspense fallback={null}>
+      <Suspense>
         <AppointmentFilter />
       </Suspense>
 

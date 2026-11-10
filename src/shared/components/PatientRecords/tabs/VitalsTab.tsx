@@ -9,14 +9,15 @@ import NoPatientChoose from "../NoPatientChoose";
 import UnknownPatient from "../UnknownPatient";
 import { TabsSkeleton } from "../skeletons";
 import { useAuth } from "@/providers/AuthProvider";
-import { personalData } from "@/shared/types/type";
 import { Vital } from "@/shared/types/patientRecords";
+import { patientData } from "@/shared/types/Roletype";
 
 interface VitalsTabProps {
-  patient: personalData | undefined;
+  patient: patientData;
   isUnknown?: boolean;
   vitals: Vital[];
   patientId: string | null;
+  isPending: boolean;
 }
 
 export default function VitalsTab({
@@ -24,6 +25,7 @@ export default function VitalsTab({
   isUnknown,
   vitals,
   patientId,
+  isPending,
 }: VitalsTabProps) {
   const [vitalsOpen, setVitalsOpen] = useState(false);
   const [localVitals, setLocalVitals] = useState(vitals);
@@ -94,7 +96,7 @@ export default function VitalsTab({
       return updated;
     });
   };
-  const isPending = false;
+
   return (
     <>
       {isPending ? (
