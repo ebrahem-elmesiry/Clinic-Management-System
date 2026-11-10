@@ -1,5 +1,6 @@
 import AppointmentsPage from "@/shared/components/Appointments/AppointmentsPage";
 import { appointmentsMonth } from "@/shared/constants/appointments";
+
 export default async function page({
   searchParams,
 }: {

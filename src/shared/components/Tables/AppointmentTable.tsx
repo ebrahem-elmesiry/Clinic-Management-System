@@ -3,7 +3,7 @@
 import { Button } from "@/shared/components/ui/button";
 import { User } from "lucide-react";
 import StatusBadge from "@/shared/components/Appointments/StatusBadge";
-import { Appointment } from "@/shared/types/appointments";
+import { Appointment } from "@/shared/types/appointment";
 import { handleTime } from "@/utils/handlers";
 import { useAuth } from "@/providers/AuthProvider";
 
@@ -73,18 +73,23 @@ export default function AppointmentTable({
                         {startTime} to {endTime}
                       </div>
                     </td>
+
                     <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-100">
                       {appointment.doctor?.name}
                     </td>
+
                     <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
                       {appointment.reason}
                     </td>
+
                     <td className="px-6 py-4">
                       <StatusBadge status={appointment.status} />
                     </td>
+
                     <td className="px-6 py-4 text-sm text-gray-600 dark:text-gray-400">
                       {appointment.date}
                     </td>
+
                     {role === "admin" && (
                       <td className="px-6 py-4">
                         <Button

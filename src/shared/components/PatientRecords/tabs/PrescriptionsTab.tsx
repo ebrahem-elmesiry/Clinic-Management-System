@@ -1,22 +1,22 @@
-"use client";
-
 import Prescriptions from "@/shared/components/PatientMedicalRecords/Prescriptions/Prescriptions";
-import AddPrescription from "@/role/doctor/modals/AddPrescription";
-
 import NoPatientChoose from "../NoPatientChoose";
 import UnknownPatient from "../UnknownPatient";
 import { TabsSkeleton } from "../skeletons";
-import usePrescriptionsTabHook from "@/shared/hooks/PrescriptionsTabHook";
-import { Prescription } from "@/shared/types/patientRecords";
-import { useSearchParams } from "next/navigation";
 import { patientData } from "@/shared/types/Roletype";
+import { Prescription } from "@/shared/types/patientRecords";
+import AddPrescription from "@/role/doctor/modals/AddPrescription";
+import { useSearchParams } from "next/navigation";
+import usePrescriptionsTabHook from "@/shared/hooks/PrescriptionsTabHook";
 
 interface PrescriptionsTabProps {
-  patient: patientData;
+  patient: patientData | undefined;
   isUnknown?: boolean;
   prescriptions: Prescription[];
-  isDoctor: boolean;
   isPending: boolean;
+  openAddPrescription?: () => void;
+  startEditPrescription?: (id: string) => void;
+  handleRevoke?: (p: string) => void;
+  isDoctor?: boolean;
 }
 
 export default function PrescriptionsTab({
@@ -32,7 +32,7 @@ export default function PrescriptionsTab({
     form,
     isEdit,
     editingId,
-    prescriptionOpen,
+    // prescriptionOpen,
     // isDoctor,
     // patientPrescriptions,
     // isPending,
@@ -66,20 +66,23 @@ export default function PrescriptionsTab({
       )}
       {isDoctor && (
         <AddPrescription
-          form={form}
-          open={prescriptionOpen}
-          validate={validate}
-          isEdit={isEdit}
-          prescriptionId={editingId ?? undefined}
-          handleChange={handleChange}
-          onOpenChange={(open) => {
-            if (!open) closePrescriptionModal();
-          }}
+          // form={form}
+          // open={prescriptionOpen}
+          // validate={validate}
+          // isEdit={isEdit}
+          // prescriptionId={editingId ?? undefined}
+          // handleChange={handleChange}
+          // onOpenChange={(open) => {
+          //   if (!open) closePrescriptionModal();
+          // }}
+          // patientName={patient.name}
+          // patientMeta={`${patient.age}/${patient.gender[0]}`}
+          // onCreate={handleCreatePrescription}
+          // handlePrescriptionEdit={handlePrescriptionEdit}
+          // emptyForm={emptyForm}
+          patientId={patient.id}
           patientName={patient.name}
-          patientMeta={`${patient.age}/${patient.gender[0]}`}
-          onCreate={handleCreatePrescription}
-          handlePrescriptionEdit={handlePrescriptionEdit}
-          emptyForm={emptyForm}
+          patientMeta={`${patient.age}/${patient.gender}`}
         />
       )}
     </>

@@ -2,8 +2,9 @@
 
 import { useState } from "react";
 import { toast } from "sonner";
+import { useAppointmentContext } from "@/shared/context/AppointmentContext";
 import { useAuth } from "@/providers/AuthProvider";
-import { Appointment } from "@/shared/types/appointments";
+import { Appointment } from "@/shared/types/appointment";
 import {
   busySchedule,
   doctors,
@@ -16,7 +17,6 @@ import {
   UseAddNewAppointmentProps,
 } from "../../types/appointment";
 import { addMinutes, parse, format } from "date-fns";
-import { useAppointmentContext } from "@/shared/context/AppointmentContext";
 
 export default function useAddNewAppointment({
   open,

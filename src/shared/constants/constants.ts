@@ -49,7 +49,7 @@ export const menuItems: Record<UserRole, NavItem[]> = {
       icon: Users,
     },
     { href: "/doctor/visit-notes", label: "Visit Notes", icon: ClipboardList },
-    { href: "/doctor/settings", label: "Profile", icon: Settings },
+    { href: "/doctor/settings", label: "Settings", icon: Settings },
   ],
   admin: [
     { href: "/admin/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -60,7 +60,7 @@ export const menuItems: Record<UserRole, NavItem[]> = {
       icon: Users,
     },
     { href: "/admin/user-management", label: "User Management", icon: UserCog },
-    { href: "/admin/settings", label: "Profile", icon: Settings },
+    { href: "/admin/settings", label: "Settings", icon: Settings },
     { href: "/admin/design-system", label: "Design System", icon: Palette },
   ],
   patient: [

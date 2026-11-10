@@ -1,3 +1,5 @@
+import { ClinicInfoType } from "@/role/admin/validations/settings/validation";
+
 export type AppointmentStatus =
   | "confirmed"
   | "pending"
@@ -45,15 +47,7 @@ export interface AppointmentMonth {
   appointments: Appointment[];
 }
 
-export type ClinicType = {
+export interface ClinicType extends ClinicInfoType {
   id: string;
-  name: string;
   owner_id: string;
-  working_days: number[];
-  openingTime: string;
-  closingTime: string;
-  description: string;
-  phone: string;
-  bufferTime: string;
-  duration: string;
-};
+}

@@ -3,11 +3,7 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { MESSAGES } from "@/role/admin/constants/messages";
-import {
-  adminProfileSchema,
-  doctorProfileSchema,
-  patientProfileSchema,
-} from "@/role/admin/validations/settings/validation";
+
 import {
   adminProfile,
   doctorProfile,
@@ -17,6 +13,11 @@ import {
 } from "@/shared/types/Roletype";
 import { isAdminProfile, isDoctorProfile, isPatientProfile } from "@/lib/utils";
 import { calcAge } from "@/role/admin/utils/utils";
+import {
+  adminProfileSchema,
+  doctorProfileSchema,
+  patientProfileSchema,
+} from "../validations/validations";
 
 export default function ProfileInputsHook(
   profile: Profile,

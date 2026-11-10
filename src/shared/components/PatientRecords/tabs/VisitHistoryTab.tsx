@@ -10,7 +10,7 @@ import { VisitRecord } from "@/shared/types/patientRecords";
 
 interface VisitHistoryTabProps {
   isUnknown?: boolean;
-  patientId: string | null;
+  patientId: string | undefined;
   visits: VisitRecord[];
   isPending: boolean;
 }

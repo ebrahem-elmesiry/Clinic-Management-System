@@ -3,7 +3,7 @@
 import AppointmentTable from "@/shared/components/Tables/AppointmentTable";
 import AppointmentHeader from "./AppointmentHeader";
 import { Loader2 } from "lucide-react";
-import { Appointment } from "@/shared/types/appointments";
+import { Appointment } from "@/shared/types/appointment";
 
 interface AppointmentComponentProps {
   appointments: Appointment[];

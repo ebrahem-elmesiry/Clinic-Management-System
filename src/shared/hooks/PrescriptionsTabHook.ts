@@ -22,7 +22,7 @@ export default function usePrescriptionsTabHook({
   const modal = searchParams.get("modal");
   const editingId = searchParams.get("prescriptionId");
   const isEdit = modal === "edit" && !!editingId;
-  const prescriptionOpen = modal === "add" || isEdit;
+  const open = modal === "add" || isEdit;
 
   const defaultForm: PrescriptionFormData = {
     medicineName: "",
@@ -148,7 +148,7 @@ export default function usePrescriptionsTabHook({
     form,
     isEdit,
     editingId,
-    prescriptionOpen,
+    open,
     isDoctor,
     patientPrescriptions,
     isPending,

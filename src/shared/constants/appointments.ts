@@ -3,7 +3,7 @@ import {
   AppointmentMonth,
   Doctor,
   Specialty,
-} from "../types/appointments";
+} from "../types/appointment";
 
 export const APPOINTMENT_STATUSES = [
   "confirmed",

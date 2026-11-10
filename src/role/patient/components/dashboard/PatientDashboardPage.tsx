@@ -51,10 +51,7 @@ export default function PatientDashboard() {
         ]}
       />
       <PatientInformation patient={authenticatedPatient} />
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <UpcomingAppointments appointments={upcomingAppointments} />
-      </div>
+      <UpcomingAppointments appointments={upcomingAppointments} />
     </div>
   );
 }

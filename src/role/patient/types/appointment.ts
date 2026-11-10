@@ -1,5 +1,5 @@
 import { FollowUpAppointment } from "@/role/doctor/types/type";
-import { Appointment, ClinicType } from "@/shared/types/appointments";
+import { Appointment, ClinicType } from "@/shared/types/appointment";
 import { Dispatch, SetStateAction } from "react";
 
 export interface UseAddNewAppointmentProps {

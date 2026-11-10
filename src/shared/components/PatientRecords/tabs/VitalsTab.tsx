@@ -13,10 +13,9 @@ import { Vital } from "@/shared/types/patientRecords";
 import { patientData } from "@/shared/types/Roletype";
 
 interface VitalsTabProps {
-  patient: patientData;
+  patient: patientData | undefined;
   isUnknown?: boolean;
   vitals: Vital[];
-  patientId: string | null;
   isPending: boolean;
 }
 
@@ -24,7 +23,6 @@ export default function VitalsTab({
   patient,
   isUnknown,
   vitals,
-  patientId,
   isPending,
 }: VitalsTabProps) {
   const [vitalsOpen, setVitalsOpen] = useState(false);
@@ -32,7 +30,7 @@ export default function VitalsTab({
   const { role } = useAuth();
   const isDoctor = role === "doctor";
 
-  if (isUnknown) return <UnknownPatient patientId={patientId} />;
+  if (isUnknown) return <UnknownPatient patientId={patient?.id} />;
 
   if (!patient) return <NoPatientChoose />;
 
@@ -114,8 +112,7 @@ export default function VitalsTab({
           open={vitalsOpen}
           onOpenChange={setVitalsOpen}
           patientName={patient.name}
-          patientMeta={`${patient.age}/${patient.gender[0]} ·`}
-          // patientMeta={`${patient.age}/${patient.gender[0]} · ${patient.bloodGroup}`}
+          patientMeta={`${patient.age}/${patient.gender[0]} · ${patient.bloodGroup}`}
           initialData={vitalsInitialData}
           isEdit={localVitals.length > 0}
           onSave={handleSaveVitals}

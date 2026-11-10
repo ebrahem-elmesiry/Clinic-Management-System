@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { cva } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
@@ -57,7 +56,7 @@ export default function StatusBadge({
       className={cn(statusBadgeVariants({ status: status as any }), className)}
       {...props}
     >
-      {status}
+      {status.slice(0, 1).toLocaleUpperCase() + status.slice(1)}
     </span>
   );
 }

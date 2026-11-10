@@ -4,6 +4,7 @@ import { UserRole } from "@/shared/types/Roletype";
 
 export default function SettingsRoute() {
   const profile = {
+    id: "12312321",
     firstName: "Admin",
     lastName: "User",
     email: "admin@clinic.com",
@@ -20,7 +21,7 @@ export default function SettingsRoute() {
           Manage your account settings and preferences
         </p>
       </div>
-      <Suspense fallback={null}>
+      <Suspense>
         <TapWrapper profile={profile} />
       </Suspense>
     </div>

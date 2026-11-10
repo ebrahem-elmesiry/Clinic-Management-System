@@ -5,7 +5,7 @@ import "./globals.css";
 import Providers from "./providers/Providers";
 import { Gender, UserRole } from "@/shared/types/Roletype";
 import { AppointmentProvider } from "@/shared/context/AppointmentContext";
-import { ClinicType } from "@/shared/types/appointments";
+import { ClinicType } from "@/shared/types/appointment";
 
 export const metadata: Metadata = {
   title: "HealthCare Clinic Management System",
@@ -17,7 +17,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   const profile = {
     id: "123",
     name: "Ebrahem Ahmed",
-    role: "patient" as UserRole,
+    role: "admin" as UserRole,
     gender: "Male" as Gender,
     age: 20,
     bloodGroup: "O+",
@@ -45,11 +45,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body className="antialiased">
-        <AppointmentProvider clinicInfoS={clinicInfoS}>
-          <AuthProvider profile={profile}>
+        <AuthProvider profile={profile}>
+          <AppointmentProvider clinicInfoS={clinicInfoS}>
             <Providers>{children}</Providers>
-          </AuthProvider>
-        </AppointmentProvider>
+          </AppointmentProvider>
+        </AuthProvider>
       </body>
     </html>
   );

@@ -5,32 +5,10 @@ import ClinicInfoHook from "../../hooks/ClinicInfoHook";
 import ClinicDetails from "./ClinicDetails";
 import WorkingDays from "./WorkingDays";
 import AppointmentPreferences from "./AppointmentPreferences";
-
-const allDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
-const defaultWorkingDays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-const defaultTime = { start: "09:00", end: "18:00" };
-const defaultDuration = "30";
-const defaultBufferTime = "10";
+import { allDays } from "../../constants/clinicInfo";
 
 export default function ClinicInfo() {
-  const {
-    clinicName,
-    setClinicName,
-    time,
-    setHandleTime,
-    workingDays,
-    toggleDay,
-    duration,
-    setDuration,
-    bufferTime,
-    setBufferTime,
-    handleSave,
-  } = ClinicInfoHook({
-    defaultWorkingDays,
-    defaultDuration,
-    defaultBufferTime,
-    defaultTime,
-  });
+  const { clinicInfo, setClinicField, toggleDay, handleSave } = ClinicInfoHook();
 
   return (
     <div className="bg-white dark:bg-slate-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-700 p-6">
@@ -38,25 +16,18 @@ export default function ClinicInfo() {
         Clinic Information
       </h2>
 
-      <ClinicDetails
-        clinicName={clinicName}
-        startTime={time.start}
-        endTime={time.end}
-        onClinicNameChange={setClinicName}
-        setHandleTime={setHandleTime}
-      />
+      <ClinicDetails clinicInfo={clinicInfo} onChange={setClinicField} />
 
       <WorkingDays
-        workingDays={workingDays}
+        workingDays={clinicInfo.working_days}
         allDays={allDays}
         onToggleDay={toggleDay}
       />
 
       <AppointmentPreferences
-        duration={duration}
-        bufferTime={bufferTime}
-        onDurationChange={setDuration}
-        onBufferTimeChange={setBufferTime}
+        bufferTime={clinicInfo.bufferTime}
+        duration={clinicInfo.duration}
+        onChange={setClinicField}
       />
 
       <div className="flex justify-end">

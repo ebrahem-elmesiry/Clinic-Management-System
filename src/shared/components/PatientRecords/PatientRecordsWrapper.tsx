@@ -17,9 +17,9 @@ interface PatientRecordsWrapperProps {
   vitals: Vital[];
   visits: VisitRecord[];
   prescriptions: Prescription[];
-  patient: patientData;
+  patient: patientData | undefined;
   isPending: boolean;
-  isDoctor?: boolean;
+  isDoctor: boolean;
 }
 
 export default function PatientRecordsWrapper({
@@ -69,7 +69,6 @@ export default function PatientRecordsWrapper({
         <VitalsTab
           vitals={vitals}
           patient={patient}
-          patientId={patient.id}
           isUnknown={isUnknownPatient}
           isPending={isPending}
         />

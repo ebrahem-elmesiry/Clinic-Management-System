@@ -19,8 +19,8 @@ export default function Prescriptions({
   doctor = false,
   prescriptions = [],
   onAdd,
-  onEdit,
   onRevoke,
+  onEdit,
 }: PrescriptionsProps) {
   return (
     <WrapperComponent
@@ -39,11 +39,11 @@ export default function Prescriptions({
         <div className="space-y-4">
           {prescriptions.map((p) => (
             <PrescriptionCard
+              isDoctor={doctor}
               key={p.id}
               prescription={p}
               onRevoke={onRevoke}
               onEdit={onEdit}
-              isDoctor={doctor}
             />
           ))}
         </div>

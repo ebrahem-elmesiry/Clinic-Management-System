@@ -50,7 +50,10 @@ async function fetchSearchResults(
       (d) => matches(query, d.name) || matches(query, d.specialty),
     ),
     appointments: data.appointments.filter(
-      (a) => matches(query, a.patientName) || matches(query, a.doctorName),
+      (a) =>
+        matches(query, a.specialty) ||
+        matches(query, a.doctorName) ||
+        matches(query, a.patientName),
     ),
   };
 }

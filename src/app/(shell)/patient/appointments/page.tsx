@@ -18,5 +18,7 @@ export default async function page({
   const { month } = await searchParams;
   const thisMonth = month ? `${month}-01` : formattedDate;
   const appointments = appointmentsMonth.find((a) => a.start === thisMonth)!;
-  return <AppointmentsPage initialAppointments={appointments.appointments} />;
+  return (
+    <AppointmentsPage initialAppointments={appointments?.appointments || []} />
+  );
 }

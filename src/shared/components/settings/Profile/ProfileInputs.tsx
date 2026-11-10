@@ -142,32 +142,36 @@ export default function ProfileInputs({
             </div>
           </div>
         )}
-        <div>
-          <Label htmlFor="age">Age</Label>
-          <Input
-            id="age"
-            type="text"
-            disabled
-            value={calcAge(patientInfo?.date || "")}
-            className="mt-2"
-          />
-        </div>
+        {showPatientFields && (
+          <>
+            <div>
+              <Label htmlFor="age">Age</Label>
+              <Input
+                id="age"
+                type="text"
+                disabled
+                value={calcAge(patientInfo?.date || "")}
+                className="mt-2"
+              />
+            </div>
 
-        <div>
-          <Label htmlFor="gender">Gender</Label>
-          <Select
-            value={patientInfo?.gender ?? ""}
-            onValueChange={(value) => setPatientInfoData("gender", value)}
-          >
-            <SelectTrigger className="mt-2">
-              <SelectValue placeholder="Select gender" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="Male">Male</SelectItem>
-              <SelectItem value="Female">Female</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
+            <div>
+              <Label htmlFor="gender">Gender</Label>
+              <Select
+                value={patientInfo?.gender ?? ""}
+                onValueChange={(value) => setPatientInfoData("gender", value)}
+              >
+                <SelectTrigger className="mt-2">
+                  <SelectValue placeholder="Select gender" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Male">Male</SelectItem>
+                  <SelectItem value="Female">Female</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+          </>
+        )}
       </div>
 
       <div className="flex justify-end mt-6">

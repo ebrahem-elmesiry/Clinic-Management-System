@@ -15,6 +15,7 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select";
 import { Pill } from "lucide-react";
+import usePrescriptionsTabHook from "@/shared/hooks/PrescriptionsTabHook";
 
 export interface PrescriptionFormData {
   medicineName: string;
@@ -26,41 +27,40 @@ export interface PrescriptionFormData {
 }
 
 interface AddPrescriptionProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
   patientName: string;
-  patientMeta?: string;
-  onCreate: (data: PrescriptionFormData) => void;
-  form: PrescriptionFormData;
-  handleChange: (field: keyof PrescriptionFormData, value: string) => void;
-  validate: () => boolean;
-  handlePrescriptionEdit: (id: string) => void;
-  isEdit: boolean;
-  prescriptionId?: string;
-  emptyForm: () => void;
+  patientMeta: string;
+  patientId: string;
 }
 
 export default function AddPrescription({
-  open,
-  onOpenChange,
+  patientId,
   patientName,
   patientMeta,
-  onCreate,
-  form,
-  handleChange,
-  validate,
-  handlePrescriptionEdit,
-  isEdit,
-  prescriptionId,
-  emptyForm,
 }: AddPrescriptionProps) {
+  const {
+    form,
+    handleChange,
+    validate,
+    open,
+    closePrescriptionModal,
+    handlePrescriptionEdit,
+    emptyForm,
+    handleCreatePrescription,
+    editingId,
+    isEdit,
+  } = usePrescriptionsTabHook({ patientId });
+
+  function onOpenChange(open: boolean) {
+    if (!open) closePrescriptionModal();
+  }
+
   function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     if (!validate()) return;
     if (isEdit) {
-      if (prescriptionId) handlePrescriptionEdit(prescriptionId);
+      if (editingId) handlePrescriptionEdit(editingId);
     } else {
-      onCreate({ ...form });
+      handleCreatePrescription({ ...form });
     }
     onOpenChange(false);
   }

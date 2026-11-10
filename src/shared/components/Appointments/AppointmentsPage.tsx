@@ -6,7 +6,7 @@ import AppointmentFilter from "@/shared/components/Appointments/AppointmentFilte
 import PageTitleWithButton from "@/shared/components/page-title/PageTitleWithButton";
 import AppointmentComponent from "@/shared/components/Appointments/AppointmentComponent";
 import AppointmentHeaderAction from "@/shared/components/Appointments/AppointmentHeaderAction";
-import { Appointment } from "@/shared/types/appointments";
+import { Appointment } from "@/shared/types/appointment";
 import { toast } from "sonner";
 import { useAppointmentContext } from "@/shared/context/AppointmentContext";
 
@@ -36,10 +36,13 @@ export default function AppointmentsPage({
     const status = searchParams.get("status");
     const doctor = searchParams.get("doctor")?.toLowerCase().trim() ?? "";
 
-    return appointmentsDB
-      .filter((a) => a.patient.name.toLowerCase().trim().includes(search))
-      .filter((a) => !status || a.status === status)
-      .filter((a) => a.doctor.name.toLowerCase().trim().includes(doctor));
+    return (
+      appointmentsDB
+        ?.filter((a) => a.patient.name.toLowerCase().trim().includes(search))
+        .filter((a) => !status || a.status === status)
+        .filter((a) => a.doctor.name.toLowerCase().trim().includes(doctor)) ||
+      []
+    );
   }, [searchParams, appointmentsDB]);
 
   function handleCancel(id: string) {

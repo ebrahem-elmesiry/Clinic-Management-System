@@ -8,7 +8,7 @@ import {
   Dispatch,
   SetStateAction,
 } from "react";
-import { Appointment, ClinicType } from "../types/appointments";
+import { Appointment, ClinicType } from "../types/appointment";
 import { doctorsWithSpecialty } from "@/role/admin/constants/clinicInfo";
 import { SpecialtyPrice } from "@/role/admin/types/doctorFees";
 

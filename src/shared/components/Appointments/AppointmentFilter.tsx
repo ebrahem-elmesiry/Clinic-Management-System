@@ -36,7 +36,10 @@ export default function AppointmentFilter() {
             <SelectContent>
               <SelectItem value="all">All Doctors</SelectItem>
               {doctors.map((d) => (
-                <SelectItem value={d.name.toLocaleLowerCase().trim()}>
+                <SelectItem
+                  key={d.id}
+                  value={d.name.toLocaleLowerCase().trim()}
+                >
                   {d.name}
                 </SelectItem>
               ))}

@@ -152,7 +152,7 @@ export const quickActions: QuickAction[] = [
   {
     label: "View All Doctors",
     icon: UserCheck,
-    href: "/admin/user-management?search=doctors",
+    href: "/admin/user-management?search=doctor",
   },
   { label: "Edit Clinic", icon: UserCheck, href: "/admin/settings?tab=clinic" },
 ];
