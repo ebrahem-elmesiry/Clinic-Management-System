@@ -3,6 +3,7 @@ export interface SearchPatient {
   name: string;
   age: number;
   image: string | undefined;
+  href: string;
 }
 
 export interface SearchDoctor {
@@ -17,6 +18,7 @@ export interface SearchAppointment {
   patientName: string;
   date: string;
   doctorName: string;
+  href: string;
 }
 
 export interface NavbarSearchData {

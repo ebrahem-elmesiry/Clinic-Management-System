@@ -1,9 +1,16 @@
 import StatisticsCard from "@/shared/components/StatisticsCard";
 import TodayAppointments from "@/role/doctor/components/dashboard/TodayAppointments";
-import { doctorStatusDashboard } from "@/role/admin/constants";
-import { todaysAppointments } from "../../constants/constants";
+import { DoctorStatusDashboardItem, TodayAppointment } from "../../types/type";
 
-export default function DoctorDashboard() {
+interface Props {
+  doctorStatusDashboard: DoctorStatusDashboardItem[];
+  todaysAppointments: TodayAppointment[];
+}
+
+export default function DoctorDashboard({
+  doctorStatusDashboard,
+  todaysAppointments,
+}: Props) {
   return (
     <div className="space-y-8">
       <div>
@@ -15,15 +22,13 @@ export default function DoctorDashboard() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {doctorStatusDashboard.map((stat, index) => (
           <StatisticsCard key={index} {...stat} />
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <TodayAppointments appointments={todaysAppointments} />
-      </div>
+      <TodayAppointments appointments={todaysAppointments} />
     </div>
   );
 }

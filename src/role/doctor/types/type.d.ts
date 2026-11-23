@@ -1,3 +1,9 @@
+export type VisitStatusValue =
+  | "pending"
+  | "completed"
+  | "cancelled"
+  | "in-progress";
+
 export interface TodayAppointment {
   id: number;
   patient: string;
@@ -8,13 +14,20 @@ export interface TodayAppointment {
   reason: string;
   startTime: string;
   endTime: string;
-  status: "completed" | "in-progress" | "upcoming" | "cancelled";
+  status: VisitStatusValue;
 }
 
-export type VisitStatusValue = "pending" | "completed" | "cancelled";
+export interface DoctorStatusDashboardItem {
+  title: string;
+  value: string;
+  changeValue: string;
+  changeLabel: string;
+  icon: LucideIcon;
+  color: string;
+}
 
 export interface Medicine {
-  id: number;
+  id: string;
   name: string;
   dosage: string;
   frequency: string;

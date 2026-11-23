@@ -5,103 +5,78 @@ import Vitals from "@/shared/components/PatientMedicalRecords/Vitals/Vitals";
 import AddOrEditVitals, {
   type VitalsFormData,
 } from "@/role/doctor/modals/AddOrEditVitals";
-import { vitals } from "@/shared/constants/patientRecords";
 import NoPatientChoose from "../NoPatientChoose";
 import UnknownPatient from "../UnknownPatient";
 import { TabsSkeleton } from "../skeletons";
 import { useAuth } from "@/providers/AuthProvider";
-import { PatientProfile } from "@/shared/types/patientRecords";
+import { PatientProfile, Vital } from "@/shared/types/patientRecords";
 
 interface VitalsTabProps {
-  patient?: PatientProfile;
+  patient: PatientProfile | undefined;
   isUnknown?: boolean;
-  patientId?: string | null;
+  vitals: Vital[];
+  isPending: boolean;
 }
 
 export default function VitalsTab({
   patient,
   isUnknown,
-  patientId,
+  vitals,
+  isPending,
 }: VitalsTabProps) {
   const [vitalsOpen, setVitalsOpen] = useState(false);
   const [localVitals, setLocalVitals] = useState(vitals);
   const { role } = useAuth();
   const isDoctor = role === "doctor";
 
-  if (isUnknown) return <UnknownPatient patientId={patientId} />;
+  if (isUnknown) return <UnknownPatient patientId={patient?.id} />;
 
   if (!patient) return <NoPatientChoose />;
 
-  const patientVitals = localVitals.filter((v) => v.patientId === patient.id);
+  const vitalsMap: Record<string, string> = Object.fromEntries(
+    localVitals.map((v) => [v.label.toLowerCase().replace(/\s/g, ""), v.value]),
+  );
 
   const vitalsInitialData: VitalsFormData = {
-    bloodPressure: patientVitals[0]?.value ?? "",
-    heartRate: patientVitals[1]?.value ?? "",
-    temperature: patientVitals[2]?.value ?? "",
-    bloodSugar: patientVitals[3]?.value ?? "",
-    weight: patientVitals[4]?.value ?? "",
-    height: patientVitals[5]?.value ?? "",
+    bloodPressure: vitalsMap["bloodpressure"],
+    heartRate: vitalsMap["heartrate"],
+    temperature: vitalsMap["temperature"],
+    bloodSugar: vitalsMap["bloodsugar"],
+    weight: vitalsMap["weight"],
+    height: vitalsMap["height"],
   };
 
   const handleSaveVitals = (data: VitalsFormData) => {
+    const vitalsConfig = [
+      { key: "bloodPressure", label: "Blood Pressure", unit: "mmHg" },
+      { key: "heartRate", label: "Heart Rate", unit: "bpm" },
+      { key: "temperature", label: "Temperature", unit: "°F" },
+      { key: "bloodSugar", label: "Blood Sugar", unit: "mg/dL" },
+      { key: "weight", label: "Weight", unit: "lbs" },
+      { key: "height", label: "Height", unit: "cm" },
+    ] as const;
+
     setLocalVitals((prev) => {
       const others = prev.filter((v) => v.patientId !== patient.id);
-      const updated = [
-        {
-          patientId: patient.id,
-          label: "Blood Pressure",
-          value: data.bloodPressure,
-          unit: "mmHg",
-          status: "normal",
-        },
-        {
-          patientId: patient.id,
-          label: "Heart Rate",
-          value: data.heartRate,
-          unit: "bpm",
-          status: "normal",
-        },
-        {
-          patientId: patient.id,
-          label: "Temperature",
-          value: data.temperature,
-          unit: "°F",
-          status: "normal",
-        },
-        {
-          patientId: patient.id,
-          label: "Blood Sugar",
-          value: data.bloodSugar,
-          unit: "mg/dL",
-          status: "normal",
-        },
-        {
-          patientId: patient.id,
-          label: "Weight",
-          value: data.weight,
-          unit: "lbs",
-          status: "normal",
-        },
-        {
-          patientId: patient.id,
-          label: "Height",
-          value: data.height,
-          unit: "",
-          status: "normal",
-        },
-        ...others,
-      ];
-      return updated;
+
+      const updated = vitalsConfig.map((vital) => ({
+        patientId: patient.id,
+        label: vital.label,
+        value: data[vital.key],
+        unit: vital.unit,
+        status: "normal",
+      }));
+
+      return [...updated, ...others];
     });
   };
-  const isPending = false;
   return (
     <>
       {isPending ? (
         <TabsSkeleton variant="vitals" />
       ) : (
         <Vitals
-          vitals={patientVitals}
+          vitals={localVitals}
           doctor={isDoctor}
           onAddEdit={() => setVitalsOpen(true)}
         />
@@ -112,9 +87,11 @@ export default function VitalsTab({
           open={vitalsOpen}
           onOpenChange={setVitalsOpen}
           patientName={patient.name}
-          patientMeta={`${patient.age}/${patient.gender[0]} · ${patient.bloodGroup}`}
+          patientMeta={`${patient.age}/${patient.gender} · ${patient.bloodGroup}`}
           initialData={vitalsInitialData}
-          isEdit={patientVitals.length > 0}
+          isEdit={
+            localVitals.filter((v) => v.patientId === patient.id).length > 0
+          }
           onSave={handleSaveVitals}
         />
       )}

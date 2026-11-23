@@ -1,5 +1,6 @@
 "use client";
 
+import { Suspense } from "react";
 import { User } from "lucide-react";
 import {
   Tabs,
@@ -98,7 +99,9 @@ export default function PatientMedicalRecordsRoute() {
         </TabsContent>
 
         <TabsContent value="prescriptions">
-          <Prescriptions />
+          <Suspense>
+            <Prescriptions />
+          </Suspense>
         </TabsContent>
       </Tabs>
 

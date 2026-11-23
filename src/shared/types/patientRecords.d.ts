@@ -1,29 +1,31 @@
-export interface PatientInformationType {
-  id: string;
-  name: string;
-  age: number;
-  gender: string;
-  phone?: string;
-  lastVisit: string | undefined;
-}
+import type {
+  MedicationTiming,
+  PrescriptionFormData,
+} from "@/role/doctor/validations/validation";
+import { Gender } from "./Roletype";
 
-export type PatientListItem = PatientInformationType;
+export type { MedicationTiming };
 
 export interface PatientProfile {
   id: string;
   name: string;
   age: number;
-  gender: string;
+  gender: Gender;
   dob: string;
   phone: string;
-  // email?: string;
   address: string;
   bloodGroup: string;
-  // emergencyContact?: string;
-  // allergies?: string;
+  lastVisit: string;
 }
 
+export type AddPatientForm = Omit<z.infer<typeof patientSchema>, "gender"> & {
+  gender: Gender | null;
+};
+
+export type Tab = "visit-history" | "prescriptions" | "vitals";
+
 export interface VisitPrescription {
+  id: string;
   medicineName: string;
   dosage: string;
   frequency: string;
@@ -50,24 +52,14 @@ export interface Vital {
   status: string;
 }
 
-export interface Prescription {
+export type PrescriptionStatus = "active" | "inactive";
+
+export interface Prescription extends Omit<PrescriptionFormData, "timing"> {
   id: string;
   patientId: string;
-  medicineName: string;
-  dosage: string;
-  frequency: string;
-  timing: string;
-  duration: string;
-  specialInstructions?: string;
-  status: string;
+  remainingDays: number;
   prescribedBy: string;
+  status: PrescriptionStatus;
   date: string;
-}
-
-export interface PatientProfile {
-  id: string;
-  name: string;
-  age: number;
-  gender: string;
-  bloodGroup: string;
+  timing: MedicationTiming | null;
 }

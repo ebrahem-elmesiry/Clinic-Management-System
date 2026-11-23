@@ -1,5 +1,6 @@
 import { User } from "lucide-react";
 import WrapperComponent from "@/shared/components/WrapperComponent";
+import { AppointmentType } from "../../types/visit-notes";
 
 interface PatientInformationProps {
   name: string;
@@ -7,7 +8,7 @@ interface PatientInformationProps {
   gender: string;
   bloodGroup: string;
   reason: string;
-  appointmentType: "Regular" | "Follow-up";
+  appointmentType: AppointmentType;
 }
 
 export default function PatientInformation({

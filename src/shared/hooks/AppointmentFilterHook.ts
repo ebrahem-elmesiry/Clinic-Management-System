@@ -2,17 +2,12 @@
 
 import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { DEFAULT_VIEW } from "@/role/admin/constants/appointments";
-import type { ViewType } from "@/role/admin/types/type";
-
-type FilterType = "status" | "doctor";
 
 export default function AppointmentFilterHook() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
   const [search, setSearch] = useState("");
-  const view = (searchParams.get("view") as ViewType | null) ?? DEFAULT_VIEW;
 
   function replaceParams(update: (params: URLSearchParams) => void) {
     const params = new URLSearchParams(searchParams.toString());
@@ -30,7 +25,7 @@ export default function AppointmentFilterHook() {
     });
   }
 
-  function handleFilter(type: FilterType, value: string) {
+  function handleFilter(type: "status" | "doctor", value: string) {
     replaceParams((params) => {
       if (!value || value === "all") {
         params.delete(type);
@@ -40,15 +35,5 @@ export default function AppointmentFilterHook() {
     });
   }
 
-  function handleView(value: ViewType) {
-    replaceParams((params) => {
-      if (value === DEFAULT_VIEW) {
-        params.delete("view");
-      } else {
-        params.set("view", value);
-      }
-    });
-  }
-
-  return { search, setSearch, view, handleSearch, handleFilter, handleView };
+  return { search, setSearch, handleSearch, handleFilter };
 }

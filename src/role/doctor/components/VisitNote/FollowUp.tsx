@@ -1,31 +1,32 @@
-"use client";
-
 import { useState } from "react";
-import { format, isValid, parseISO } from "date-fns";
-import { CalendarClock } from "lucide-react";
-import AddNewAppointmentModal from "@/role/patient/modals/AddNewAppointment";
-import type { FollowUpAppointment } from "../../types/type";
+import AddNewAppointmentModal from "@/role/patient/modals/addNewAppointment/AddNewAppointment";
+import { useAppointmentContext } from "@/shared/context/AppointmentContext";
+import { FollowUpAppointment } from "../../types/type";
+import FollowUpSummary from "./FollowUpSummary";
 
 interface FollowUpProps {
   followUp: boolean;
   nextAppointment: FollowUpAppointment | null;
-  patientName: string;
-  specialty: string;
-  appointmentType: string;
+  prefill: {
+    patientName: string;
+    specialtyId: string;
+    appointmentType: string;
+  };
   onNo: () => void;
-  onSchedule: (data: FollowUpAppointment) => void;
+  onSchedule: (data: FollowUpAppointment | null) => void;
+  onStartSchedule: () => void;
 }
 
 export default function FollowUp({
   followUp,
   nextAppointment,
-  patientName,
-  specialty,
-  appointmentType,
+  prefill,
   onNo,
   onSchedule,
+  onStartSchedule,
 }: FollowUpProps) {
   const [modalOpen, setModalOpen] = useState(false);
+  const { setAppointmentsDB, clinicInfo } = useAppointmentContext();
   const showSummary = followUp && nextAppointment;
 
   return (
@@ -41,7 +42,12 @@ export default function FollowUp({
         </div>
         <div className="flex gap-2">
           <button
-            onClick={() => setModalOpen(true)}
+            onClick={() => {
+              if (!nextAppointment) {
+                onStartSchedule();
+                setModalOpen(true);
+              }
+            }}
             className={`px-3 py-1.5 text-sm border rounded-lg ${showSummary || modalOpen ? "bg-blue-600 text-white border-blue-600" : "border-gray-200 dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700/50"}`}
           >
             Yes
@@ -58,51 +64,17 @@ export default function FollowUp({
         </div>
       </div>
 
-      {showSummary ? (
-        <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800/50">
-          <p className="text-sm text-gray-900 dark:text-slate-100 mb-3">
-            Follow-up scheduled
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div>
-              <p className="text-xs text-gray-500 dark:text-slate-400">Date</p>
-              <p className="text-sm text-gray-900 dark:text-slate-100">
-                {isValid(parseISO(nextAppointment.date))
-                  ? format(parseISO(nextAppointment.date), "MMM d, yyyy")
-                  : "—"}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500 dark:text-slate-400">
-                Specialty
-              </p>
-              <p className="text-sm text-gray-900 dark:text-slate-100">
-                {nextAppointment.specialty || "—"}
-              </p>
-            </div>
-            <div>
-              <p className="text-xs text-gray-500 dark:text-slate-400">Time</p>
-              <p className="text-sm text-gray-900 dark:text-slate-100">
-                {nextAppointment.time || "—"}
-              </p>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <p className="text-sm text-gray-500 dark:text-slate-400 flex items-center gap-1">
-          <CalendarClock className="w-3.5 h-3.5" />
-          No follow-up scheduled.
-        </p>
-      )}
+      <FollowUpSummary nextAppointment={nextAppointment} />
 
       <AddNewAppointmentModal
+        isFollowUp={followUp}
+        onSchedule={onSchedule}
         open={modalOpen}
         onOpenChange={setModalOpen}
         showTrigger={false}
-        patientName={patientName}
-        specialty={specialty}
-        appointmentType={appointmentType}
-        onSchedule={onSchedule}
+        prefill={prefill}
+        clinicInfo={clinicInfo}
+        setAppointmentsDB={setAppointmentsDB}
       />
     </div>
   );

@@ -1,29 +1,35 @@
 "use client";
 
-import { Tabs, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 import PageTitleWithButton from "@/shared/components/page-title/PageTitleWithButton";
 import SelectedPatient from "@/shared/components/PatientRecords/SelectedPatient";
 import AddPatientModal from "@/role/admin/modals/AddPatientModal";
-import VisitHistoryTab from "./tabs/VisitHistoryTab";
-import VitalsTab from "./tabs/VitalsTab";
-import PrescriptionsTab from "./tabs/PrescriptionsTab";
 import { PatientInformationSkeleton } from "./skeletons";
 import PatientInformation from "@/shared/components/PatientRecords/PatientInformation";
-import usePatientRecordsPageHook from "@/shared/hooks/PatientRecordsPageHook";
+import usePatientRecordsPageHook from "@/role/admin/hooks/usePatientRecordsPageHook";
 import { Suspense } from "react";
+import PatientRecordsWrapper from "./PatientRecordsWrapper";
+import usePatientRecordsSearchHook from "@/shared/hooks/usePatientRecordsSearchHook";
 
 export default function PatientRecordsPage() {
   const {
     isUnknownPatient,
-    patients,
-    setPatients,
-    setPatientProfiles,
-    selectedPatientId,
-    tab,
-    selectedProfile,
-    handleTabChange,
     isPending,
+    selectedPatientId,
+    selectedProfile,
+    patientVisits,
+    patientVitals,
+    patientPrescriptions,
+    isDoctor,
+    patientProfiles,
+    setPatientProfiles,
+    getPatientData,
+    DeletePrescription,
+    EditPrescription,
+    AddPrescription,
   } = usePatientRecordsPageHook();
+
+  const { search, query, handlePatientSearch, isPendingSearch } =
+    usePatientRecordsSearchHook(patientProfiles);
 
   return (
     <div className="space-y-6">
@@ -32,10 +38,7 @@ export default function PatientRecordsPage() {
         subtitle="View and manage patient medical information"
         action={
           <Suspense>
-            <AddPatientModal
-              setPatients={setPatients}
-              setPatientProfiles={setPatientProfiles}
-            />
+            <AddPatientModal setPatientProfiles={setPatientProfiles} />
           </Suspense>
         }
       />
@@ -43,8 +46,12 @@ export default function PatientRecordsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         <Suspense>
           <SelectedPatient
-            patients={patients}
-            selectedPatient={selectedPatientId}
+            isPending={isPendingSearch}
+            handlePatientURL={getPatientData}
+            search={search}
+            query={query}
+            handlePatientSearch={handlePatientSearch}
+            selectedPatientId={selectedPatientId}
           />
         </Suspense>
 
@@ -59,39 +66,17 @@ export default function PatientRecordsPage() {
             />
           )}
 
-          <Tabs
-            value={tab}
-            onValueChange={handleTabChange}
-            className="space-y-6"
-          >
-            <TabsList className="bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700">
-              <TabsTrigger value="visit-history">Visit History</TabsTrigger>
-              <TabsTrigger value="vitals">Vitals</TabsTrigger>
-              <TabsTrigger value="prescriptions">Prescriptions</TabsTrigger>
-            </TabsList>
-          </Tabs>
-
-          {tab === "visit-history" && (
-            <VisitHistoryTab
-              patient={selectedProfile}
-              isUnknown={isUnknownPatient}
-              patientId={selectedPatientId}
-            />
-          )}
-          {tab === "vitals" && (
-            <VitalsTab
-              patient={selectedProfile}
-              isUnknown={isUnknownPatient}
-              patientId={selectedPatientId}
-            />
-          )}
-          {tab === "prescriptions" && (
-            <PrescriptionsTab
-              patient={selectedProfile}
-              isUnknown={isUnknownPatient}
-              patientId={selectedPatientId}
-            />
-          )}
+          <PatientRecordsWrapper
+            isDoctor={isDoctor}
+            isPending={isPending}
+            patient={selectedProfile}
+            vitals={patientVitals}
+            visits={patientVisits}
+            prescriptions={patientPrescriptions}
+            DeletePrescription={DeletePrescription}
+            EditPrescription={EditPrescription}
+            AddPrescription={AddPrescription}
+          />
         </div>
       </div>
     </div>

@@ -30,7 +30,6 @@ const menuItems: Record<UserRole, NavItem[]> = {
     { href: "/doctor/dashboard", label: "Dashboard", icon: LayoutDashboard },
     { href: "/doctor/appointments", label: "Appointments", icon: Calendar },
     { href: "/doctor/patient-records", label: "Patient Records", icon: Users },
-    { href: "/doctor/visit-notes", label: "Visit Notes", icon: ClipboardList },
     { href: "/doctor/settings", label: "Settings", icon: Settings },
   ],
   admin: [

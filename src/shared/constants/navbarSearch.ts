@@ -7,22 +7,25 @@ import {
 export const adminSearchData: AdminSearchData = {
   patients: [
     {
-      id: "p-1",
+      id: "1",
       name: "John Smith",
       age: 45,
       image: "https://i.pravatar.cc/100?img=12",
+      href: "patients?patientID=1&tab=visit-history",
     },
     {
-      id: "p-2",
+      id: "2",
       name: "Emma Wilson",
       age: 32,
       image: "https://i.pravatar.cc/100?img=45",
+      href: "patients?patientID=2&tab=visit-history",
     },
     {
-      id: "p-3",
+      id: "3",
       name: "Michael Brown",
       age: 58,
       image: "https://i.pravatar.cc/100?img=33",
+      href: "patients?patientID=3&tab=visit-history",
     },
   ],
   doctors: [
@@ -51,18 +54,21 @@ export const adminSearchData: AdminSearchData = {
       patientName: "John Smith",
       date: "Dec 20, 2026",
       doctorName: "Dr. Sarah Johnson",
+      href: "appointments",
     },
     {
       id: "a-2",
       patientName: "Emma Wilson",
       date: "Dec 22, 2026",
       doctorName: "Dr. Michael Chen",
+      href: "appointments",
     },
     {
       id: "a-3",
       patientName: "Michael Brown",
       date: "Dec 24, 2026",
       doctorName: "Dr. Robert Lee",
+      href: "appointments",
     },
   ],
 };
@@ -70,22 +76,25 @@ export const adminSearchData: AdminSearchData = {
 export const doctorSearchData: DoctorSearchData = {
   patients: [
     {
-      id: "p-1",
+      id: "1",
       name: "John Smith",
       age: 45,
       image: "https://i.pravatar.cc/100?img=12",
+      href: "patient-records?patientID=1&tab=visit-history",
     },
     {
-      id: "p-2",
+      id: "2",
       name: "Emma Wilson",
       age: 32,
       image: "https://i.pravatar.cc/100?img=45",
+      href: "patient-records?patientID=2&tab=visit-history",
     },
     {
-      id: "p-4",
+      id: "4",
       name: "Sarah Davis",
       age: 28,
       image: "https://i.pravatar.cc/100?img=20",
+      href: "patient-records?patientID=4&tab=visit-history",
     },
   ],
   appointments: [
@@ -94,18 +103,21 @@ export const doctorSearchData: DoctorSearchData = {
       patientName: "John Smith",
       date: "Dec 20, 2026",
       doctorName: "Dr. Sarah Johnson",
+      href: "appointments",
     },
     {
       id: "a-2",
       patientName: "Emma Wilson",
       date: "Dec 22, 2026",
       doctorName: "Dr. Sarah Johnson",
+      href: "appointments",
     },
     {
       id: "a-4",
       patientName: "Sarah Davis",
       date: "Dec 26, 2026",
       doctorName: "Dr. Sarah Johnson",
+      href: "appointments",
     },
   ],
 };
@@ -117,18 +129,21 @@ export const patientSearchData: PatientSearchData = {
       patientName: "John Doe",
       date: "Dec 20, 2026",
       doctorName: "Dr. Sarah Johnson",
+      href: "appointments",
     },
     {
       id: "a-6",
       patientName: "John Doe",
       date: "Jan 05, 2027",
       doctorName: "Dr. Michael Chen",
+      href: "appointments",
     },
     {
       id: "a-7",
       patientName: "John Doe",
       date: "Feb 11, 2027",
       doctorName: "Dr. Emily White",
+      href: "appointments",
     },
   ],
 };

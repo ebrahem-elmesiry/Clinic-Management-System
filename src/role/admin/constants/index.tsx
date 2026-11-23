@@ -56,33 +56,6 @@ export const stats: StatisticsAdminDashboardType[] = [
   },
 ];
 
-export const doctorStatusDashboard = [
-  {
-    title: "Total Patients",
-    value: "1,284",
-    changeValue: "+12%",
-    changeLabel: "from last month",
-    icon: Users,
-    color: colorClasses.Patients,
-  },
-  {
-    title: "Today's Appointments",
-    value: "48",
-    changeValue: "8",
-    changeLabel: "pending confirmation",
-    icon: Calendar,
-    color: colorClasses.blue,
-  },
-  {
-    title: "Pending Visits",
-    value: "24",
-    changeValue: "2",
-    changeLabel: "on leave",
-    icon: UserCheck,
-    color: colorClasses.orange,
-  },
-];
-
 export const revenueData = [
   { month: "Jan", revenue: 18500 },
   { month: "Feb", revenue: 22000 },

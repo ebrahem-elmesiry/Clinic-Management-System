@@ -7,6 +7,7 @@ import {
   SearchDoctor,
   SearchPatient,
 } from "@/shared/types/navbarSearch";
+import Link from "next/link";
 
 const rowClass =
   "flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700/60 cursor-pointer";
@@ -30,7 +31,7 @@ export function SectionTitle({
 
 export function PatientResultItem({ patient }: { patient: SearchPatient }) {
   return (
-    <div className={rowClass}>
+    <Link href={patient.href} className={rowClass}>
       <Avatar size="sm" src={patient.image} alt={patient.name} />
       <div className="min-w-0">
         <p className="text-sm text-gray-900 dark:text-gray-100 truncate">
@@ -40,7 +41,7 @@ export function PatientResultItem({ patient }: { patient: SearchPatient }) {
           {patient.age} years
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -66,7 +67,7 @@ export function AppointmentResultItem({
   appointment: SearchAppointment;
 }) {
   return (
-    <div className={rowClass}>
+    <Link href={appointment.href} className={rowClass}>
       <div className="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 flex items-center justify-center shrink-0">
         <Calendar className="w-4 h-4 text-blue-600 dark:text-blue-300" />
       </div>
@@ -82,6 +83,6 @@ export function AppointmentResultItem({
           {appointment.doctorName}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }

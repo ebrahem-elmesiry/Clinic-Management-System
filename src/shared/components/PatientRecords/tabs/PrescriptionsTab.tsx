@@ -1,43 +1,33 @@
-"use client";
-
 import Prescriptions from "@/shared/components/PatientMedicalRecords/Prescriptions/Prescriptions";
-import AddPrescription from "@/role/doctor/modals/AddPrescription";
-
 import NoPatientChoose from "../NoPatientChoose";
 import UnknownPatient from "../UnknownPatient";
-import { PatientProfile } from "@/shared/types/patientRecords";
 import { TabsSkeleton } from "../skeletons";
-import usePrescriptionsTabHook from "@/shared/hooks/PrescriptionsTabHook";
+import { PatientProfile, Prescription } from "@/shared/types/patientRecords";
+import { useSearchParams } from "next/navigation";
 
 interface PrescriptionsTabProps {
-  patient?: PatientProfile;
+  patient: PatientProfile | undefined;
   isUnknown?: boolean;
-  patientId?: string | null;
+  prescriptions: Prescription[];
+  isPending: boolean;
+  isDoctor?: boolean;
+  DeletePrescription?: (id: string) => void;
+  EditPrescription?: (id: string, p: Prescription) => void;
+  AddPrescription?: (p: Prescription) => void;
 }
 
 export default function PrescriptionsTab({
   patient,
   isUnknown,
-  patientId,
+  prescriptions,
+  isPending,
+  isDoctor,
+  DeletePrescription,
+  EditPrescription,
+  AddPrescription,
 }: PrescriptionsTabProps) {
-  const {
-    form,
-    isEdit,
-    editingId,
-    prescriptionOpen,
-    isDoctor,
-    patientPrescriptions,
-    isPending,
-    handleChange,
-    validate,
-    openAddPrescription,
-    closePrescriptionModal,
-    startEditPrescription,
-    handlePrescriptionEdit,
-    emptyForm,
-    handleCreatePrescription,
-    handleRevoke,
-  } = usePrescriptionsTabHook({ patient });
+  const searchParams = useSearchParams();
+  const patientId = searchParams.get("patientID");
 
   if (isUnknown) return <UnknownPatient patientId={patientId} />;
 
@@ -50,28 +40,11 @@ export default function PrescriptionsTab({
       ) : (
         <Prescriptions
           doctor={isDoctor}
-          prescriptions={patientPrescriptions}
-          onAdd={openAddPrescription}
-          onEdit={startEditPrescription}
-          onRevoke={handleRevoke}
-        />
-      )}
-      {isDoctor && (
-        <AddPrescription
-          form={form}
-          open={prescriptionOpen}
-          validate={validate}
-          isEdit={isEdit}
-          prescriptionId={editingId ?? undefined}
-          handleChange={handleChange}
-          onOpenChange={(open) => {
-            if (!open) closePrescriptionModal();
-          }}
-          patientName={patient.name}
-          patientMeta={`${patient.age}/${patient.gender[0]}`}
-          onCreate={handleCreatePrescription}
-          handlePrescriptionEdit={handlePrescriptionEdit}
-          emptyForm={emptyForm}
+          prescriptions={prescriptions}
+          patient={patient}
+          onDelete={DeletePrescription}
+          EditPrescription={EditPrescription}
+          AddPrescription={AddPrescription}
         />
       )}
     </>
