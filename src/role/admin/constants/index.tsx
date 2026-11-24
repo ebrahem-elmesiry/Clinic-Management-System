@@ -191,10 +191,20 @@ export const users = [
 ];
 
 export const roleStats: StatisticsCardType[] = [
-  { title: "Doctors", value: "24", icon: UserCheck },
-  { title: "Admins", value: "3", icon: Shield },
-  { title: "Patients", value: "1284", icon: UserCheck },
-  { title: "Inactive", value: "5", icon: UserX },
+  {
+    title: "Doctors",
+    value: "24",
+    icon: UserCheck,
+    color: colorClasses.Doctors,
+  },
+  { title: "Admins", value: "3", icon: Shield, color: colorClasses.green },
+  {
+    title: "Patients",
+    value: "1284",
+    icon: UserCheck,
+    color: colorClasses.Patients,
+  },
+  { title: "Inactive", value: "5", icon: UserX, color: colorClasses.Inactive },
 ];
 
 // End User Management

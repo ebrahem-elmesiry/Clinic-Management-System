@@ -96,7 +96,13 @@ export default function DoctorFeesHook() {
   }
 
   function checkDocData(ID: string) {
-    const getDoc: SpecialtyPrice = doctorFees.find((doc) => doc.id === ID);
+    const getDoc: SpecialtyPrice | undefined = doctorFees.find(
+      (doc) => doc.id === ID,
+    );
+    if (!getDoc) {
+      toast.info("please select doctor");
+      return;
+    }
     if (!getDoc?.doctor_name || !getDoc?.price || !getDoc?.specialty_id) {
       if (getDoc.price <= DOCTOR_FEES_VALIDATION.minPrice) {
         toast.info(DOCTOR_FEES_VALIDATION.priceLowMessage);

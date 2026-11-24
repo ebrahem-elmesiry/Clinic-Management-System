@@ -13,7 +13,7 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select";
 import { Role } from "@/role/admin/types/user-management";
-import { specialties } from "../../constants/user-managment";
+import { specialties } from "@/shared/constants/appointments";
 
 interface CommonData {
   firstName: string;

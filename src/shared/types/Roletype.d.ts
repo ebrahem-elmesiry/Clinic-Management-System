@@ -19,7 +19,7 @@ export type patientData = {
 };
 
 interface sharedProfileData {
-  id: string;
+  // id: string;
   firstName: string;
   lastName: string;
   role: UserRole;

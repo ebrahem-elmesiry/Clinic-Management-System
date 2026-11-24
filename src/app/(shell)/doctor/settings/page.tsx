@@ -3,6 +3,7 @@ import { UserRole } from "@/shared/types/Roletype";
 
 export default function Page() {
   const profile = {
+    id: "1234",
     firstName: "Dr. Sarah Johnson",
     lastName: "Dr. Sarah Johnson",
     email: "sarah.johnson@clinic.com",

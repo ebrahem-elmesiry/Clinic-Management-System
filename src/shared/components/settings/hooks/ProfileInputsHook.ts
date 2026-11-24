@@ -3,11 +3,6 @@
 import { useState } from "react";
 import { toast } from "sonner";
 import { MESSAGES } from "@/role/admin/constants/messages";
-import {
-  adminProfileSchema,
-  doctorProfileSchema,
-  patientProfileSchema,
-} from "@/role/admin/validations/settings/validation";
 
 import { isAdminProfile, isDoctorProfile, isPatientProfile } from "@/lib/utils";
 import {
@@ -17,6 +12,11 @@ import {
   Profile,
   UserRole,
 } from "@/shared/types/Roletype";
+import {
+  adminProfileSchema,
+  doctorProfileSchema,
+  patientProfileSchema,
+} from "@/shared/validations/validations";
 
 export default function ProfileInputsHook(
   profile: Profile,

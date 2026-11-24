@@ -10,6 +10,7 @@ export interface StatisticsCardType {
   title: string;
   value: string;
   icon: LucideIcon;
+  color: string;
 }
 
 export interface changeStatisticType {
@@ -20,7 +21,6 @@ export interface changeStatisticType {
 export interface StatisticsAdminDashboardType extends StatisticsCardType {
   changeValue?: string;
   changeLabel?: string;
-  color: string;
 }
 
 export interface QuickAction {

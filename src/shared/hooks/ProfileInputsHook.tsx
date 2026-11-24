@@ -67,7 +67,6 @@ export default function ProfileInputsHook(
   function handleDoctorSave() {
     if (!email) return toast.info("please write email");
     const doctor: doctorProfile = {
-      id: "",
       firstName: name.first,
       lastName: name.last,
       email,
@@ -89,7 +88,6 @@ export default function ProfileInputsHook(
     if (!patientInfo.date) return toast.info("Please enter your date of birth");
 
     const patient: patientProfile = {
-      id: "",
       firstName: name.first,
       lastName: name.last,
       phone: patientInfo.phone,
@@ -110,7 +108,6 @@ export default function ProfileInputsHook(
   function handleAdminSave() {
     if (!email) return toast.info("please write email");
     const admin: adminProfile = {
-      id: "",
       firstName: name.first,
       lastName: name.last,
       email,
