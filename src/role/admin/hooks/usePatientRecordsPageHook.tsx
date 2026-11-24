@@ -1,73 +1,137 @@
-import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import {
-  PatientInformationType,
   PatientProfile,
+  Prescription,
+  VisitRecord,
+  Vital,
 } from "../../../shared/types/patientRecords";
 import {
   patientProfilesList,
-  patientsList,
   prescriptions,
   visits,
   vitals,
 } from "../../../shared/constants/patientRecords";
-import { Gender, UserRole } from "@/shared/types/Roletype";
 import { useAuth } from "@/providers/AuthProvider";
+import { toast } from "sonner";
+import { format } from "date-fns";
 
 export default function usePatientRecordsPageHook() {
-  const searchParams = useSearchParams();
-
   const { role } = useAuth();
-  const [patients, setPatients] =
-    useState<PatientInformationType[]>(patientsList);
+  const searchParams = useSearchParams();
+  const params = new URLSearchParams(searchParams.toString());
+  const { replace } = useRouter();
+  const pathname = usePathname();
+
+  const selectedPatientId = searchParams.get("patientID");
+
+  const [isPending, setIsPending] = useState(true);
 
   const [patientProfiles, setPatientProfiles] =
     useState<PatientProfile[]>(patientProfilesList);
 
-  const selectedPatientId = searchParams.get("patientID");
+  const [selectedProfile, setSelectedProfile] = useState<
+    PatientProfile | undefined
+  >(undefined);
 
-  const selectedProfile = selectedPatientId
-    ? patientProfiles.find((p) => p.id === selectedPatientId)
-    : undefined;
+  const [patientPrescriptions, setPatientPrescription] = useState<
+    Prescription[] | []
+  >([]);
+  const [vitalsData, setVitalsData] = useState<Vital[] | []>([]);
+  const [visitsData, setVisitsData] = useState<VisitRecord[] | []>(visits);
+  const [isUnknownPatient, setIsUnknownPatient] = useState(false);
 
-  const patientVitals = selectedPatientId
-    ? vitals.filter((p) => p.patientId === selectedPatientId)
-    : [];
+  function handlePatientURL(patientId: string | null) {
+    if (patientId) {
+      params.set("patientID", patientId);
+      if (!params.get("tab")) {
+        params.set("tab", "visit-history");
+      }
+    }
+    replace(`${pathname}?${params}`, { scroll: false });
+    return patientId;
+  }
 
-  const patientVisits = selectedPatientId
-    ? visits.filter((p) => p.patientId === selectedPatientId)
-    : [];
+  useEffect(() => {
+    setIsPending(true);
+    async function getPatientData(id: string | null) {
+      const patientId = handlePatientURL(id);
 
-  const patientData = patientProfilesList.find(
-    (p) => p.id === selectedPatientId,
-  )!;
+      await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const updatePatient = {
-    ...patientData,
-    role: "patient" as UserRole,
-    gender: patientData?.gender as Gender,
-  };
+      const patientPrescription = patientId
+        ? prescriptions.filter((p) => p.patientId === patientId)
+        : [];
 
-  const patientPrescription = selectedPatientId
-    ? prescriptions.filter((p) => p.patientId === selectedPatientId)
-    : [];
+      const patientVitals = patientId
+        ? vitals.filter((p) => p.patientId === patientId)
+        : [];
 
-  const isUnknownPatient = !!selectedPatientId && !selectedProfile;
+      const patientVisits = patientId
+        ? visits.filter((p) => p.patientId === patientId)
+        : [];
 
-  // Here Fetch Data with React Query
-  const isPending = false;
+      const selectedProfile = patientId
+        ? patientProfiles.find((p) => p.id === patientId)
+        : undefined;
+
+      setPatientPrescription(patientPrescription);
+      setVitalsData(patientVitals);
+      setVisitsData(patientVisits);
+      setSelectedProfile(selectedProfile);
+      setIsPending(false);
+
+      setIsUnknownPatient(!!patientId && !selectedProfile);
+    }
+
+    getPatientData(selectedPatientId);
+  }, [selectedPatientId]);
+
+  function DeletePrescription(id: string) {
+    setPatientPrescription((prev) => prev.filter((p) => p.id !== id));
+    toast.success("Prescription has been delete successfully");
+  }
+
+  function EditPrescription(id: string, prescription: Prescription) {
+    setPatientPrescription((prev) =>
+      prev.map((p) => (p.id === id ? prescription : p)),
+    );
+    toast.success("Prescription has been Edited successfully");
+  }
+
+  function AddPrescription(prescription: Prescription) {
+    const getPatientId = searchParams.get("patientID");
+    const date = format(Date.now(), "yyyy-MM-dd");
+    if (!getPatientId) {
+      toast.error("Please select a patient first.");
+      return false;
+    }
+    const prescriptionData: Prescription = {
+      ...prescription,
+      id: crypto.randomUUID(),
+      patientId: getPatientId,
+      date,
+      remainingDays: 6,
+      status: "active",
+    };
+    setPatientPrescription((prev) => [...prev, prescriptionData]);
+    toast.success("Prescription has been Added successfully");
+  }
+
   return {
     isUnknownPatient,
-    patients,
-    setPatients,
     setPatientProfiles,
     selectedPatientId,
-    selectedProfile,
     isPending,
-    patientVitals,
-    patientVisits,
-    patientPrescription,
-    patientData: updatePatient,
+    patientVitals: vitalsData || [],
+    patientVisits: visitsData || [],
+    patientPrescriptions: patientPrescriptions || [],
+    DeletePrescription,
+    EditPrescription,
+    AddPrescription,
+    patientProfiles,
+    selectedProfile,
     isDoctor: role === "doctor",
+    handlePatientURL,
   };
 }

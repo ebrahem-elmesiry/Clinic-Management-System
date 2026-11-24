@@ -10,13 +10,17 @@ import { useAuth } from "@/providers/AuthProvider";
 interface AppointmentTableProps {
   onCancel: (id: string) => void;
   appointments: Appointment[];
+  startAppointment: (id: string) => void;
 }
 
 export default function AppointmentTable({
   onCancel,
+  startAppointment,
   appointments,
 }: AppointmentTableProps) {
   const { role } = useAuth();
+  const isAdmin = role === "admin";
+  const isDoctor = role === "doctor";
   return (
     <div className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden">
       <div className="overflow-x-auto">
@@ -41,7 +45,7 @@ export default function AppointmentTable({
               <th className="px-6 py-4 text-left text-sm text-gray-600 dark:text-gray-400">
                 Date
               </th>
-              {role === "admin" && (
+              {(isAdmin || isDoctor) && (
                 <th className="px-6 py-4 text-left text-sm text-gray-600 dark:text-gray-400">
                   Actions
                 </th>
@@ -53,6 +57,11 @@ export default function AppointmentTable({
               appointments?.map((appointment) => {
                 const startTime = handleTime(appointment.start_time);
                 const endTime = handleTime(appointment.end_time);
+                const isCancelledOrCompleted =
+                  appointment.status === "cancelled" ||
+                  appointment.status === "completed";
+
+                console.log("isCancelledOrCompleted", isCancelledOrCompleted);
                 return (
                   <tr
                     key={appointment.id}
@@ -90,7 +99,18 @@ export default function AppointmentTable({
                       {appointment.date}
                     </td>
 
-                    {role === "admin" && (
+                    {isDoctor && !isCancelledOrCompleted && (
+                      <td className="px-6 py-4">
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => startAppointment(appointment.id)}
+                        >
+                          Start Visit
+                        </Button>
+                      </td>
+                    )}
+                    {isAdmin && (
                       <td className="px-6 py-4">
                         <Button
                           variant="outline"

@@ -18,28 +18,25 @@ const CANCEL_REASONS = ["Patient did not attend", "Doctor unavailable"];
 
 interface VisitStatusProps {
   status: VisitStatusValue;
-  onStatusChange: (status: VisitStatusValue) => void;
   cancelReason: string;
   onCancelReasonChange: (reason: string) => void;
   cancelNote: string;
   onCancelNoteChange: (note: string) => void;
+  confirmCancel: () => void;
+  setShowCancelFn: (v: boolean) => void;
+  showCancel: boolean;
 }
 
 export default function VisitStatus({
   status,
-  onStatusChange,
+  setShowCancelFn,
   cancelReason,
   onCancelReasonChange,
   cancelNote,
   onCancelNoteChange,
+  showCancel,
+  confirmCancel,
 }: VisitStatusProps) {
-  const [showCancel, setShowCancel] = useState(false);
-
-  const confirmCancel = () => {
-    onStatusChange("cancelled");
-    setShowCancel(false);
-  };
-
   const statusBadge =
     status === "cancelled" ? (
       <span className="px-3 py-1 bg-red-100 dark:bg-red-900/30 text-red-700 text-xs rounded-full">
@@ -89,7 +86,7 @@ export default function VisitStatus({
               variant="outline"
               size="sm"
               className="text-red-600 border-red-200 hover:bg-red-50"
-              onClick={() => setShowCancel(!showCancel)}
+              onClick={() => setShowCancelFn(true)}
             >
               <XCircle className="w-4 h-4 mr-2" />
               Cancel Visit
@@ -100,7 +97,10 @@ export default function VisitStatus({
             <div className="mt-4 p-4 border border-red-200 rounded-lg space-y-4">
               <div>
                 <Label>Reason for cancellation</Label>
-                <Select value={cancelReason} onValueChange={onCancelReasonChange}>
+                <Select
+                  value={cancelReason}
+                  onValueChange={onCancelReasonChange}
+                >
                   <SelectTrigger className="mt-2">
                     <SelectValue placeholder="Select a reason..." />
                   </SelectTrigger>
@@ -128,7 +128,10 @@ export default function VisitStatus({
                 <Button onClick={confirmCancel} variant={"destructive"}>
                   Confirm Cancellation
                 </Button>
-                <Button variant="outline" onClick={() => setShowCancel(false)}>
+                <Button
+                  variant="outline"
+                  onClick={() => setShowCancelFn(false)}
+                >
                   Keep Visit
                 </Button>
               </div>

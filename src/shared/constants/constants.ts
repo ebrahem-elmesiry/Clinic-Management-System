@@ -8,7 +8,6 @@ import {
   Hospital,
   Stethoscope,
   Calendar,
-  ClipboardList,
   FileText,
   LayoutDashboard,
   Palette,
@@ -34,8 +33,8 @@ export const tabs: SettingsTabItem[] = [
 ];
 
 export const appointmentReasons = [
-  { value: "checkup", label: "Regular Checkup" },
-  { value: "followup", label: "Follow-up" },
+  { value: "check-up", label: "Regular Checkup" },
+  { value: "follow-up", label: "Follow-up" },
   { value: "consultation", label: "Consultation" },
 ];
 
@@ -48,7 +47,6 @@ export const menuItems: Record<UserRole, NavItem[]> = {
       label: "Patient Records",
       icon: Users,
     },
-    { href: "/doctor/visit-notes", label: "Visit Notes", icon: ClipboardList },
     { href: "/doctor/settings", label: "Settings", icon: Settings },
   ],
   admin: [

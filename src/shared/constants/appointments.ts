@@ -6,9 +6,8 @@ import {
 } from "../types/appointment";
 
 export const APPOINTMENT_STATUSES = [
-  "confirmed",
-  "pending",
   "completed",
+  "pending",
   "cancelled",
 ] as const;
 
@@ -66,7 +65,7 @@ const appointmentsOct2026: Appointment[] = [
     date: "2026-10-05",
     start_time: "09:00",
     end_time: "09:30",
-    status: "confirmed",
+    status: "completed",
     reason: "Follow-up",
     patient: { id: "1", name: "John Smith", age: 45, gender: "Male" },
     doctor: doctors[0],
@@ -77,7 +76,7 @@ const appointmentsOct2026: Appointment[] = [
     date: "2026-10-05",
     start_time: "10:00",
     end_time: "10:30",
-    status: "confirmed",
+    status: "completed",
     reason: "Headache",
     patient: { id: "2", name: "Emily Johnson", age: 32, gender: "Female" },
     doctor: doctors[1],
@@ -102,7 +101,7 @@ export const appointmentsNov2026: Appointment[] = [
     date: "2026-11-03",
     start_time: "09:30",
     end_time: "10:00",
-    status: "confirmed",
+    status: "completed",
     reason: "Consultation",
     patient: { id: "4", name: "Olivia Brown", age: 27, gender: "Female" },
     doctor: doctors[2],
@@ -155,7 +154,7 @@ export const appointmentsMonth: AppointmentMonth[] = [
 
 export const busySchedule = [
   {
-    day: "2026-11-03",
+    day: "2026-11-11",
     appointments: [
       {
         time: { start: "09:30", end: "10:00" },

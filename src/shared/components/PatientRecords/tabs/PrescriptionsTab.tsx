@@ -2,21 +2,18 @@ import Prescriptions from "@/shared/components/PatientMedicalRecords/Prescriptio
 import NoPatientChoose from "../NoPatientChoose";
 import UnknownPatient from "../UnknownPatient";
 import { TabsSkeleton } from "../skeletons";
-import { patientData } from "@/shared/types/Roletype";
-import { Prescription } from "@/shared/types/patientRecords";
-import AddPrescription from "@/role/doctor/modals/AddPrescription";
+import { PatientProfile, Prescription } from "@/shared/types/patientRecords";
 import { useSearchParams } from "next/navigation";
-import usePrescriptionsTabHook from "@/shared/hooks/PrescriptionsTabHook";
 
 interface PrescriptionsTabProps {
-  patient: patientData | undefined;
+  patient: PatientProfile | undefined;
   isUnknown?: boolean;
   prescriptions: Prescription[];
   isPending: boolean;
-  openAddPrescription?: () => void;
-  startEditPrescription?: (id: string) => void;
-  handleRevoke?: (p: string) => void;
   isDoctor?: boolean;
+  DeletePrescription?: (id: string) => void;
+  EditPrescription?: (id: string, p: Prescription) => void;
+  AddPrescription?: (p: Prescription) => void;
 }
 
 export default function PrescriptionsTab({
@@ -25,66 +22,26 @@ export default function PrescriptionsTab({
   prescriptions,
   isPending,
   isDoctor,
+  DeletePrescription,
+  EditPrescription,
+  AddPrescription,
 }: PrescriptionsTabProps) {
   const searchParams = useSearchParams();
   const patientId = searchParams.get("patientID");
-  const {
-    form,
-    isEdit,
-    editingId,
-    // prescriptionOpen,
-    // isDoctor,
-    // patientPrescriptions,
-    // isPending,
-    handleChange,
-    validate,
-    openAddPrescription,
-    closePrescriptionModal,
-    startEditPrescription,
-    handlePrescriptionEdit,
-    emptyForm,
-    handleCreatePrescription,
-    handleRevoke,
-  } = usePrescriptionsTabHook({ patientId });
 
+  if (isPending) return <TabsSkeleton variant="prescriptions" />;
   if (isUnknown) return <UnknownPatient patientId={patientId} />;
 
   if (!patient) return <NoPatientChoose />;
 
   return (
-    <>
-      {isPending ? (
-        <TabsSkeleton variant="prescriptions" />
-      ) : (
-        <Prescriptions
-          doctor={isDoctor}
-          prescriptions={prescriptions}
-          onAdd={openAddPrescription}
-          onEdit={startEditPrescription}
-          onRevoke={handleRevoke}
-        />
-      )}
-      {isDoctor && (
-        <AddPrescription
-          // form={form}
-          // open={prescriptionOpen}
-          // validate={validate}
-          // isEdit={isEdit}
-          // prescriptionId={editingId ?? undefined}
-          // handleChange={handleChange}
-          // onOpenChange={(open) => {
-          //   if (!open) closePrescriptionModal();
-          // }}
-          // patientName={patient.name}
-          // patientMeta={`${patient.age}/${patient.gender[0]}`}
-          // onCreate={handleCreatePrescription}
-          // handlePrescriptionEdit={handlePrescriptionEdit}
-          // emptyForm={emptyForm}
-          patientId={patient.id}
-          patientName={patient.name}
-          patientMeta={`${patient.age}/${patient.gender}`}
-        />
-      )}
-    </>
+    <Prescriptions
+      doctor={isDoctor}
+      prescriptions={prescriptions}
+      patient={patient}
+      onDelete={DeletePrescription}
+      EditPrescription={EditPrescription}
+      AddPrescription={AddPrescription}
+    />
   );
 }

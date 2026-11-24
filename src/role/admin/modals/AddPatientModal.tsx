@@ -18,39 +18,32 @@ import {
 } from "@/shared/components/ui/select";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useState } from "react";
-import {
-  PatientInformationType,
-  PatientProfile,
-} from "@/shared/types/patientRecords";
+import { AddPatientForm, PatientProfile } from "@/shared/types/patientRecords";
 import { toast } from "sonner";
 import { FormData, patientSchema } from "../validations/settings/validation";
 import { calcAge } from "../utils/utils";
 
 interface Props {
-  setPatients: Dispatch<SetStateAction<PatientInformationType[]>>;
   setPatientProfiles: Dispatch<SetStateAction<PatientProfile[]>>;
 }
 
-const initialFormData: FormData = {
+const initialFormData: AddPatientForm = {
   firstName: "",
   lastName: "",
   birthDay: "",
-  gender: "",
+  gender: null,
   phone: "",
   address: "",
   bloodGroup: "",
 };
 
-export default function AddPatientModal({
-  setPatients,
-  setPatientProfiles,
-}: Props) {
+export default function AddPatientModal({ setPatientProfiles }: Props) {
   const searchParams = useSearchParams();
   const isModalOpen = searchParams.has("modal");
   const router = useRouter();
   const pathname = usePathname();
 
-  const [formData, setFormData] = useState<FormData>(initialFormData);
+  const [formData, setFormData] = useState<AddPatientForm>(initialFormData);
 
   function handleOpenModal() {
     if (!isModalOpen) {
@@ -84,15 +77,7 @@ export default function AddPatientModal({
     const valid = result.data;
     const fullName =
       `${valid.firstName.trim()} ${valid.lastName.trim()}`.trim();
-    // const PatientId = crypto.randomUUID()
-    const PatientId = String(Date.now());
-    const newPatient: PatientInformationType = {
-      id: PatientId,
-      name: fullName,
-      age: calcAge(valid.birthDay),
-      gender: valid.gender,
-      lastVisit: "Unknown",
-    };
+    const PatientId = crypto.randomUUID();
 
     const newPatientProfile: PatientProfile = {
       id: PatientId,
@@ -103,9 +88,9 @@ export default function AddPatientModal({
       dob: valid.birthDay,
       address: valid.address,
       bloodGroup: valid.bloodGroup,
+      lastVisit: "unknown",
     };
 
-    setPatients((prev) => [...prev, newPatient]);
     setPatientProfiles((prev) => [...prev, newPatientProfile]);
     resetForm();
     handleCloseModal();
@@ -165,7 +150,7 @@ export default function AddPatientModal({
             <div>
               <Label htmlFor="gender">Gender</Label>
               <Select
-                value={formData.gender}
+                value={formData.gender ? formData.gender : ""}
                 onValueChange={(v) => updateField("gender", v)}
               >
                 <SelectTrigger id="gender" className="mt-2">

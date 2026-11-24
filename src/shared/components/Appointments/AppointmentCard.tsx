@@ -3,12 +3,13 @@
 import { Clock, User, FileText } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import StatusBadge from "./StatusBadge";
+import { VisitStatusValue } from "@/role/doctor/types/type";
 
 interface AppointmentCardProps {
   time: string;
   patient: string;
   reason: string;
-  status: "completed" | "in-progress" | "upcoming" | "cancelled";
+  status: VisitStatusValue;
   onViewDetails?: () => void;
 }
 

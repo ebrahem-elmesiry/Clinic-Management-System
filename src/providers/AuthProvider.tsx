@@ -23,7 +23,7 @@ export function AuthProvider({
 }) {
   const router = useRouter();
 
-  const [role, setRole] = useState<UserRole | null>("patient");
+  const [role, setRole] = useState<UserRole | null>("doctor");
   const login = (nextRole: UserRole) => {
     setRole(nextRole);
   };

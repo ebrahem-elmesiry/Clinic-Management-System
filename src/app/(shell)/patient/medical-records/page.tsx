@@ -1,7 +1,7 @@
 import PageHero from "@/shared/components/PageHero";
 import PatientRecordsWrapper from "@/shared/components/PatientRecords/PatientRecordsWrapper";
 import { Prescription } from "@/shared/types/patientRecords";
-import { Gender, patientData, UserRole } from "@/shared/types/Roletype";
+import { Gender, UserRole } from "@/shared/types/Roletype";
 
 const visits = [
   {
@@ -114,24 +114,28 @@ const prescriptions: Prescription[] = [
     medicine: "Amoxicillin 500mg",
     dosage: "1 tablet",
     frequency: "3 times daily",
-    timing: "After meals",
+    timing: "after_meals",
     duration: "7 days",
     specialInstructions: "Take with plenty of water. Complete full course.",
     remainingDays: 7,
     prescribedBy: "Dr. Sarah Johnson",
-    status: "Active",
+    status: "active",
     date: "Dec 20, 2024",
   },
 ];
 
 export default function page() {
-  const patient: patientData = {
+  const patient = {
     id: "patient_id",
     name: "Ahmed",
     gender: "Male" as Gender,
     age: 24,
     bloodGroup: "O+",
     role: "patient" as UserRole,
+    dob: "qwe",
+    phone: "01276480215",
+    address: "qweqweqw",
+    lastVisit: "",
   };
   const isPending = false;
   return (

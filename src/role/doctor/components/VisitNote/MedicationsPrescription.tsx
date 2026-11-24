@@ -17,8 +17,8 @@ import type { Medicine } from "../../types/type";
 interface MedicationsPrescriptionProps {
   medicines: Medicine[];
   onAddMedicine: () => void;
-  onRemoveMedicine: (id: number) => void;
-  onUpdateMedicine: (id: number, field: keyof Medicine, value: string) => void;
+  onRemoveMedicine: (id: string) => void;
+  onUpdateMedicine: (id: string, field: keyof Medicine, value: string) => void;
 }
 
 export default function MedicationsPrescription({

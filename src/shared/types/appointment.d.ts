@@ -1,10 +1,6 @@
 import { ClinicInfoType } from "@/role/admin/validations/settings/validation";
 
-export type AppointmentStatus =
-  | "confirmed"
-  | "pending"
-  | "completed"
-  | "cancelled";
+export type AppointmentStatus = "pending" | "completed" | "cancelled";
 
 export interface Specialty {
   id: string;
@@ -27,6 +23,29 @@ export interface Patient {
   name: string;
   age: number;
   gender: "Male" | "Female";
+}
+
+export interface Appointment {
+  id: string;
+  date: string;
+  start_time: string;
+  end_time: string;
+  status: AppointmentStatus;
+  reason: string;
+  patient: Patient;
+  doctor: Doctor;
+  clinic_id: string;
+}
+
+export interface AppointmentMonth {
+  start: string;
+  end: string;
+  appointments: Appointment[];
+}
+
+export interface ClinicType extends ClinicInfoType {
+  id: string;
+  owner_id: string;
 }
 
 export interface Appointment {

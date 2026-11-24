@@ -3,11 +3,14 @@ import { Appointment, ClinicType } from "@/shared/types/appointment";
 import { Dispatch, SetStateAction } from "react";
 
 export interface UseAddNewAppointmentProps {
+  isFollowUp?: boolean;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-  patientName?: string;
-  specialty_id?: string;
-  appointmentType?: string;
+  prefill?: {
+    patientName: string;
+    specialtyId: string;
+    appointmentType: string;
+  };
   showTrigger?: boolean;
   onSchedule?: (data: FollowUpAppointment) => void;
   clinicInfo: ClinicType;

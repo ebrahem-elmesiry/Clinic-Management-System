@@ -15,53 +15,49 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select";
 import { Pill } from "lucide-react";
-import usePrescriptionsTabHook from "@/shared/hooks/PrescriptionsTabHook";
-
-export interface PrescriptionFormData {
-  medicineName: string;
-  dosage: string;
-  frequency: string;
-  timing: string;
-  duration: string;
-  specialInstructions?: string;
-}
+import { Prescription } from "@/shared/types/patientRecords";
+import {
+  MEDICATION_TIMINGS,
+  MEDICATION_TIMING_LABELS,
+} from "@/role/doctor/validations/validation";
+import { useAuth } from "@/providers/AuthProvider";
 
 interface AddPrescriptionProps {
-  patientName: string;
-  patientMeta: string;
-  patientId: string;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+  patientName?: string;
+  patientMeta?: string;
+  onCreate?: (data: Prescription) => void;
+  form: Prescription;
+  handleChange: (field: keyof Prescription, value: string) => void;
+  validate: () => boolean;
+  handlePrescriptionEdit?: (id: string, p: Prescription) => void;
+  isEdit: boolean;
+  prescriptionId: string | null;
+  emptyForm: () => void;
 }
 
 export default function AddPrescription({
-  patientId,
+  open,
+  onOpenChange,
   patientName,
   patientMeta,
+  onCreate,
+  form,
+  handleChange,
+  validate,
+  handlePrescriptionEdit,
+  isEdit,
+  prescriptionId,
+  emptyForm,
 }: AddPrescriptionProps) {
-  const {
-    form,
-    handleChange,
-    validate,
-    open,
-    closePrescriptionModal,
-    handlePrescriptionEdit,
-    emptyForm,
-    handleCreatePrescription,
-    editingId,
-    isEdit,
-  } = usePrescriptionsTabHook({ patientId });
-
-  function onOpenChange(open: boolean) {
-    if (!open) closePrescriptionModal();
-  }
-
+  const { profile } = useAuth();
   function handleCreate(e: React.FormEvent) {
     e.preventDefault();
     if (!validate()) return;
     if (isEdit) {
-      if (editingId) handlePrescriptionEdit(editingId);
-    } else {
-      handleCreatePrescription({ ...form });
-    }
+      if (prescriptionId) handlePrescriptionEdit?.(prescriptionId, form);
+    } else onCreate?.({ ...form, prescribedBy: profile.name });
     onOpenChange(false);
   }
 
@@ -101,8 +97,8 @@ export default function AddPrescription({
                   id="med-name"
                   placeholder="e.g., Amoxicillin 500mg"
                   className="mt-2"
-                  value={form.medicineName}
-                  onChange={(e) => handleChange("medicineName", e.target.value)}
+                  value={form.medicine}
+                  onChange={(e) => handleChange("medicine", e.target.value)}
                 />
               </div>
               <div>
@@ -135,17 +131,18 @@ export default function AddPrescription({
               <div>
                 <Label htmlFor="timing">Timing</Label>
                 <Select
-                  value={form.timing}
+                  value={form.timing ?? undefined}
                   onValueChange={(v) => handleChange("timing", v)}
                 >
                   <SelectTrigger className="mt-2">
                     <SelectValue placeholder="Select timing" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Before meals">Before meals</SelectItem>
-                    <SelectItem value="After meals">After meals</SelectItem>
-                    <SelectItem value="With meals">With meals</SelectItem>
-                    <SelectItem value="At bedtime">At bedtime</SelectItem>
+                    {MEDICATION_TIMINGS.map((value) => (
+                      <SelectItem key={value} value={value}>
+                        {MEDICATION_TIMING_LABELS[value]}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

@@ -4,8 +4,8 @@ import { Tabs, TabsList, TabsTrigger } from "@/shared/components/ui/tabs";
 import VisitHistoryTab from "./tabs/VisitHistoryTab";
 import VitalsTab from "./tabs/VitalsTab";
 import PrescriptionsTab from "./tabs/PrescriptionsTab";
-import { patientData } from "@/shared/types/Roletype";
 import {
+  PatientProfile,
   Prescription,
   VisitRecord,
   Vital,
@@ -14,12 +14,15 @@ import usePatientRecordsNavigation from "@/shared/hooks/usePatientRecordsNavigat
 
 interface PatientRecordsWrapperProps {
   isUnknownPatient?: boolean;
+  patient: PatientProfile | undefined;
+  isPending: boolean;
+  isDoctor?: boolean;
   vitals: Vital[];
   visits: VisitRecord[];
   prescriptions: Prescription[];
-  patient: patientData | undefined;
-  isPending: boolean;
-  isDoctor: boolean;
+  DeletePrescription?: (id: string) => void;
+  EditPrescription?: (id: string, p: Prescription) => void;
+  AddPrescription?: (p: Prescription) => void;
 }
 
 export default function PatientRecordsWrapper({
@@ -30,6 +33,9 @@ export default function PatientRecordsWrapper({
   patient,
   isPending,
   isDoctor = false,
+  AddPrescription,
+  DeletePrescription,
+  EditPrescription,
 }: PatientRecordsWrapperProps) {
   const { tab, handleTabChange } = usePatientRecordsNavigation();
   return (
@@ -81,6 +87,9 @@ export default function PatientRecordsWrapper({
           patient={patient}
           isUnknown={isUnknownPatient}
           isPending={isPending}
+          DeletePrescription={DeletePrescription}
+          EditPrescription={EditPrescription}
+          AddPrescription={AddPrescription}
         />
       )}
     </>

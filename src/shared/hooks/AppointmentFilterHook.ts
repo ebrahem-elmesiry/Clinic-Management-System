@@ -3,8 +3,6 @@
 import { useState } from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-type FilterType = "status" | "doctor";
-
 export default function AppointmentFilterHook() {
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -27,7 +25,7 @@ export default function AppointmentFilterHook() {
     });
   }
 
-  function handleFilter(type: FilterType, value: string) {
+  function handleFilter(type: "status" | "doctor", value: string) {
     replaceParams((params) => {
       if (!value || value === "all") {
         params.delete(type);

@@ -29,7 +29,9 @@ export const patientSchema = z.object({
       "Blood group must be one of A+, A-, B+, B-, AB+, AB-, O+, O-",
     ),
   birthDay: z.string().trim().min(1, "Birth date is required"),
-  gender: z.string().trim().min(1, "Gender is required"),
+  gender: z.enum(["Male", "Female"], {
+    error: "Gender must be Male or Female",
+  }),
   phone: z
     .string()
     .trim()

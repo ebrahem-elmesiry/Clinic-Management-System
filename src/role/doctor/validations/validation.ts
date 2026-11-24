@@ -80,7 +80,57 @@ export const vitalsSchema = z.object({
     .trim()
     .min(1, "Height is required")
     .min(2, "Height is required"),
-  notes: z.string().trim().optional(),
 });
 
-export type VitalsFormDataValidated = z.infer<typeof vitalsSchema>;
+export type VitalsFormData = z.infer<typeof vitalsSchema>;
+
+export const MEDICATION_TIMINGS = [
+  "before_meals",
+  "after_meals",
+  "with_meals",
+  "before_sleep",
+] as const;
+
+export type MedicationTiming = (typeof MEDICATION_TIMINGS)[number];
+
+export const MEDICATION_TIMING_LABELS: Record<MedicationTiming, string> = {
+  before_meals: "Before meals",
+  after_meals: "After meals",
+  with_meals: "With meals",
+  before_sleep: "Before sleep",
+};
+
+export const prescriptionSchema = z.object({
+  medicine: z
+    .string()
+    .trim()
+    .min(1, "Medicine name is required")
+    .regex(
+      /^[\p{L}\p{N}\s]+$/u,
+      "Medicine name cannot contain special characters",
+    ),
+  dosage: z
+    .string()
+    .trim()
+    .min(1, "Dosage is required")
+    .regex(/^[\p{L}\p{N}\s.]+$/u, "Dosage cannot contain special characters"),
+  frequency: z.string().trim().min(1, "Frequency is required"),
+  timing: z.enum(MEDICATION_TIMINGS, { error: "Timing is required" }),
+  duration: z
+    .string()
+    .trim()
+    .min(1, "Duration is required")
+    .regex(/^\d+(\s*days?)?$/i, "Duration must be a number of days")
+    .refine(
+      (value) => Number.parseInt(value, 10) > 0,
+      "Duration must be at least 1 day",
+    ),
+
+  specialInstructions: z
+    .string()
+    .trim()
+    .max(500, "Special instructions must be 500 characters or less")
+    .optional(),
+});
+
+export type PrescriptionFormData = z.infer<typeof prescriptionSchema>;

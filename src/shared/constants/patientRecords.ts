@@ -1,69 +1,41 @@
 import {
-  PatientInformationType,
+  // PatientInformationType,
   PatientProfile,
   Prescription,
   VisitRecord,
   Vital,
 } from "@/shared/types/patientRecords";
 
-export const patientsList: PatientInformationType[] = [
-  {
-    id: "1",
-    name: "John Smith",
-    age: 45,
-    gender: "Male",
-    lastVisit: "2026-04-20",
-  },
-  {
-    id: "2",
-    name: "Emma Wilson",
-    age: 32,
-    gender: "Female",
-    lastVisit: "2026-08-25",
-  },
-  {
-    id: "3",
-    name: "Michael Brown",
-    age: 58,
-    gender: "Male",
-    lastVisit: "2026-06-30",
-  },
-  {
-    id: "4",
-    name: "Sarah Davis",
-    age: 28,
-    gender: "Female",
-    lastVisit: "2026-08-28",
-  },
-  {
-    id: "5",
-    name: "James Brown",
-    age: 41,
-    gender: "Male",
-    lastVisit: "2026-07-12",
-  },
-  {
-    id: "6",
-    name: "Lisa Anderson",
-    age: 36,
-    gender: "Female",
-    lastVisit: "2026-09-05",
-  },
-  {
-    id: "7",
-    name: "Michael Davis",
-    age: 52,
-    gender: "Male",
-    lastVisit: "2026-06-18",
-  },
-  {
-    id: "8",
-    name: "Sarah Miller",
-    age: 29,
-    gender: "Female",
-    lastVisit: "2026-09-30",
-  },
-];
+// export const patientsList: PatientInformationType[] = [
+//   {
+//     id: "1",
+//     name: "John Smith",
+//     age: 45,
+//     gender: "Male",
+//     lastVisit: "2026-04-20",
+//   },
+//   {
+//     id: "2",
+//     name: "Emma Wilson",
+//     age: 32,
+//     gender: "Female",
+//     lastVisit: "2026-08-25",
+//   },
+//   {
+//     id: "3",
+//     name: "Michael Brown",
+//     age: 58,
+//     gender: "Male",
+//     lastVisit: "2026-06-30",
+//   },
+//   {
+//     id: "4",
+//     name: "Sarah Davis",
+//     age: 28,
+//     gender: "Female",
+//     lastVisit: "2026-08-28",
+//   },
+// ];
 
 export const patientProfilesList: PatientProfile[] = [
   {
@@ -75,6 +47,7 @@ export const patientProfilesList: PatientProfile[] = [
     phone: "(555) 123-4567",
     address: "123 Main St, New York, NY 10001",
     bloodGroup: "O+",
+    lastVisit: "2026-08-25",
   },
   {
     id: "2",
@@ -85,6 +58,7 @@ export const patientProfilesList: PatientProfile[] = [
     phone: "(555) 234-5678",
     address: "456 Oak Ave, Boston, MA 02101",
     bloodGroup: "A+",
+    lastVisit: "2026-08-15",
   },
   {
     id: "3",
@@ -95,6 +69,7 @@ export const patientProfilesList: PatientProfile[] = [
     phone: "(555) 345-6789",
     address: "789 Pine Rd, Chicago, IL 60007",
     bloodGroup: "B-",
+    lastVisit: "2026-08-5",
   },
   {
     id: "4",
@@ -105,6 +80,7 @@ export const patientProfilesList: PatientProfile[] = [
     phone: "(555) 456-7890",
     address: "321 Elm St, Seattle, WA 98101",
     bloodGroup: "AB+",
+    lastVisit: "2026-08-2",
   },
 ];
 
@@ -117,7 +93,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Stable condition, blood pressure normal",
     prescription: [
       {
-        id: "pr-1",
+        id: "vp-1",
         medicineName: "Lisinopril 10mg",
         dosage: "1 tablet",
         frequency: "Once daily",
@@ -136,7 +112,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Anxiety-related chest pain, ECG normal",
     prescription: [
       {
-        id: "pr-2",
+        id: "vp-2",
         medicineName: "Propranolol 10mg",
         dosage: "1 tablet",
         frequency: "As needed",
@@ -156,7 +132,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Blood sugar levels within target range",
     prescription: [
       {
-        id: "pr-3",
+        id: "vp-3",
         medicineName: "Metformin 500mg",
         dosage: "1 tablet",
         frequency: "Twice daily",
@@ -174,7 +150,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Healthy, no concerns",
     prescription: [
       {
-        id: "pr-4",
+        id: "vp-4",
         medicineName: "Prenatal Vitamins",
         dosage: "1 tablet",
         frequency: "Once daily",
@@ -192,7 +168,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Stress-related migraines",
     prescription: [
       {
-        id: "pr-5",
+        id: "vp-5",
         medicineName: "Sumatriptan 50mg",
         dosage: "1 tablet",
         frequency: "As needed",
@@ -211,7 +187,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Hypertension, improving",
     prescription: [
       {
-        id: "pr-6",
+        id: "vp-6",
         medicineName: "Lisinopril 10mg",
         dosage: "1 tablet",
         frequency: "Once daily",
@@ -229,7 +205,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Angina, stable",
     prescription: [
       {
-        id: "pr-7",
+        id: "vp-7",
         medicineName: "Nitroglycerin 0.4mg",
         dosage: "1 tablet",
         frequency: "As needed",
@@ -257,7 +233,7 @@ export const visits: VisitRecord[] = [
     diagnosis: "Contact dermatitis",
     prescription: [
       {
-        id: "pr-8",
+        id: "vp-8",
         medicineName: "Hydrocortisone 1% Cream",
         dosage: "Thin layer",
         frequency: "Twice daily",
@@ -274,14 +250,14 @@ export const prescriptions: Prescription[] = [
     id: "rx-1",
     patientId: "1",
     medicine: "Amoxicillin 500mg",
-    dosage: "1 tablet",
+    dosage: "1",
     frequency: "3 times daily",
-    timing: "After meals",
-    duration: "7 days",
+    timing: "after_meals",
+    duration: "7",
     specialInstructions: "Take with plenty of water. Complete full course.",
     remainingDays: 7,
+    status: "active",
     prescribedBy: "Dr. Sarah Johnson",
-    status: "Active",
     date: "Dec 20, 2024",
   },
 ];

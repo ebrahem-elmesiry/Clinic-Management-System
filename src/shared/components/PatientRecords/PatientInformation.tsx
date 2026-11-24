@@ -5,18 +5,23 @@ import UnknownPatient from "./UnknownPatient";
 import { User, Calendar, Phone, MapPin } from "lucide-react";
 import WrapperComponent from "../WrapperComponent";
 import { PatientProfile } from "@/shared/types/patientRecords";
+import { PatientInformationSkeleton } from "./skeletons";
 
 interface PatientInformationProps {
   patient: PatientProfile | undefined;
   isUnknown?: boolean;
   patientId?: string | null;
+  isPending: boolean;
 }
 
 export default function PatientInformation({
   patient,
   isUnknown,
   patientId,
+  isPending,
 }: PatientInformationProps) {
+  if (isPending) return <PatientInformationSkeleton />;
+
   if (isUnknown) {
     return (
       <WrapperComponent title="Patient Information">

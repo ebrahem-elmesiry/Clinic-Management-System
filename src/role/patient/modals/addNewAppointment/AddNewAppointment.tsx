@@ -32,9 +32,6 @@ export default function AddNewAppointmentModal(
   props: UseAddNewAppointmentProps,
 ) {
   const {
-    open,
-    onOpenChange,
-    showTrigger,
     schedule,
     setSchedule,
     details,
@@ -51,15 +48,15 @@ export default function AddNewAppointmentModal(
 
   return (
     <Dialog
-      open={open}
+      open={props.open}
       onOpenChange={(isOpen) => {
         if (!isOpen) {
           empty();
         }
-        onOpenChange?.(isOpen);
+        props.onOpenChange?.(isOpen);
       }}
     >
-      {showTrigger && (
+      {props.showTrigger && (
         <DialogTrigger asChild>
           <Button>
             <Plus className="w-5 h-5 mr-2" />
@@ -67,7 +64,7 @@ export default function AddNewAppointmentModal(
           </Button>
         </DialogTrigger>
       )}
-      <DialogContent className="max-w-md max-h-170 overflow-y-auto">
+      <DialogContent className="max-w-md max-h-[calc(100dvh-2rem)] overflow-y-auto">
         <DialogHeader>
           <DialogTitle>Schedule New Appointment</DialogTitle>
         </DialogHeader>
@@ -131,7 +128,7 @@ export default function AddNewAppointmentModal(
                 }}
                 disabled={(date) =>
                   !schedule.specialty_id ||
-                  !props.clinicInfo.working_days.includes(date.getDay())
+                  !props.clinicInfo?.working_days.includes(date.getDay())
                 }
               />
             </div>
@@ -205,14 +202,14 @@ export default function AddNewAppointmentModal(
               variant="outline"
               className="flex-1"
               onClick={() => {
-                onOpenChange?.(false);
+                props.onOpenChange?.(false);
                 empty();
               }}
             >
               Cancel
             </Button>
             <Button type="submit" className="flex-1">
-              Schedule
+              {props.isFollowUp ? "Save Appointment" : "Schedule"}
             </Button>
           </div>
         </form>

@@ -11,27 +11,20 @@ import { Button } from "@/shared/components/ui/button";
 import { Input } from "@/shared/components/ui/input";
 import { Label } from "@/shared/components/ui/label";
 import { toast } from "sonner";
-import { vitalsSchema } from "@/role/doctor/validations/validation";
+import {
+  VitalsFormData,
+  vitalsSchema,
+} from "@/role/doctor/validations/validation";
 
 // Suggested better name: RecordVitalsModal — kept as AddOrEditVitals per your request
 // If you prefer, rename file to RecordVitalsModal.tsx and keep this as wrapper export.
-
-export interface VitalsFormData {
-  bloodPressure: string;
-  heartRate: string;
-  temperature: string;
-  bloodSugar: string;
-  weight: string;
-  height: string;
-  notes?: string;
-}
 
 interface AddOrEditVitalsProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   patientName: string;
-  patientMeta?: string; // e.g. "45/M"
-  initialData?: VitalsFormData;
+  patientMeta?: string;
+  initialData: VitalsFormData;
   onSave: (data: VitalsFormData) => void;
   isEdit?: boolean;
 }
@@ -43,7 +36,6 @@ const defaultData: VitalsFormData = {
   bloodSugar: "",
   weight: "",
   height: "",
-  notes: "",
 };
 
 export default function AddOrEditVitals({
@@ -56,38 +48,18 @@ export default function AddOrEditVitals({
   isEdit = false,
 }: AddOrEditVitalsProps) {
   const [form, setForm] = useState<VitalsFormData>(initialData ?? defaultData);
-  const [errors, setErrors] = useState<
-    Partial<Record<keyof VitalsFormData, string>>
-  >({});
-
-  useEffect(() => {
-    if (open) {
-      setForm(initialData ?? defaultData);
-      setErrors({});
-    }
-  }, [open, initialData]);
 
   const handleChange = (field: keyof VitalsFormData, value: string) => {
     setForm((prev) => ({ ...prev, [field]: value }));
-    if (errors[field]) {
-      setErrors((prev) => ({ ...prev, [field]: undefined }));
-    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const result = vitalsSchema.safeParse(form);
     if (!result.success) {
-      const fieldErrors: Partial<Record<keyof VitalsFormData, string>> = {};
-      result.error.issues.forEach((issue) => {
-        const key = issue.path[0] as keyof VitalsFormData;
-        if (!fieldErrors[key]) fieldErrors[key] = issue.message;
-      });
-      setErrors(fieldErrors);
       toast.error(result.error.issues[0].message);
       return;
     }
-    setErrors({});
     onSave(result.data as VitalsFormData);
     toast.success(
       isEdit ? "Vitals updated successfully" : "Vitals recorded successfully",
@@ -124,11 +96,6 @@ export default function AddOrEditVitals({
                 value={form.bloodPressure}
                 onChange={(e) => handleChange("bloodPressure", e.target.value)}
               />
-              {errors.bloodPressure && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.bloodPressure}
-                </p>
-              )}
             </div>
             <div>
               <Label htmlFor="hr">Heart Rate (bpm)</Label>
@@ -139,9 +106,6 @@ export default function AddOrEditVitals({
                 value={form.heartRate}
                 onChange={(e) => handleChange("heartRate", e.target.value)}
               />
-              {errors.heartRate && (
-                <p className="text-xs text-red-500 mt-1">{errors.heartRate}</p>
-              )}
             </div>
             <div>
               <Label htmlFor="temp">Temperature (°F)</Label>
@@ -152,11 +116,6 @@ export default function AddOrEditVitals({
                 value={form.temperature}
                 onChange={(e) => handleChange("temperature", e.target.value)}
               />
-              {errors.temperature && (
-                <p className="text-xs text-red-500 mt-1">
-                  {errors.temperature}
-                </p>
-              )}
             </div>
             <div>
               <Label htmlFor="sugar">Blood Sugar (mg/dL)</Label>
@@ -167,9 +126,6 @@ export default function AddOrEditVitals({
                 value={form.bloodSugar}
                 onChange={(e) => handleChange("bloodSugar", e.target.value)}
               />
-              {errors.bloodSugar && (
-                <p className="text-xs text-red-500 mt-1">{errors.bloodSugar}</p>
-              )}
             </div>
             <div>
               <Label htmlFor="weight">Weight (lbs)</Label>
@@ -180,9 +136,6 @@ export default function AddOrEditVitals({
                 value={form.weight}
                 onChange={(e) => handleChange("weight", e.target.value)}
               />
-              {errors.weight && (
-                <p className="text-xs text-red-500 mt-1">{errors.weight}</p>
-              )}
             </div>
             <div>
               <Label htmlFor="height">Height</Label>
@@ -193,9 +146,6 @@ export default function AddOrEditVitals({
                 value={form.height}
                 onChange={(e) => handleChange("height", e.target.value)}
               />
-              {errors.height && (
-                <p className="text-xs text-red-500 mt-1">{errors.height}</p>
-              )}
             </div>
           </div>
 

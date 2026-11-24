@@ -9,12 +9,14 @@ interface AppointmentComponentProps {
   appointments: Appointment[];
   onCancel: (id: string) => void;
   pending: boolean;
+  startAppointment: (id: string) => void;
 }
 
 export default function AppointmentComponent({
   appointments,
   onCancel,
   pending,
+  startAppointment,
 }: AppointmentComponentProps) {
   return (
     <div className="w-full bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-slate-800 p-6">
@@ -27,7 +29,11 @@ export default function AppointmentComponent({
               <Loader2 className="h-6 w-6 animate-spin text-primary" />
             </div>
           ) : (
-            <AppointmentTable onCancel={onCancel} appointments={appointments} />
+            <AppointmentTable
+              startAppointment={startAppointment}
+              onCancel={onCancel}
+              appointments={appointments}
+            />
           )}
         </div>
       </div>

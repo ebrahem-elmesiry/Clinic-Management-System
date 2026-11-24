@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense, useEffect, useMemo, useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import AppointmentFilter from "@/shared/components/Appointments/AppointmentFilter";
 import PageTitleWithButton from "@/shared/components/page-title/PageTitleWithButton";
 import AppointmentComponent from "@/shared/components/Appointments/AppointmentComponent";
@@ -49,6 +49,10 @@ export default function AppointmentsPage({
     setAppointmentsDB((prev) => prev.filter((ap) => ap.id !== id));
     toast.success("Appointment cancelled.");
   }
+  const router = useRouter();
+  function handleStart(appointmentId: string) {
+    router.push(`/doctor/visit-notes?appointment_id=${appointmentId}`);
+  }
 
   return (
     <div className="space-y-6">
@@ -66,6 +70,7 @@ export default function AppointmentsPage({
       </Suspense>
 
       <AppointmentComponent
+        startAppointment={handleStart}
         appointments={filteredAppointments || []}
         onCancel={handleCancel}
         pending={pending}

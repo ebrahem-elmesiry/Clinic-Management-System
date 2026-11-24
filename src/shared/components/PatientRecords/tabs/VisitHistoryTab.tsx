@@ -25,20 +25,16 @@ export default function VisitHistoryTab({
     (typeof visits)[number] | null
   >(null);
 
+  if (isPending) return <TabsSkeleton variant="visit-history" />;
   if (isUnknown) return <UnknownPatient patientId={patientId} />;
-
   if (!patientId) return <NoPatientChoose />;
 
   return (
     <>
-      {isPending ? (
-        <TabsSkeleton variant="visit-history" />
-      ) : (
-        <VisitHistory
-          visits={visits}
-          onViewDetails={(v) => setSelectedVisit(v as (typeof visits)[number])}
-        />
-      )}
+      <VisitHistory
+        visits={visits}
+        onViewDetails={(v) => setSelectedVisit(v as (typeof visits)[number])}
+      />
       <ViewDetailsModal
         open={!!selectedVisit}
         onOpenChange={(open) => !open && setSelectedVisit(null)}

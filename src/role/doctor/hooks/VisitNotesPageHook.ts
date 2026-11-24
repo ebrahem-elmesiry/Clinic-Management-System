@@ -1,75 +1,125 @@
 "use client";
 
 import { useState } from "react";
-import type {
-  FollowUpAppointment,
-  Medicine,
-  VisitStatusValue,
-} from "../types/type";
+import type { FollowUpAppointment, Medicine } from "../types/type";
+import { CancellationState, VisitNotesState } from "../types/visit-notes";
+import { toast } from "sonner";
+import { Appointment } from "@/shared/types/appointment";
 
-const newMedicine = (): Medicine => ({
-  id: Date.now(),
+const newMedicine: Medicine = {
+  id: crypto.randomUUID(),
   name: "",
   dosage: "",
   frequency: "",
   timing: "",
   duration: "",
   instructions: "",
-});
+};
+
+const initialVisitNotes: VisitNotesState = {
+  status: "pending",
+  diagnosis: "",
+  doctorNotes: "",
+  followUp: false,
+  nextAppointment: null,
+};
+
+const initialCancellation: CancellationState = {
+  cancelReason: "",
+  cancelNote: "",
+};
 
 export default function VisitNotesPageHook() {
-  const [status, setStatus] = useState<VisitStatusValue>("pending");
-  const [cancelReason, setCancelReason] = useState("");
-  const [cancelNote, setCancelNote] = useState("");
-  const [medicines, setMedicines] = useState<Medicine[]>([newMedicine()]);
-  const [diagnosis, setDiagnosis] = useState("");
-  const [doctorNotes, setDoctorNotes] = useState("");
-  const [followUp, setFollowUp] = useState(false);
-  const [nextAppointment, setNextAppointment] =
-    useState<FollowUpAppointment | null>(null);
+  const [visitNotes, setVisitNotes] =
+    useState<VisitNotesState>(initialVisitNotes);
+  const [medicines, setMedicines] = useState<Medicine[]>([]);
+  const [cancellation, setCancellation] =
+    useState<CancellationState>(initialCancellation);
 
-  function addMedicine() {
-    setMedicines((prev) => [...prev, newMedicine()]);
+  function updateVisitNotes<K extends keyof VisitNotesState>(
+    field: K,
+    value: VisitNotesState[K],
+  ) {
+    setVisitNotes((prev) => ({ ...prev, [field]: value }));
   }
 
-  function removeMedicine(id: number) {
+  function updateCancellation<K extends keyof CancellationState>(
+    field: K,
+    value: CancellationState[K],
+  ) {
+    setCancellation((prev) => ({ ...prev, [field]: value }));
+  }
+
+  function addMedicine() {
+    setMedicines((prev) => [...prev, newMedicine]);
+  }
+
+  function removeMedicine(id: string) {
     setMedicines((prev) => prev.filter((m) => m.id !== id));
   }
 
-  function updateMedicine(id: number, field: keyof Medicine, value: string) {
+  function updateMedicine(id: string, field: keyof Medicine, value: string) {
     setMedicines((prev) =>
       prev.map((m) => (m.id === id ? { ...m, [field]: value } : m)),
     );
   }
 
   function handleFollowUpNo() {
-    setFollowUp(false);
-    setNextAppointment(null);
+    setVisitNotes((prev) => ({
+      ...prev,
+      followUp: false,
+      nextAppointment: null,
+    }));
   }
 
-  function handleScheduleFollowUp(data: FollowUpAppointment) {
-    setNextAppointment(data);
-    setFollowUp(true);
+  function handleScheduleFollowUp(data: FollowUpAppointment | null) {
+    setVisitNotes((prev) => ({
+      ...prev,
+      nextAppointment: data,
+    }));
   }
+  function onStartSchedule() {
+    setVisitNotes((prev) => ({
+      ...prev,
+      followUp: true,
+    }));
+  }
+  function CompleteVisit() {
+    // add visit-notes into database here
+    if (visitNotes.followUp) {
+      // add appointment if followUp is true
+    }
+    updateVisitNotes("status", "completed");
+    toast.success("Visit has been Complete");
+  }
+  function ExportPDF() {
+    toast.success("The PDF file is being created now.");
+  }
+
+  const [showCancel, setShowCancel] = useState(false);
+
+  function confirmCancel() {
+    updateVisitNotes("status", "cancelled");
+    setShowCancel(false);
+  }
+  const setShowCancelFn = (b: boolean) => setShowCancel(b);
 
   return {
-    status,
-    setStatus,
-    cancelReason,
-    setCancelReason,
-    cancelNote,
-    setCancelNote,
+    visitNotes,
+    updateVisitNotes,
+    cancellation,
+    updateCancellation,
     medicines,
     addMedicine,
     removeMedicine,
     updateMedicine,
-    diagnosis,
-    setDiagnosis,
-    doctorNotes,
-    setDoctorNotes,
-    followUp,
-    nextAppointment,
     handleFollowUpNo,
+    onStartSchedule,
     handleScheduleFollowUp,
+    ExportPDF,
+    CompleteVisit,
+    showCancel,
+    confirmCancel,
+    setShowCancelFn,
   };
 }

@@ -18,7 +18,7 @@ import type {
   ReactNode,
   Ref,
 } from "react";
-import { cn } from "cn";
+import { cn } from "@/lib/utils";
 import { flushSync } from "react-dom";
 
 import { Button } from "@/shared/components/ui/button";
@@ -202,9 +202,9 @@ export function formatTimeValue(
 function normalizeTyped(text: string) {
   return text
     .normalize("NFKC")
-    .replace(/[٠-٩]/g, (digit) => String(digit.charCodeAt(0) - 0x660))
-    .replace(/[۰-۹]/g, (digit) => String(digit.charCodeAt(0) - 0x6f0))
-    .replace(/[  ]/g, " ")
+    .replace(/[Ù -Ù©]/g, (digit) => String(digit.charCodeAt(0) - 0x660))
+    .replace(/[Û°-Û¹]/g, (digit) => String(digit.charCodeAt(0) - 0x6f0))
+    .replace(/[Â â€¯]/g, " ")
     .toLowerCase();
 }
 
@@ -897,7 +897,7 @@ export function TimePickerTrigger({
   };
   const content =
     children === undefined ? (
-      <div className="flex">
+      <>
         <TimePickerValue placeholder={placeholder} />
         <span
           data-icon="inline-end"
@@ -906,14 +906,14 @@ export function TimePickerTrigger({
         >
           {CLOCK_ICON}
         </span>
-      </div>
+      </>
     ) : (
       children
     );
 
   return (
-    <PopoverTrigger id={context.id} render={<Button {...buttonProps} />}>
-      {content}
+    <PopoverTrigger asChild>
+      <Button {...buttonProps}>{content}</Button>
     </PopoverTrigger>
   );
 }
@@ -1069,8 +1069,8 @@ export function TimePickerInput({
         }}
       />
       <InputGroupAddon align="inline-end">
-        <PopoverTrigger render={<InputGroupButton {...clockProps} />}>
-          {CLOCK_ICON}
+        <PopoverTrigger asChild>
+          <InputGroupButton {...clockProps}>{CLOCK_ICON}</InputGroupButton>
         </PopoverTrigger>
       </InputGroupAddon>
     </InputGroup>
