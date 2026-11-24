@@ -2,6 +2,7 @@ import PageHero from "@/shared/components/PageHero";
 import PatientRecordsWrapper from "@/shared/components/PatientRecords/PatientRecordsWrapper";
 import { Prescription } from "@/shared/types/patientRecords";
 import { Gender, UserRole } from "@/shared/types/Roletype";
+import { Suspense } from "react";
 
 const visits = [
   {
@@ -144,14 +145,15 @@ export default function page() {
         title="My Medical Records"
         description="View your personal health information"
       />
-
-      <PatientRecordsWrapper
-        isPending={isPending}
-        patient={patient}
-        vitals={vitals}
-        visits={visits}
-        prescriptions={prescriptions}
-      />
+      <Suspense>
+        <PatientRecordsWrapper
+          isPending={isPending}
+          patient={patient}
+          vitals={vitals}
+          visits={visits}
+          prescriptions={prescriptions}
+        />
+      </Suspense>
     </div>
   );
 }

@@ -35,24 +35,18 @@ export default function PatientRecordsPage() {
       <PageTitleWithButton
         title="Patient Records"
         subtitle="View and manage patient medical information"
-        action={
-          <Suspense>
-            <AddPatientModal setPatientProfiles={setPatientProfiles} />
-          </Suspense>
-        }
+        action={<AddPatientModal setPatientProfiles={setPatientProfiles} />}
       />
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-        <Suspense>
-          <SelectedPatient
-            isPending={isPendingSearch}
-            handlePatientURL={handlePatientURL}
-            search={search}
-            query={query}
-            handlePatientSearch={handlePatientSearch}
-            selectedPatientId={selectedPatientId}
-          />
-        </Suspense>
+        <SelectedPatient
+          isPending={isPendingSearch}
+          handlePatientURL={handlePatientURL}
+          search={search}
+          query={query}
+          handlePatientSearch={handlePatientSearch}
+          selectedPatientId={selectedPatientId}
+        />
 
         <div className="lg:col-span-3 space-y-6">
           <PatientInformation

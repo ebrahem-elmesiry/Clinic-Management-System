@@ -20,7 +20,7 @@ export interface SearchAppointment {
   date: string;
   doctorName: string;
   specialty: string;
-  href?: string;
+  href: string;
 }
 
 export interface NavbarSearchData {
